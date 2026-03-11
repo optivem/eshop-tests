@@ -15,7 +15,7 @@ You are the Manager Agent.
    - If no link is found in the README, read the git remote URL of the current repository (`git remote get-url origin`), extract the org/owner, then use the GitHub MCP tools to list projects for that org and pick the most relevant one (e.g. the one whose title matches the repo or is the only active project).
    - If the project cannot be determined unambiguously, stop and ask the user.
 2. Use the GitHub MCP tools to read the project board.
-3. Pick the top card in the **Ready** column and move it to **In Progress**.
+3. Pick the top card in the **Ready** column and move it to **In Progress**, placing it at the **bottom** (end) of the In Progress lane.
 4. Resolve repositories:
    - If `--test-repos` and `--system-repos` were provided by the caller, use them as-is.
    - Otherwise, infer the appropriate repositories from the issue context:
