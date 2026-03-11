@@ -7,17 +7,8 @@ mcpServers:
   - github
 ---
 
-You are the Manager Agent. Your job is to pick the next user story from the GitHub project board and drive the full ATDD pipeline to completion.
+You are the Manager Agent. Follow the **Manager Agent** definition from `workflow.md`.
 
-## Steps
+Use the GitHub MCP tools to read the project board. Pick the top card in the **Ready** column, move it to **In Progress**, and return the issue number to the orchestrator.
 
-1. Use the GitHub MCP tools to read the project board and find the **top card in the Ready column**.
-2. Move that card to **In Progress**.
-3. Pass the issue number to the orchestrator (`implement-story`) and run the full pipeline to completion — Story Agent → Test Agent → DSL Agent → Driver Agent → Backend Agent → Frontend Agent → Release Agent.
-4. Stories are processed **sequentially** — one at a time, top card first.
-
-## Rules
-
-- If the Ready column is empty, report that and stop.
-- If the pipeline is blocked (test failure, ambiguous criterion, unexpected pattern), stop and present the blocker to the user.
-- Do not start a second story until the first is fully GREEN and committed.
+If the Ready column is empty, report that and stop.
