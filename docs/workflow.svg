@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1270" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1390" font-family="Segoe UI, Arial, sans-serif" font-size="13">
   <defs>
     <marker id="arr" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
       <polygon points="0 0, 9 3, 0 6" fill="#555"/>
@@ -9,182 +9,205 @@
   </defs>
 
   <!-- Background -->
-  <rect width="960" height="1270" fill="#F7F8FA"/>
+  <rect width="960" height="1390" fill="#F7F8FA"/>
 
   <!-- TITLE -->
   <text x="480" y="36" text-anchor="middle" font-size="21" font-weight="bold" fill="#1A1A2E">Multi-Agent ATDD Workflow</text>
 
-  <!-- USER STORY -->
-  <rect x="330" y="52" width="300" height="40" rx="20" fill="#1A1A2E"/>
-  <text x="480" y="77" text-anchor="middle" fill="white" font-weight="bold" font-size="15">User Story</text>
+  <!-- LEFT ENTRY: GitHub Project Board -->
+  <rect x="60" y="52" width="250" height="40" rx="20" fill="#1A1A2E"/>
+  <text x="185" y="77" text-anchor="middle" fill="white" font-weight="bold" font-size="13">GitHub Project Board</text>
 
-  <line x1="480" y1="92" x2="480" y2="112" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- RIGHT ENTRY: User Story -->
+  <rect x="570" y="52" width="320" height="40" rx="20" fill="#1A1A2E"/>
+  <text x="730" y="70" text-anchor="middle" fill="white" font-weight="bold" font-size="13">User Story</text>
+  <text x="730" y="84" text-anchor="middle" fill="#A8BAE8" font-size="10">(free text or issue #)</text>
+
+  <!-- Arrow down from GitHub board to Manager Agent -->
+  <line x1="185" y1="92" x2="185" y2="112" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- MANAGER AGENT box -->
+  <rect x="60" y="112" width="250" height="60" rx="7" fill="#2C3E7A" stroke="#1E2E60" stroke-width="1.5"/>
+  <text x="185" y="136" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Manager Agent</text>
+  <text x="185" y="153" text-anchor="middle" fill="#A8BAE8" font-size="10">picks top Ready card</text>
+  <text x="185" y="166" text-anchor="middle" fill="#A8BAE8" font-size="10">moves card to In Progress</text>
+
+  <!-- Manager Agent path: down then right to convergence -->
+  <line x1="185" y1="172" x2="185" y2="210" stroke="#555" stroke-width="1.5"/>
+  <line x1="185" y1="210" x2="480" y2="210" stroke="#555" stroke-width="1.5"/>
+
+  <!-- User Story path: down then left to convergence -->
+  <line x1="730" y1="92" x2="730" y2="210" stroke="#555" stroke-width="1.5"/>
+  <line x1="730" y1="210" x2="480" y2="210" stroke="#555" stroke-width="1.5"/>
+
+  <!-- Arrow down from convergence to Story Agent -->
+  <line x1="480" y1="210" x2="480" y2="232" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- STORY AGENT — two-column box -->
-  <rect x="270" y="112" width="420" height="54" rx="7" fill="#2C3E7A" stroke="#1E2E60" stroke-width="1.5"/>
-  <line x1="445" y1="112" x2="445" y2="166" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="135" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Story Agent</text>
-  <text x="357" y="153" text-anchor="middle" fill="#A8BAE8" font-size="10">analyzes existing tests for gaps</text>
-  <text x="608" y="145" text-anchor="middle" fill="white" font-size="12">Gherkin + Legacy Coverage</text>
+  <rect x="270" y="232" width="420" height="54" rx="7" fill="#2C3E7A" stroke="#1E2E60" stroke-width="1.5"/>
+  <line x1="445" y1="232" x2="445" y2="286" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="255" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Story Agent</text>
+  <text x="357" y="273" text-anchor="middle" fill="#A8BAE8" font-size="10">analyzes existing tests for gaps</text>
+  <text x="608" y="265" text-anchor="middle" fill="white" font-size="12">Gherkin + Legacy Coverage</text>
 
   <!-- branch lines to two output boxes -->
-  <line x1="388" y1="166" x2="252" y2="196" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="572" y1="166" x2="708" y2="196" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="388" y1="286" x2="252" y2="316" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="572" y1="286" x2="708" y2="316" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
 
   <!-- GHERKIN SCENARIOS -->
-  <rect x="108" y="196" width="240" height="36" rx="6" fill="#EBF5FB" stroke="#2874A6" stroke-width="1.5"/>
-  <text x="228" y="219" text-anchor="middle" fill="#1A3A5C" font-weight="bold" font-size="12">Gherkin Scenarios</text>
+  <rect x="108" y="316" width="240" height="36" rx="6" fill="#EBF5FB" stroke="#2874A6" stroke-width="1.5"/>
+  <text x="228" y="339" text-anchor="middle" fill="#1A3A5C" font-weight="bold" font-size="12">Gherkin Scenarios</text>
 
   <!-- LEGACY COVERAGE -->
-  <rect x="612" y="196" width="240" height="36" rx="6" fill="#FEF9E7" stroke="#D4A017" stroke-width="1.5"/>
-  <text x="732" y="219" text-anchor="middle" fill="#5C3D00" font-weight="bold" font-size="12">Legacy Coverage</text>
+  <rect x="612" y="316" width="240" height="36" rx="6" fill="#FEF9E7" stroke="#D4A017" stroke-width="1.5"/>
+  <text x="732" y="339" text-anchor="middle" fill="#5C3D00" font-weight="bold" font-size="12">Legacy Coverage</text>
 
   <!-- converging lines to Human Approves -->
-  <line x1="228" y1="232" x2="368" y2="263" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="732" y1="232" x2="592" y2="263" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="228" y1="352" x2="368" y2="383" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="732" y1="352" x2="592" y2="383" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
 
   <!-- HUMAN APPROVES BOTH -->
-  <rect x="330" y="263" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="480" y="285" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES BOTH</text>
-  <text x="480" y="313" text-anchor="middle" fill="#9C6FCD" font-size="10" font-style="italic">Approved Legacy Coverage added to issue under ## Legacy Coverage</text>
+  <rect x="330" y="383" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
+  <text x="480" y="405" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES BOTH</text>
+  <text x="480" y="433" text-anchor="middle" fill="#9C6FCD" font-size="10" font-style="italic">Approved Legacy Coverage added to issue under ## Legacy Coverage</text>
 
-  <line x1="480" y1="320" x2="480" y2="340" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="440" x2="480" y2="460" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- ═══════════ PER-SCENARIO LOOP ═══════════ -->
-  <rect x="25" y="340" width="910" height="766" rx="10" fill="none" stroke="#C0C0C0" stroke-width="1.8" stroke-dasharray="8,4"/>
-  <text x="55" y="358" fill="#BBBBBB" font-size="11" font-style="italic">Per-scenario loop (repeats until all scenarios GREEN)</text>
+  <rect x="25" y="460" width="910" height="766" rx="10" fill="none" stroke="#C0C0C0" stroke-width="1.8" stroke-dasharray="8,4"/>
+  <text x="55" y="478" fill="#BBBBBB" font-size="11" font-style="italic">Per-scenario loop (repeats until all scenarios GREEN)</text>
 
-  <!-- RED · WRITE TEST — two-line subtitle -->
-  <rect x="270" y="368" width="420" height="52" rx="7" fill="#7B1818" stroke="#5A0E0E" stroke-width="1.5"/>
-  <line x1="445" y1="368" x2="445" y2="420" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="399" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Test Agent</text>
-  <text x="567" y="390" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">RED · WRITE TEST</text>
-  <text x="567" y="408" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-size="10">Legacy Coverage first, then new feature scenarios</text>
+  <!-- AT · RED · TEST · WRITE -->
+  <rect x="270" y="488" width="420" height="52" rx="7" fill="#7B1818" stroke="#5A0E0E" stroke-width="1.5"/>
+  <line x1="445" y1="488" x2="445" y2="540" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="519" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Test Agent</text>
+  <text x="567" y="510" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · TEST · WRITE</text>
+  <text x="567" y="528" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-size="10">Legacy Coverage first, then new feature scenarios</text>
 
-  <line x1="480" y1="420" x2="480" y2="438" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="540" x2="480" y2="558" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- HUMAN APPROVES TESTS -->
-  <rect x="330" y="438" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="480" y="460" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES TESTS</text>
+  <rect x="330" y="558" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
+  <text x="480" y="580" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES TESTS</text>
 
-  <line x1="480" y1="472" x2="480" y2="489" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="592" x2="480" y2="609" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- RED · COMMIT TEST -->
-  <rect x="270" y="489" width="420" height="46" rx="7" fill="#C0392B" stroke="#922B21" stroke-width="1.5"/>
-  <line x1="445" y1="489" x2="445" y2="535" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="517" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Test Agent</text>
-  <text x="567" y="517" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">RED · COMMIT TEST</text>
+  <!-- AT · RED · TEST · COMMIT -->
+  <rect x="270" y="609" width="420" height="46" rx="7" fill="#C0392B" stroke="#922B21" stroke-width="1.5"/>
+  <line x1="445" y1="609" x2="445" y2="655" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="637" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Test Agent</text>
+  <text x="567" y="637" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · TEST · COMMIT</text>
 
-  <line x1="480" y1="535" x2="480" y2="552" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="655" x2="480" y2="672" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- RED · WRITE DSL -->
-  <rect x="270" y="552" width="420" height="46" rx="7" fill="#6E2C00" stroke="#4E1E00" stroke-width="1.5"/>
-  <line x1="445" y1="552" x2="445" y2="598" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="580" text-anchor="middle" fill="white" font-weight="bold" font-size="13">DSL Agent</text>
-  <text x="567" y="580" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">RED · WRITE DSL</text>
+  <!-- AT · RED · DSL · WRITE -->
+  <rect x="270" y="672" width="420" height="46" rx="7" fill="#6E2C00" stroke="#4E1E00" stroke-width="1.5"/>
+  <line x1="445" y1="672" x2="445" y2="718" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="700" text-anchor="middle" fill="white" font-weight="bold" font-size="13">DSL Agent</text>
+  <text x="567" y="700" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DSL · WRITE</text>
 
-  <line x1="480" y1="598" x2="480" y2="615" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="718" x2="480" y2="735" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- HUMAN APPROVES DSL -->
-  <rect x="330" y="615" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="480" y="637" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES DSL</text>
+  <rect x="330" y="735" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
+  <text x="480" y="757" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES DSL</text>
 
-  <line x1="480" y1="649" x2="480" y2="666" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="769" x2="480" y2="786" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- RED · COMMIT DSL -->
-  <rect x="270" y="666" width="420" height="46" rx="7" fill="#D35400" stroke="#A04000" stroke-width="1.5"/>
-  <line x1="445" y1="666" x2="445" y2="712" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="694" text-anchor="middle" fill="white" font-weight="bold" font-size="13">DSL Agent</text>
-  <text x="567" y="694" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">RED · COMMIT DSL</text>
+  <!-- AT · RED · DSL · COMMIT -->
+  <rect x="270" y="786" width="420" height="46" rx="7" fill="#D35400" stroke="#A04000" stroke-width="1.5"/>
+  <line x1="445" y1="786" x2="445" y2="832" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="13">DSL Agent</text>
+  <text x="567" y="814" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DSL · COMMIT</text>
 
-  <line x1="480" y1="712" x2="480" y2="729" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="832" x2="480" y2="849" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- RED · WRITE DRIVER -->
-  <rect x="270" y="729" width="420" height="46" rx="7" fill="#7D6608" stroke="#5A4A05" stroke-width="1.5"/>
-  <line x1="445" y1="729" x2="445" y2="775" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="757" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Driver Agent</text>
-  <text x="567" y="757" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">RED · WRITE DRIVER</text>
+  <!-- AT · RED · DRIVER · WRITE -->
+  <rect x="270" y="849" width="420" height="46" rx="7" fill="#7D6608" stroke="#5A4A05" stroke-width="1.5"/>
+  <line x1="445" y1="849" x2="445" y2="895" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="877" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Driver Agent</text>
+  <text x="567" y="877" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DRIVER · WRITE</text>
 
-  <line x1="480" y1="775" x2="480" y2="792" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="895" x2="480" y2="912" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- HUMAN APPROVES DRIVERS -->
-  <rect x="330" y="792" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="480" y="814" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES DRIVERS</text>
+  <rect x="330" y="912" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
+  <text x="480" y="934" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN APPROVES DRIVERS</text>
 
-  <line x1="480" y1="826" x2="480" y2="843" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="946" x2="480" y2="963" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- RED · COMMIT DRIVER -->
-  <rect x="270" y="843" width="420" height="46" rx="7" fill="#B7950B" stroke="#8A6D08" stroke-width="1.5"/>
-  <line x1="445" y1="843" x2="445" y2="889" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="871" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Driver Agent</text>
-  <text x="567" y="871" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">RED · COMMIT DRIVER</text>
+  <!-- AT · RED · DRIVER · COMMIT -->
+  <rect x="270" y="963" width="420" height="46" rx="7" fill="#B7950B" stroke="#8A6D08" stroke-width="1.5"/>
+  <line x1="445" y1="963" x2="445" y2="1009" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="991" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Driver Agent</text>
+  <text x="567" y="991" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DRIVER · COMMIT</text>
 
   <!-- external/ changed? branch -->
-  <line x1="690" y1="866" x2="748" y2="866" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
-  <rect x="748" y="850" width="160" height="38" rx="6" fill="#FDEDEC" stroke="#E74C3C" stroke-width="1.5"/>
-  <text x="828" y="865" text-anchor="middle" fill="#A93226" font-size="10" font-weight="bold">external/ changed?</text>
-  <text x="828" y="880" text-anchor="middle" fill="#A93226" font-size="10">→ contract-tests sub-process</text>
+  <line x1="690" y1="986" x2="748" y2="986" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="748" y="970" width="162" height="38" rx="6" fill="#FDEDEC" stroke="#E74C3C" stroke-width="1.5"/>
+  <text x="829" y="985" text-anchor="middle" fill="#A93226" font-size="10" font-weight="bold">external/ changed?</text>
+  <text x="829" y="1000" text-anchor="middle" fill="#A93226" font-size="10">→ CT sub-process</text>
 
-  <line x1="480" y1="889" x2="480" y2="906" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="1009" x2="480" y2="1026" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- GREEN · WRITE SYSTEM — Backend -->
-  <rect x="270" y="906" width="420" height="52" rx="7" fill="#1E6B3B" stroke="#145030" stroke-width="1.5"/>
-  <line x1="445" y1="906" x2="445" y2="958" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="937" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Backend Agent</text>
-  <text x="567" y="928" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">GREEN · WRITE SYSTEM</text>
-  <text x="567" y="946" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-size="10">API acceptance tests pass</text>
+  <!-- AT · GREEN · SYSTEM · WRITE — Backend -->
+  <rect x="270" y="1026" width="420" height="52" rx="7" fill="#1E6B3B" stroke="#145030" stroke-width="1.5"/>
+  <line x1="445" y1="1026" x2="445" y2="1078" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="1057" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Backend Agent</text>
+  <text x="567" y="1048" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · GREEN · SYSTEM · WRITE</text>
+  <text x="567" y="1066" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-size="10">API acceptance tests pass</text>
 
-  <line x1="480" y1="958" x2="480" y2="975" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="1078" x2="480" y2="1095" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- GREEN · WRITE SYSTEM — Frontend -->
-  <rect x="270" y="975" width="420" height="52" rx="7" fill="#239B56" stroke="#1A7A42" stroke-width="1.5"/>
-  <line x1="445" y1="975" x2="445" y2="1027" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="1006" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Frontend Agent</text>
-  <text x="567" y="997" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">GREEN · WRITE SYSTEM</text>
-  <text x="567" y="1015" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-size="10">UI acceptance tests pass</text>
+  <!-- AT · GREEN · SYSTEM · WRITE — Frontend -->
+  <rect x="270" y="1095" width="420" height="52" rx="7" fill="#239B56" stroke="#1A7A42" stroke-width="1.5"/>
+  <line x1="445" y1="1095" x2="445" y2="1147" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="1126" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Frontend Agent</text>
+  <text x="567" y="1117" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · GREEN · SYSTEM · WRITE</text>
+  <text x="567" y="1135" text-anchor="middle" fill="rgba(255,255,255,0.60)" font-size="10">UI acceptance tests pass</text>
 
-  <line x1="480" y1="1027" x2="480" y2="1044" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="1147" x2="480" y2="1164" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- GREEN · COMMIT SYSTEM -->
-  <rect x="270" y="1044" width="420" height="46" rx="7" fill="#27AE60" stroke="#1E8449" stroke-width="1.5"/>
-  <line x1="445" y1="1044" x2="445" y2="1090" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="357" y="1072" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Release Agent</text>
-  <text x="567" y="1072" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">GREEN · COMMIT SYSTEM</text>
+  <!-- AT · GREEN · SYSTEM · COMMIT -->
+  <rect x="270" y="1164" width="420" height="46" rx="7" fill="#27AE60" stroke="#1E8449" stroke-width="1.5"/>
+  <line x1="445" y1="1164" x2="445" y2="1210" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="357" y="1192" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Release Agent</text>
+  <text x="567" y="1192" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · GREEN · SYSTEM · COMMIT</text>
 
   <!-- LOOP BACK ARROW -->
-  <line x1="270" y1="1067" x2="60" y2="1067" stroke="#BBBBBB" stroke-width="1.5"/>
-  <line x1="60"  y1="1067" x2="60"  y2="394"  stroke="#BBBBBB" stroke-width="1.5"/>
-  <line x1="60"  y1="394"  x2="269" y2="394"  stroke="#BBBBBB" stroke-width="1.5" marker-end="url(#arr-back)"/>
-  <text x="38" y="740" text-anchor="middle" fill="#BBBBBB" font-size="10" font-style="italic" transform="rotate(-90,38,740)">remaining scenarios? → loop back</text>
+  <line x1="270" y1="1187" x2="60"  y2="1187" stroke="#BBBBBB" stroke-width="1.5"/>
+  <line x1="60"  y1="1187" x2="60"  y2="514"  stroke="#BBBBBB" stroke-width="1.5"/>
+  <line x1="60"  y1="514"  x2="269" y2="514"  stroke="#BBBBBB" stroke-width="1.5" marker-end="url(#arr-back)"/>
+  <text x="38" y="860" text-anchor="middle" fill="#BBBBBB" font-size="10" font-style="italic" transform="rotate(-90,38,860)">remaining scenarios? → loop back</text>
 
   <!-- end of loop — arrow out -->
-  <line x1="480" y1="1106" x2="480" y2="1126" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="480" y1="1226" x2="480" y2="1246" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- HUMAN REVIEWS OUTCOME -->
-  <rect x="315" y="1126" width="330" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="480" y="1148" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN REVIEWS OUTCOME</text>
+  <rect x="315" y="1246" width="330" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
+  <text x="480" y="1268" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">← HUMAN REVIEWS OUTCOME</text>
 
   <!-- LEGEND -->
-  <rect x="40" y="1176" width="880" height="76" rx="8" fill="white" stroke="#DDDDDD" stroke-width="1"/>
-  <text x="480" y="1194" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">LEGEND</text>
+  <rect x="40" y="1296" width="880" height="76" rx="8" fill="white" stroke="#DDDDDD" stroke-width="1"/>
+  <text x="480" y="1314" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">LEGEND</text>
 
-  <rect x="58"  y="1204" width="13" height="13" rx="2" fill="#7B1818"/>
-  <text x="77"  y="1215" fill="#444" font-size="11">RED · WRITE (failing)</text>
+  <rect x="58"  y="1324" width="13" height="13" rx="2" fill="#7B1818"/>
+  <text x="77"  y="1335" fill="#444" font-size="11">AT · RED · WRITE (failing)</text>
 
-  <rect x="210" y="1204" width="13" height="13" rx="2" fill="#C0392B"/>
-  <text x="229" y="1215" fill="#444" font-size="11">RED · COMMIT (disabled)</text>
+  <rect x="240" y="1324" width="13" height="13" rx="2" fill="#C0392B"/>
+  <text x="259" y="1335" fill="#444" font-size="11">AT · RED · COMMIT (disabled)</text>
 
-  <rect x="390" y="1204" width="13" height="13" rx="2" fill="#239B56"/>
-  <text x="409" y="1215" fill="#444" font-size="11">GREEN (passing)</text>
+  <rect x="440" y="1324" width="13" height="13" rx="2" fill="#239B56"/>
+  <text x="459" y="1335" fill="#444" font-size="11">AT · GREEN (passing)</text>
 
-  <rect x="528" y="1204" width="13" height="13" rx="7" fill="#EDE7F6" stroke="#7C3AED" stroke-width="1.5"/>
-  <text x="547" y="1215" fill="#444" font-size="11">Human touchpoint</text>
+  <rect x="580" y="1324" width="13" height="13" rx="7" fill="#EDE7F6" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="599" y="1335" fill="#444" font-size="11">Human touchpoint</text>
 
-  <rect x="680" y="1204" width="13" height="13" rx="2" fill="#FEF9E7" stroke="#D4A017" stroke-width="1.5"/>
-  <text x="699" y="1215" fill="#444" font-size="11">Legacy Coverage</text>
+  <rect x="730" y="1324" width="13" height="13" rx="2" fill="#FEF9E7" stroke="#D4A017" stroke-width="1.5"/>
+  <text x="749" y="1335" fill="#444" font-size="11">Legacy Coverage</text>
 
-  <rect x="820" y="1204" width="13" height="13" rx="2" fill="none" stroke="#C0C0C0" stroke-width="1.5" stroke-dasharray="3,2"/>
-  <text x="839" y="1215" fill="#444" font-size="11">Loop</text>
+  <rect x="870" y="1324" width="13" height="13" rx="2" fill="none" stroke="#C0C0C0" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="889" y="1335" fill="#444" font-size="11">Loop</text>
 
-  <text x="480" y="1242" text-anchor="middle" fill="#BBBBBB" font-size="10">5 human touchpoints  ·  left column = agent  ·  right column = phase</text>
+  <text x="480" y="1362" text-anchor="middle" fill="#BBBBBB" font-size="10">5 human touchpoints  ·  left column = agent  ·  right column = phase</text>
 </svg>

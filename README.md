@@ -38,46 +38,62 @@ Picks the top card from the **Ready** column of the GitHub project board, moves 
 ## Pipeline
 
 ```
-GitHub Project Board          User Story (free text or issue #)
-        │                                  │
-        ▼                                  │
-[Manager Agent]                            │
-  picks top Ready card                     │
-  moves to In Progress                     │
-        │                                  │
-        └──────────────┬───────────────────┘
+GitHub Project Board       User Story (free text or issue #)
+         │                               │
+         ▼                               │
+ [Manager Agent]                         │
+   picks top Ready card                  │
+   moves card to In Progress             │
+         │                               │
+         └─────────────┬─────────────────┘
                        │
                        ▼
-              [Story Agent]      →  Gherkin scenarios
-                                 →  Legacy Coverage        ← HUMAN APPROVES BOTH
+              [Story Agent]
+                produces Gherkin scenarios + Legacy Coverage
+                       │
+                       │            ← HUMAN APPROVES GHERKIN + LEGACY COVERAGE
                        │
                        ▼
-    ┌─────────────────────────────────────────────────────────────────┐
-    │  Per-scenario loop (repeats until all scenarios GREEN)          │
-    │                                                                 │
-    │  [Test Agent]    →  Acceptance tests   AT · RED · TEST · WRITE  │
-    │      │                                              ← HUMAN     │
-    │  [Test Agent]    →  Commit tests      AT · RED · TEST · COMMIT  │
-    │      ▼                                                          │
-    │  [DSL Agent]     →  DSL + interfaces   AT · RED · DSL · WRITE   │
-    │      │                                              ← HUMAN     │
-    │  [DSL Agent]     →  Commit DSL         AT · RED · DSL · COMMIT  │
-    │      ▼                                                          │
-    │  [Driver Agent]  →  Drivers          AT · RED · DRIVER · WRITE  │
-    │      │                                              ← HUMAN     │
-    │  [Driver Agent]  →  Commit drivers  AT · RED · DRIVER · COMMIT  │
-    │      │                                                          │
-    │      ├── external/ changed? ► CT sub-process                    │
-    │      │                                                          │
-    │  [Backend Agent] →  Working backend  AT · GREEN · SYSTEM · WRITE│
-    │  [Frontend Agent]→  Working frontend AT · GREEN · SYSTEM · WRITE│
-    │  [Release Agent] →  Final commit    AT · GREEN · SYSTEM · COMMIT│
-    │      │                                                          │
-    │      └── remaining scenarios? ──► loop back                     │
-    └─────────────────────────────────────────────────────────────────┘
+    ┌──────────────────────────────────────────────────────────────────┐
+    │  Per-scenario loop (repeats until all scenarios GREEN)           │
+    │                                                                  │
+    │  [Test Agent]    →  writes tests     AT · RED · TEST · WRITE     │
+    │                                                                  │
+    │                              ← HUMAN APPROVES TESTS             │
+    │                                                                  │
+    │  [Test Agent]    →  commits tests    AT · RED · TEST · COMMIT    │
+    │                                                                  │
+    │  [DSL Agent]     →  writes DSL       AT · RED · DSL · WRITE      │
+    │                                                                  │
+    │                              ← HUMAN APPROVES DSL               │
+    │                                                                  │
+    │  [DSL Agent]     →  commits DSL      AT · RED · DSL · COMMIT     │
+    │                                                                  │
+    │  [Driver Agent]  →  writes drivers   AT · RED · DRIVER · WRITE   │
+    │                                                                  │
+    │                              ← HUMAN APPROVES DRIVERS           │
+    │                                                                  │
+    │  [Driver Agent]  →  commits drivers  AT · RED · DRIVER · COMMIT  │
+    │                                                                  │
+    │      ├── external/ changed? ──► CT sub-process (see below)       │
+    │                                                                  │
+    │  [Backend Agent] →  backend passing  AT · GREEN · SYSTEM · WRITE │
+    │  [Frontend Agent]→  frontend passing AT · GREEN · SYSTEM · WRITE │
+    │  [Release Agent] →  final commit     AT · GREEN · SYSTEM · COMMIT│
+    │                                                                  │
+    │      └── remaining // TODO: scenarios? ──► loop back             │
+    └──────────────────────────────────────────────────────────────────┘
                        │
-                       ▼
-                                                   ← HUMAN REVIEWS OUTCOME
+                       │            ← HUMAN REVIEWS OUTCOME
+```
+
+**CT sub-process** (only when `external/` interfaces changed):
+
+```
+CT · RED · TEST · WRITE  →  CT · RED · TEST · COMMIT
+CT · RED · DSL · WRITE   →  CT · RED · DSL · COMMIT
+CT · RED · DRIVER · WRITE →  CT · RED · DRIVER · COMMIT
+CT · GREEN · STUBS · WRITE →  CT · GREEN · STUBS · COMMIT
 ```
 
 **New DSL needed:** the loop processes one scenario at a time — the Test Agent implements the first and leaves the rest as `// TODO:` comments.
