@@ -44,13 +44,13 @@ If a test covers both channels, run both suites.
       .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
       .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
       ```
-2. Mark the tests as disabled with reason `"AT · RED · TEST · WRITE"` (see `language-equivalents.md` for syntax).
+2. Mark the tests as disabled with reason `"AT · RED · TEST"` (see `language-equivalents.md` for syntax).
 3. COMMIT with message `<Scenario> | AT · RED · TEST · COMMIT`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## AT · RED · DSL · WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"AT · RED · TEST · WRITE"`.
+1. Enable the tests marked disabled with reason `"AT · RED · TEST"`.
 2. Implement the DSL for real — replace the "TODO: DSL" stub with actual logic.
 3. Update the Driver interfaces as needed.
 4. Check whether any new or changed driver interfaces are in an `external/` package (e.g. `driver-port/.../external/clock`). Set a flag: **external system interfaces changed = yes/no**.
@@ -64,14 +64,14 @@ If a test covers both channels, run both suites.
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
    .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
    ```
-3. Mark the tests as disabled with reason `"AT · RED · DSL · WRITE"` (see `language-equivalents.md` for syntax).
+3. Mark the tests as disabled with reason `"AT · RED · DSL"` (see `language-equivalents.md` for syntax).
 4. Ensure that there are no test files in the list of changed files.
 5. COMMIT with message `<Scenario> | AT · RED · DSL · COMMIT`.
 6. Automatically proceed to AT · RED · DRIVER · WRITE (STOP).
 
 ## AT · RED · DRIVER · WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"AT · RED · DSL · WRITE"`.
+1. Enable the tests marked disabled with reason `"AT · RED · DSL"`.
 2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
    - Only look at files in the `driver-adapter` and `driver-port` directories.
    - Do NOT read or search backend/frontend source code. Model the new method on existing driver methods in the same file.
@@ -80,7 +80,7 @@ If a test covers both channels, run both suites.
 
 ## AT · RED · DRIVER · COMMIT
 
-1. Mark the tests as disabled with reason `"AT · RED · DRIVER · WRITE"` (see `language-equivalents.md` for syntax).
+1. Mark the tests as disabled with reason `"AT · RED · DRIVER"` (see `language-equivalents.md` for syntax).
 2. Ensure no test files are in the list of changed files.
 3. COMMIT with message `<Scenario> | AT · RED · DRIVER · COMMIT`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
@@ -113,7 +113,7 @@ _See `contract-tests.md` for the CT · RED · TEST · WRITE and CT · GREEN · S
 ## AT · GREEN · SYSTEM · COMMIT
 
 1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | AT · GREEN · SYSTEM · COMMIT`.
-2. Remove the disabled annotation (reason `"AT · RED · DRIVER · WRITE"`) from the tests.
+2. Remove the disabled annotation (reason `"AT · RED · DRIVER"`) from the tests.
 3. Run the tests and verify they all pass:
    ```
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>

@@ -17,7 +17,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
    ```
    .\Run-SystemTests.ps1 -Suite <suite-contract-stub> -Test <TestMethodName>
    ```
-4. Mark the tests as disabled with reason `"CT · RED · TEST · WRITE"` (see `language-equivalents.md` for syntax).
+4. Mark the tests as disabled with reason `"CT · RED · TEST"` (see `language-equivalents.md` for syntax).
 5. STOP. Present the contract tests to the user and ask for approval. Do NOT continue.
 
 ## CT · RED · TEST · COMMIT
@@ -31,7 +31,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
 
 ## CT · RED · DSL · WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"CT · RED · TEST · WRITE"`.
+1. Enable the tests marked disabled with reason `"CT · RED · TEST"`.
 2. Implement the DSL for real — replace the "TODO: DSL" stub with actual logic.
 3. Update the Driver interfaces as needed.
 4. **Do NOT check for external system interface changes** — this cycle is already the contract test sub-process; recursive triggering does not apply.
@@ -44,26 +44,26 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
    ```
    .\Run-SystemTests.ps1 -Suite <suite-contract-stub> -Test <TestMethodName>
    ```
-3. Mark the tests as disabled with reason `"CT · RED · DSL · WRITE"` (see `language-equivalents.md` for syntax).
+3. Mark the tests as disabled with reason `"CT · RED · DSL"` (see `language-equivalents.md` for syntax).
 4. COMMIT with message `<Scenario> | CT · RED · DSL · COMMIT`.
 5. Automatically proceed to CT · RED · DRIVER · WRITE (STOP).
 
 ## CT · RED · DRIVER · WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"CT · RED · DSL · WRITE"`.
+1. Enable the tests marked disabled with reason `"CT · RED · DSL"`.
 2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
 3. Run the tests and verify they fail with a runtime error.
 4. STOP. Present the Driver implementation to the user and ask for approval. Do NOT continue.
 
 ## CT · RED · DRIVER · COMMIT
 
-1. Mark the tests as disabled with reason `"CT · RED · DRIVER · WRITE"` (see `language-equivalents.md` for syntax).
+1. Mark the tests as disabled with reason `"CT · RED · DRIVER"` (see `language-equivalents.md` for syntax).
 2. COMMIT with message `<Scenario> | CT · RED · DRIVER · COMMIT`.
 3. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## CT · GREEN · STUBS · WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"CT · RED · DRIVER · WRITE"`.
+1. Enable the tests marked disabled with reason `"CT · RED · DRIVER"`.
 2. Implement the External System Stubs.
 3. Run the External System Contract Tests:
    ```
@@ -74,7 +74,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
 
 ## CT · GREEN · STUBS · COMMIT
 
-1. Remove the disabled annotation (reason `"CT · RED · DRIVER · WRITE"`) from the tests.
+1. Remove the disabled annotation (reason `"CT · RED · DRIVER"`) from the tests.
 2. Run the tests and verify they pass.
 3. COMMIT with message `<Scenario> | CT · GREEN · STUBS · COMMIT`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
