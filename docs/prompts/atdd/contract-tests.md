@@ -52,7 +52,8 @@ If a GitHub issue number was provided as input, prefix every commit message with
    ```
 3. Mark the tests as disabled with reason `"CT - RED - DSL"` (see `language-equivalents.md` for syntax).
 4. COMMIT with message `<Scenario> | CT - RED - DSL`.
-5. Automatically proceed to CT - RED - DRIVER - WRITE (STOP).
+5. If a GitHub issue number was provided as input, post a comment on the issue summarising the DSL interface changes made (new methods added, interfaces updated).
+6. Automatically proceed to CT - RED - DRIVER - WRITE (STOP).
 
 ## CT - RED - DRIVER - WRITE (STOP)
 
@@ -65,7 +66,8 @@ If a GitHub issue number was provided as input, prefix every commit message with
 
 1. Mark the tests as disabled with reason `"CT - RED - DRIVER"` (see `language-equivalents.md` for syntax).
 2. COMMIT with message `<Scenario> | CT - RED - DRIVER`.
-3. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
+3. If a GitHub issue number was provided as input, post a comment on the issue summarising the Driver interface changes made (new methods added, interfaces updated).
+4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## CT - GREEN - STUBS - WRITE (STOP)
 

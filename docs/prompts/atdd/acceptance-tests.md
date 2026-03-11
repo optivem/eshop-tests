@@ -75,7 +75,8 @@ If a GitHub issue number was provided as input, prefix every commit message with
 3. Mark the tests as disabled with reason `"AT - RED - DSL"` (see `language-equivalents.md` for syntax).
 4. Ensure that there are no test files in the list of changed files.
 5. COMMIT with message `<Scenario> | AT - RED - DSL`.
-6. Automatically proceed to AT - RED - DRIVER - WRITE (STOP).
+6. If a GitHub issue number was provided as input, post a comment on the issue summarising the DSL interface changes made (new methods added, interfaces updated).
+7. Automatically proceed to AT - RED - DRIVER - WRITE (STOP).
 
 ## AT - RED - DRIVER - WRITE (STOP)
 
@@ -91,7 +92,8 @@ If a GitHub issue number was provided as input, prefix every commit message with
 1. Mark the tests as disabled with reason `"AT - RED - DRIVER"` (see `language-equivalents.md` for syntax).
 2. Ensure no test files are in the list of changed files.
 3. COMMIT with message `<Scenario> | AT - RED - DRIVER`.
-4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
+4. If a GitHub issue number was provided as input, post a comment on the issue summarising the Driver interface changes made (new methods added, interfaces updated).
+5. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 _See `contract-tests.md` for the CT - RED - TEST - WRITE and CT - GREEN - STUBS - COMMIT phases (triggered by the orchestrator when AT - RED - DSL - WRITE reported external system interface changes)._
 
