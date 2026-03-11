@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1420" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2a7a2a"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#a00"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="1420" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a2e">Multi-Agent ATDD Workflow</text>
+
+  <!-- ── USER STORY ── -->
+  <rect x="325" y="60" width="250" height="44" rx="22" fill="#1a1a2e"/>
+  <text x="450" y="87" text-anchor="middle" fill="white" font-weight="bold" font-size="14">User Story</text>
+
+  <!-- arrow down -->
+  <line x1="450" y1="104" x2="450" y2="128" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ── STORY AGENT ── -->
+  <rect x="310" y="128" width="280" height="50" rx="8" fill="#3b5998" stroke="#2d4373" stroke-width="1.5"/>
+  <text x="450" y="149" text-anchor="middle" fill="white" font-weight="bold">Story Agent</text>
+  <text x="450" y="168" text-anchor="middle" fill="#cde" font-size="11">Analyse existing tests for gaps</text>
+
+  <!-- arrows to two outputs -->
+  <line x1="390" y1="178" x2="300" y2="218" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="510" y1="178" x2="600" y2="218" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Gherkin box -->
+  <rect x="180" y="218" width="220" height="40" rx="6" fill="#e8f4e8" stroke="#4a9a4a" stroke-width="1.5"/>
+  <text x="290" y="243" text-anchor="middle" fill="#1a4a1a" font-weight="bold">Gherkin Scenarios</text>
+
+  <!-- Legacy Coverage box -->
+  <rect x="500" y="218" width="220" height="40" rx="6" fill="#fff3cd" stroke="#d4a017" stroke-width="1.5"/>
+  <text x="610" y="243" text-anchor="middle" fill="#5c3d00" font-weight="bold">Legacy Coverage</text>
+
+  <!-- converge arrows to HUMAN APPROVES -->
+  <line x1="290" y1="258" x2="370" y2="295" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="610" y1="258" x2="530" y2="295" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- HUMAN APPROVES 1 -->
+  <rect x="305" y="295" width="290" height="36" rx="18" fill="#f0e6ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="450" y="318" text-anchor="middle" fill="#4c1d95" font-weight="bold" font-size="12">← HUMAN APPROVES BOTH</text>
+
+  <!-- tick add to ticket note -->
+  <text x="450" y="350" text-anchor="middle" fill="#7c3aed" font-size="11" font-style="italic">Approved Legacy Coverage added to ticket under ## Legacy Coverage</text>
+
+  <!-- arrow into loop -->
+  <line x1="450" y1="355" x2="450" y2="378" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ═══════════════════════════════════════════
+       PER-SCENARIO LOOP BOX
+  ════════════════════════════════════════════ -->
+  <rect x="40" y="378" width="820" height="860" rx="12" fill="none" stroke="#aaa" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="70" y="400" fill="#888" font-size="11" font-style="italic">Per-scenario loop (repeats until all scenarios GREEN)</text>
+
+  <!-- ── TEST AGENT RED 1 WRITE ── -->
+  <rect x="295" y="408" width="310" height="50" rx="8" fill="#c0392b" stroke="#922b21" stroke-width="1.5"/>
+  <text x="450" y="429" text-anchor="middle" fill="white" font-weight="bold">Test Agent</text>
+  <text x="450" y="448" text-anchor="middle" fill="#fdd" font-size="11">RED 1 WRITE — Legacy Coverage first, then new scenarios</text>
+
+  <line x1="450" y1="458" x2="450" y2="480" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- HUMAN APPROVES TESTS -->
+  <rect x="305" y="480" width="290" height="36" rx="18" fill="#f0e6ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="450" y="503" text-anchor="middle" fill="#4c1d95" font-weight="bold" font-size="12">← HUMAN APPROVES TESTS</text>
+
+  <line x1="450" y1="516" x2="450" y2="538" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- TEST AGENT RED 1 COMMIT -->
+  <rect x="310" y="538" width="280" height="44" rx="8" fill="#e74c3c" stroke="#922b21" stroke-width="1.5"/>
+  <text x="450" y="555" text-anchor="middle" fill="white" font-weight="bold">Test Agent</text>
+  <text x="450" y="572" text-anchor="middle" fill="#fdd" font-size="11">RED 1 COMMIT  ·  @Disabled("RED 1 - Tests")</text>
+
+  <line x1="450" y1="582" x2="450" y2="604" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- DSL AGENT RED 2 WRITE -->
+  <rect x="295" y="604" width="310" height="44" rx="8" fill="#d35400" stroke="#a04000" stroke-width="1.5"/>
+  <text x="450" y="621" text-anchor="middle" fill="white" font-weight="bold">DSL Agent</text>
+  <text x="450" y="638" text-anchor="middle" fill="#ffe" font-size="11">RED 2 WRITE — DSL + Driver interfaces</text>
+
+  <line x1="450" y1="648" x2="450" y2="670" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- HUMAN APPROVES DSL -->
+  <rect x="305" y="670" width="290" height="36" rx="18" fill="#f0e6ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="450" y="693" text-anchor="middle" fill="#4c1d95" font-weight="bold" font-size="12">← HUMAN APPROVES DSL</text>
+
+  <line x1="450" y1="706" x2="450" y2="728" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- DSL AGENT RED 2 COMMIT -->
+  <rect x="310" y="728" width="280" height="44" rx="8" fill="#e67e22" stroke="#a04000" stroke-width="1.5"/>
+  <text x="450" y="745" text-anchor="middle" fill="white" font-weight="bold">DSL Agent</text>
+  <text x="450" y="762" text-anchor="middle" fill="#ffe" font-size="11">RED 2 COMMIT  ·  @Disabled("RED 2 - DSL")</text>
+
+  <line x1="450" y1="772" x2="450" y2="794" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- DRIVER AGENT RED 3 WRITE -->
+  <rect x="295" y="794" width="310" height="44" rx="8" fill="#b7950b" stroke="#8a6d0a" stroke-width="1.5"/>
+  <text x="450" y="811" text-anchor="middle" fill="white" font-weight="bold">Driver Agent</text>
+  <text x="450" y="828" text-anchor="middle" fill="#fff8cc" font-size="11">RED 3 WRITE — Driver implementations</text>
+
+  <line x1="450" y1="838" x2="450" y2="860" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- HUMAN APPROVES DRIVERS -->
+  <rect x="305" y="860" width="290" height="36" rx="18" fill="#f0e6ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="450" y="883" text-anchor="middle" fill="#4c1d95" font-weight="bold" font-size="12">← HUMAN APPROVES DRIVERS</text>
+
+  <line x1="450" y1="896" x2="450" y2="918" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- DRIVER AGENT RED 3 COMMIT -->
+  <rect x="310" y="918" width="280" height="44" rx="8" fill="#d4ac0d" stroke="#8a6d0a" stroke-width="1.5"/>
+  <text x="450" y="935" text-anchor="middle" fill="white" font-weight="bold">Driver Agent</text>
+  <text x="450" y="952" text-anchor="middle" fill="#fff8cc" font-size="11">RED 3 COMMIT  ·  @Disabled("RED 3 - Driver")</text>
+
+  <!-- external/ changed? branch -->
+  <line x1="590" y1="940" x2="690" y2="940" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="690" y="920" width="150" height="40" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="765" y="936" text-anchor="middle" fill="#a00" font-size="11" font-weight="bold">external/ changed?</text>
+  <text x="765" y="952" text-anchor="middle" fill="#a00" font-size="11">→ Contract Tests</text>
+
+  <line x1="450" y1="962" x2="450" y2="984" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- BACKEND AGENT GREEN 2 -->
+  <rect x="310" y="984" width="280" height="44" rx="8" fill="#1e8449" stroke="#145a32" stroke-width="1.5"/>
+  <text x="450" y="1001" text-anchor="middle" fill="white" font-weight="bold">Backend Agent</text>
+  <text x="450" y="1018" text-anchor="middle" fill="#cfc" font-size="11">GREEN 2 — API acceptance tests pass</text>
+
+  <line x1="450" y1="1028" x2="450" y2="1050" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- FRONTEND AGENT GREEN 2 -->
+  <rect x="310" y="1050" width="280" height="44" rx="8" fill="#239b56" stroke="#145a32" stroke-width="1.5"/>
+  <text x="450" y="1067" text-anchor="middle" fill="white" font-weight="bold">Frontend Agent</text>
+  <text x="450" y="1084" text-anchor="middle" fill="#cfc" font-size="11">GREEN 2 — UI acceptance tests pass</text>
+
+  <line x1="450" y1="1094" x2="450" y2="1116" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- RELEASE AGENT -->
+  <rect x="310" y="1116" width="280" height="44" rx="8" fill="#27ae60" stroke="#145a32" stroke-width="1.5"/>
+  <text x="450" y="1133" text-anchor="middle" fill="white" font-weight="bold">Release Agent</text>
+  <text x="450" y="1150" text-anchor="middle" fill="#cfc" font-size="11">GREEN 2 COMMIT  ·  Remove @Disabled</text>
+
+  <!-- loop back arrow -->
+  <line x1="310" y1="1138" x2="100" y2="1138" stroke="#888" stroke-width="1.5"/>
+  <line x1="100" y1="1138" x2="100" y2="430" stroke="#888" stroke-width="1.5"/>
+  <line x1="100" y1="430" x2="294" y2="430" stroke="#888" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="62" y="800" fill="#888" font-size="11" font-style="italic" transform="rotate(-90,62,800)">remaining scenarios? → loop back</text>
+
+  <!-- ── end of loop ── -->
+
+  <!-- arrow out of loop -->
+  <line x1="450" y1="1238" x2="450" y2="1262" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- HUMAN REVIEWS OUTCOME -->
+  <rect x="285" y="1262" width="330" height="36" rx="18" fill="#f0e6ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="450" y="1285" text-anchor="middle" fill="#4c1d95" font-weight="bold" font-size="12">← HUMAN REVIEWS OUTCOME</text>
+
+  <!-- ── LEGEND ── -->
+  <rect x="55" y="1318" width="790" height="82" rx="8" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="450" y="1337" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">LEGEND</text>
+  <rect x="70" y="1348" width="14" height="14" rx="3" fill="#3b5998"/>
+  <text x="90" y="1360" fill="#333" font-size="11">Agent step</text>
+  <rect x="175" y="1348" width="14" height="14" rx="7" fill="#f0e6ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="195" y="1360" fill="#333" font-size="11">Human touchpoint</text>
+  <rect x="320" y="1348" width="14" height="14" rx="3" fill="#c0392b"/>
+  <text x="340" y="1360" fill="#333" font-size="11">RED phase</text>
+  <rect x="425" y="1348" width="14" height="14" rx="3" fill="#1e8449"/>
+  <text x="445" y="1360" fill="#333" font-size="11">GREEN phase</text>
+  <rect x="540" y="1348" width="14" height="14" rx="3" fill="#fff3cd" stroke="#d4a017" stroke-width="1.5"/>
+  <text x="560" y="1360" fill="#333" font-size="11">Legacy Coverage</text>
+  <rect x="665" y="1348" width="14" height="14" rx="3" fill="none" stroke="#aaa" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="685" y="1360" fill="#333" font-size="11">Loop boundary</text>
+
+  <text x="450" y="1390" text-anchor="middle" fill="#aaa" font-size="10">Human touchpoints: 1 Gherkin+LegacyCoverage  ·  2 Tests  ·  3 DSL  ·  4 Drivers  ·  5 Outcome</text>
+</svg>
