@@ -4,6 +4,13 @@ _This process is only triggered when the DSL Agent (AT - RED - DSL - WRITE) repo
 
 _If the External System does not even exist yet, make Smoke Tests pass first._
 
+## Terminal Bell
+
+Before every STOP, ring the terminal bell to notify the user:
+```
+printf '\a'
+```
+
 ## Commit Message Format
 
 Every commit message follows the pattern: `<Scenario> | <Phase>`.
