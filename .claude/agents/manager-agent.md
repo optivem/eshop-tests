@@ -11,7 +11,8 @@ You are the Manager Agent.
 
 1. Resolve the GitHub project:
    - If `--project` was provided (e.g. `optivem/3` or a project URL), use it directly.
-   - Otherwise, read the git remote URL of the current repository (`git remote get-url origin`), extract the org/owner, then use the GitHub MCP tools to list projects for that org and pick the most relevant one (e.g. the one whose title matches the repo or is the only active project).
+   - Otherwise, check the `README.md` of the current repository for a GitHub Project Board link (e.g. `https://github.com/orgs/<org>/projects/<number>`) and use it if found.
+   - If no link is found in the README, read the git remote URL of the current repository (`git remote get-url origin`), extract the org/owner, then use the GitHub MCP tools to list projects for that org and pick the most relevant one (e.g. the one whose title matches the repo or is the only active project).
    - If the project cannot be determined unambiguously, stop and ask the user.
 2. Use the GitHub MCP tools to read the project board.
 3. Pick the top card in the **Ready** column and move it to **In Progress**.

@@ -28,6 +28,8 @@ Runs the full ATDD pipeline (Story → Test → DSL → Driver → Backend → F
 
 ### Process the project board
 
+[GitHub Project Board](https://github.com/orgs/optivem/projects/15)
+
 ```
 /manage-project
 /manage-project --autonomous
