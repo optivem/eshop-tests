@@ -118,7 +118,8 @@ _See `contract-tests.md` for the RED 1 - Contract Tests and GREEN - External Sys
    ```
 4. Ensure that there are no non-test files in the list of changed files in the `eshop-tests` repository.
 5. COMMIT in the `eshop-tests` repository with message `<Scenario> | GREEN - System`.
-6. If there are remaining `// TODO:` scenarios in the test file, return to RED 1 (WRITE + STOP) for the next scenario.
+6. If a GitHub issue was provided as input, tick the checkbox for the completed acceptance criterion in that issue.
+7. If there are remaining `// TODO:` scenarios in the test file, return to RED 1 (WRITE + STOP) for the next scenario.
 
 
 # TODO: VJ: Need to add insutrctions regarding handling legacy code...
