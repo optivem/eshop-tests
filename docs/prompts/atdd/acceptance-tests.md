@@ -6,7 +6,7 @@ Proceed to the next phase automatically **unless** the current phase ends with *
 
 **Terminal bell:** Before every STOP, ring the terminal bell to notify the user:
 ```
-printf '\a'
+powershell -command "[console]::beep(800, 300)"
 ```
 
 ---

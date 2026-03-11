@@ -8,7 +8,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
 
 Before every STOP, ring the terminal bell to notify the user:
 ```
-printf '\a'
+powershell -command "[console]::beep(800, 300)"
 ```
 
 ## Commit Message Format
