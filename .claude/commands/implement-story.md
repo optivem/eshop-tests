@@ -14,6 +14,24 @@ If not specified, infer the appropriate repositories from the GitHub issue conte
 
 ## Orchestration Steps
 
+### Step 0: Resume Detection
+
+Before doing anything else, scan the test repository for `@Disabled` annotations with known phase markers. This allows resuming mid-pipeline after a break.
+
+Search for disabled tests in the acceptance and contract test directories:
+- `@Disabled("AT - RED - TEST")` → a scenario is waiting for DSL/Driver/System implementation. Resume at **step 5** (DSL - WRITE). If there are no TODO: DSL stubs in the DSL files (i.e. no new DSL was needed), resume at **step 11** (backend).
+- `@Disabled("AT - RED - DSL")` → DSL is implemented, waiting for Driver/System. Resume at **step 8** (DRIVER - WRITE). If there are no TODO: Driver stubs in driver files, resume at **step 11**.
+- `@Disabled("AT - RED - DRIVER")` → Driver is implemented, waiting for System. Resume at **step 11** (backend).
+- `@Disabled("CT - RED - TEST")` → contract test is waiting for CT DSL. Resume at **CT step 10d**.
+- `@Disabled("CT - RED - DSL")` → contract DSL is implemented, waiting for CT Driver. Resume at **CT step 10g**.
+- `@Disabled("CT - RED - DRIVER")` → contract Driver is implemented, waiting for CT stubs. Resume at **CT step 10j**.
+
+If disabled tests are found, skip directly to the indicated step using the scenario name from the disabled test method. Do NOT re-run story-agent or re-write tests — treat everything already committed as approved.
+
+If no disabled tests are found, proceed normally from step 1.
+
+---
+
 1. Launch **story-agent** with the input. It will read the GitHub issue if given a number, or use the text directly.
    - **Normal mode:** Present the Gherkin scenarios and wait for human approval before continuing.
    - **Autonomous mode:** Auto-approve and proceed immediately.
