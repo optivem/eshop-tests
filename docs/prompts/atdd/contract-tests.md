@@ -10,6 +10,7 @@ Before every STOP, ring the terminal bell to notify the user:
 ```
 powershell -command "[console]::beep(800, 300)"
 ```
+**Important:** The bell must be run by the **orchestrating agent** in the main conversation — not inside a subagent.
 
 ## Commit Message Format
 

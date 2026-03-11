@@ -8,6 +8,7 @@ Proceed to the next phase automatically **unless** the current phase ends with *
 ```
 powershell -command "[console]::beep(800, 300)"
 ```
+**Important:** The bell must be run by the **orchestrating agent** in the main conversation — not inside a subagent. If a subagent performs a STOP phase, the orchestrating agent must ring the bell itself after the subagent returns.
 
 ---
 
