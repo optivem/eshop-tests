@@ -25,7 +25,7 @@ All DTOs used by driver adapters to communicate with external systems use an `Ex
 
 ## Shop API Driver
 
-The shop API driver uses a controller-per-resource pattern. `ShopApiClient` composes multiple controllers (e.g. `OrderController`, `CouponController`, `ReviewController`), each managing one API endpoint group.
+The shop API driver uses a controller-per-resource pattern. `ShopApiClient` composes multiple controllers (e.g. `OrderController`, `CouponController`, `ProductController`), each managing one API endpoint group.
 
 Error responses from the shop API (e.g. `ProblemDetailResponse`) are mapped to the domain `ErrorResponse` via a `SystemErrorMapper`. Never expose API-specific error formats beyond the adapter layer.
 

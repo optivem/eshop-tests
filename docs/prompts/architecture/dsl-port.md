@@ -7,7 +7,7 @@ All DSL port interfaces use a fluent builder pattern. Every `with*()` method ret
 ## with*() Method Signatures
 
 - Every configurable field must have a `withFieldName(String value)` method.
-- For fields that have a natural typed representation, add an overloaded `withFieldName(T value)` (e.g. `withQuantity(int)`, `withUnitPrice(double)`, `withReviewable(boolean)`).
+- For fields that have a natural typed representation, add an overloaded `withFieldName(T value)` (e.g. `withQuantity(int)`, `withUnitPrice(double)`).
 - The `String` overload is mandatory; the typed overload is optional but recommended for readability.
 - No-arg `with*()` variants are permitted where the field has a meaningful "use default" semantic (e.g. `withCouponCode()` with no argument means omit the coupon).
 
