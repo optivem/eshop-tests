@@ -4,10 +4,8 @@
 
 Driver interfaces are split into two categories by directory:
 
-- **`external/`** — external systems the shop depends on (e.g. `external/clock`, `external/erp`, `external/tax`). These require contract tests when the interface changes.
+- **`external/`** — external systems the shop depends on (e.g. `external/clock`, `external/erp`, `external/tax`). These require contract tests when the interface changes (see `glossary.md` for the definition of *interface change*).
 - **`shop/`** — the shop itself (API + UI drivers). No contract tests needed.
-
-**External interface change** means any change to the contract of an external system, including: new interface methods, changes to existing methods, and additions or modifications to request/response DTOs under `external/`. All of these trigger the contract test subprocess.
 
 This convention applies identically in `driver-port/`, `driver-adapter/`, and `dsl-core/src/.../app/`.
 
