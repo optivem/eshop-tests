@@ -78,7 +78,7 @@
   <text x="55" y="478" fill="#BBBBBB" font-size="11" font-style="italic">Per-scenario loop (repeats until all scenarios GREEN)</text>
 
   <!-- AT · RED · TEST · WRITE -->
-  <rect x="270" y="488" width="420" height="52" rx="7" fill="#7B1818" stroke="#5A0E0E" stroke-width="1.5"/>
+  <rect x="270" y="488" width="420" height="52" rx="7" fill="#E74C3C" stroke="#C0392B" stroke-width="1.5"/>
   <line x1="445" y1="488" x2="445" y2="540" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
   <text x="357" y="519" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Test Agent</text>
   <text x="567" y="510" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · TEST · WRITE</text>
@@ -101,7 +101,7 @@
   <line x1="480" y1="655" x2="480" y2="672" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- AT · RED · DSL · WRITE -->
-  <rect x="270" y="672" width="420" height="46" rx="7" fill="#6E2C00" stroke="#4E1E00" stroke-width="1.5"/>
+  <rect x="270" y="672" width="420" height="46" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
   <line x1="445" y1="672" x2="445" y2="718" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
   <text x="357" y="700" text-anchor="middle" fill="white" font-weight="bold" font-size="13">DSL Agent</text>
   <text x="567" y="700" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DSL · WRITE</text>
@@ -115,7 +115,7 @@
   <line x1="480" y1="769" x2="480" y2="786" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- AT · RED · DSL · COMMIT -->
-  <rect x="270" y="786" width="420" height="46" rx="7" fill="#D35400" stroke="#A04000" stroke-width="1.5"/>
+  <rect x="270" y="786" width="420" height="46" rx="7" fill="#D35400" stroke="#A84300" stroke-width="1.5"/>
   <line x1="445" y1="786" x2="445" y2="832" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
   <text x="357" y="814" text-anchor="middle" fill="white" font-weight="bold" font-size="13">DSL Agent</text>
   <text x="567" y="814" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DSL · COMMIT</text>
@@ -123,7 +123,7 @@
   <line x1="480" y1="832" x2="480" y2="849" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- AT · RED · DRIVER · WRITE -->
-  <rect x="270" y="849" width="420" height="46" rx="7" fill="#7D6608" stroke="#5A4A05" stroke-width="1.5"/>
+  <rect x="270" y="849" width="420" height="46" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
   <line x1="445" y1="849" x2="445" y2="895" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
   <text x="357" y="877" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Driver Agent</text>
   <text x="567" y="877" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DRIVER · WRITE</text>
@@ -137,7 +137,7 @@
   <line x1="480" y1="946" x2="480" y2="963" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- AT · RED · DRIVER · COMMIT -->
-  <rect x="270" y="963" width="420" height="46" rx="7" fill="#B7950B" stroke="#8A6D08" stroke-width="1.5"/>
+  <rect x="270" y="963" width="420" height="46" rx="7" fill="#D35400" stroke="#A84300" stroke-width="1.5"/>
   <line x1="445" y1="963" x2="445" y2="1009" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
   <text x="357" y="991" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Driver Agent</text>
   <text x="567" y="991" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-size="12" font-weight="bold">AT · RED · DRIVER · COMMIT</text>
@@ -191,14 +191,14 @@
   <rect x="40" y="1296" width="880" height="76" rx="8" fill="white" stroke="#DDDDDD" stroke-width="1"/>
   <text x="480" y="1314" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">LEGEND</text>
 
-  <rect x="58"  y="1324" width="13" height="13" rx="2" fill="#7B1818"/>
-  <text x="77"  y="1335" fill="#444" font-size="11">AT · RED · WRITE (failing)</text>
+  <rect x="58"  y="1324" width="13" height="13" rx="2" fill="#E74C3C"/>
+  <text x="77"  y="1335" fill="#444" font-size="11">Test Agent (red)</text>
 
-  <rect x="240" y="1324" width="13" height="13" rx="2" fill="#C0392B"/>
-  <text x="259" y="1335" fill="#444" font-size="11">AT · RED · COMMIT (disabled)</text>
+  <rect x="200" y="1324" width="13" height="13" rx="2" fill="#E67E22"/>
+  <text x="219" y="1335" fill="#444" font-size="11">DSL / Driver Agent (orange)</text>
 
-  <rect x="440" y="1324" width="13" height="13" rx="2" fill="#239B56"/>
-  <text x="459" y="1335" fill="#444" font-size="11">AT · GREEN (passing)</text>
+  <rect x="430" y="1324" width="13" height="13" rx="2" fill="#239B56"/>
+  <text x="449" y="1335" fill="#444" font-size="11">AT · GREEN (passing)</text>
 
   <rect x="580" y="1324" width="13" height="13" rx="7" fill="#EDE7F6" stroke="#7C3AED" stroke-width="1.5"/>
   <text x="599" y="1335" fill="#444" font-size="11">Human touchpoint</text>
