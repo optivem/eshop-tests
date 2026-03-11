@@ -4,6 +4,7 @@
 @docs/prompts/architecture/dsl-core.md
 @docs/prompts/architecture/driver-port.md
 @docs/prompts/architecture/test.md
+@docs/prompts/architecture/language-equivalents.md
 
 ## Git Push
 

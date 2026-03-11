@@ -35,41 +35,41 @@ If a test covers both channels, run both suites.
 
 1. If there were compile-time errors in RED 1 (WRITE + STOP):
    a. Extend the DSL interfaces with the new methods.
-   b. Implement the new methods by throwing `UnsupportedOperationException("TODO: DSL")` — do not implement DSL.
+   b. Implement the new methods by throwing a "TODO: DSL" not-implemented exception (see `language-equivalents.md`) — do not implement DSL.
    c. Run the tests and verify they fail with a runtime error:
       ```
       .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
       .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
       ```
-2. Mark the tests as `@Disabled("RED 1 - Tests")`.
+2. Mark the tests as disabled with reason `"RED 1 - Tests"` (see `language-equivalents.md` for syntax).
 3. COMMIT with message `<Scenario> | RED 1 - Tests`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## RED 2 - DSL (WRITE + STOP)
 
-1. Enable the tests marked `@Disabled("RED 1 - Tests")`.
-2. Implement the DSL for real — replace `UnsupportedOperationException("TODO: DSL")` with actual logic.
+1. Enable the tests marked disabled with reason `"RED 1 - Tests"`.
+2. Implement the DSL for real — replace the "TODO: DSL" stub with actual logic.
 3. Update the Driver interfaces as needed.
 4. Check whether any new or changed driver interfaces are in an `external/` package (e.g. `driver-port/.../external/clock`). Set a flag: **external system interfaces changed = yes/no**.
 5. STOP. Present the DSL implementation, Driver interface changes, and the external system interfaces flag to the user and ask for approval. Do NOT continue.
 
 ## RED 2 - DSL (COMMIT)
 
-1. Implement the Drivers by throwing `UnsupportedOperationException("TODO: Driver")`.
+1. Implement the Drivers by throwing a "TODO: Driver" not-implemented exception (see `language-equivalents.md`).
 2. Run the tests and verify they fail with a runtime error:
    ```
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
    .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
    ```
-3. Mark the tests as `@Disabled("RED 2 - DSL")`.
+3. Mark the tests as disabled with reason `"RED 2 - DSL"` (see `language-equivalents.md` for syntax).
 4. Ensure that there are no test files in the list of changed files.
 5. COMMIT with message `<Scenario> | RED 2 - DSL`.
 6. Automatically proceed to RED 3 (WRITE + STOP).
 
 ## RED 3 - Driver (WRITE + STOP)
 
-1. Enable the tests marked `@Disabled("RED 2 - DSL")`.
-2. Implement the Drivers — replace `UnsupportedOperationException("TODO: Driver")` with actual logic.
+1. Enable the tests marked disabled with reason `"RED 2 - DSL"`.
+2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
    - Only look at files in the `driver-adapter` and `driver-port` directories.
    - Do NOT read or search backend/frontend source code. Model the new method on existing driver methods in the same file.
 3. Run the tests and verify they fail with a runtime error.
@@ -77,7 +77,7 @@ If a test covers both channels, run both suites.
 
 ## RED 3 - Driver (COMMIT)
 
-1. Mark the tests as `@Disabled("RED 3 - Driver")`.
+1. Mark the tests as disabled with reason `"RED 3 - Driver"` (see `language-equivalents.md` for syntax).
 2. Ensure no test files are in the list of changed files.
 3. COMMIT with message `<Scenario> | RED 3 - Driver`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
@@ -110,7 +110,7 @@ _See `contract-tests.md` for the RED 1 - Contract Tests and GREEN - External Sys
 ## GREEN 2 - System (COMMIT)
 
 1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | GREEN - System`.
-2. Remove the `@Disabled("RED 3 - Driver")` annotation from the tests.
+2. Remove the disabled annotation (reason `"RED 3 - Driver"`) from the tests.
 3. Run the tests and verify they all pass:
    ```
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
@@ -119,7 +119,8 @@ _See `contract-tests.md` for the RED 1 - Contract Tests and GREEN - External Sys
 4. Ensure that there are no non-test files in the list of changed files in the `eshop-tests` repository.
 5. COMMIT in the `eshop-tests` repository with message `<Scenario> | GREEN - System`.
 6. If a GitHub issue was provided as input, tick the checkbox for the completed acceptance criterion in that issue.
-7. If there are remaining `// TODO:` scenarios in the test file, return to RED 1 (WRITE + STOP) for the next scenario.
+7. If all acceptance criteria in the issue are now ticked, and the issue belongs to a GitHub project, move the issue to the **In Review** status in that project.
+8. If there are remaining `// TODO:` scenarios in the test file, return to RED 1 (WRITE + STOP) for the next scenario.
 
 
 # TODO: VJ: Need to add insutrctions regarding handling legacy code...
