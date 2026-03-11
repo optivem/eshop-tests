@@ -4,6 +4,8 @@ Input: $ARGUMENTS
 
 **Autonomous mode:** if `--autonomous` is present, pass it through to `/implement-story` so all human approval touchpoints are skipped.
 
+**GitHub project:** optionally specify `--project <org/number-or-url>` to identify which GitHub project board to use (e.g. `--project optivem/3`). If not specified, the manager-agent will attempt to discover it from the git remote of the current repository.
+
 **Repositories:** optionally specify `--test-repos` and `--system-repos` to control which repositories the pipeline operates on:
 - `--test-repos <repo1>,<repo2>,...` — the test repositories to implement in (e.g. `eshop-tests-java`, `eshop-tests-dotnet`, `eshop-tests-typescript`)
 - `--system-repos <repo1>,<repo2>,...` — the system (backend/frontend) repositories (e.g. `eshop`)
@@ -12,7 +14,8 @@ If not specified, pass them through to the manager-agent and let it determine th
 
 ## Steps
 
-1. Launch **manager-agent** with any `--test-repos` and `--system-repos` values (or without them if not provided). It will:
+1. Launch **manager-agent** with any `--project`, `--test-repos`, and `--system-repos` values (or without them if not provided). It will:
+   - Resolve the GitHub project (from the argument, or by discovering it from the git remote)
    - Read the GitHub project board
    - Pick the top card in the Ready column
    - Move it to In Progress
