@@ -4,6 +4,12 @@ _This process is only triggered when the DSL Agent (AT · RED · DSL · WRITE) r
 
 _If the External System does not even exist yet, make Smoke Tests pass first._
 
+## Commit Message Format
+
+Every commit message follows the pattern: `<Scenario> | <Phase>`.
+
+If a GitHub issue number was provided as input, prefix every commit message with `#<issue-number> | `. Example: `#42 | Register Customer | CT · RED · TEST`.
+
 ## CT · RED · TEST · WRITE (STOP)
 
 1. Write External System Contract Tests.
@@ -26,7 +32,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
    a. Extend the DSL interfaces with the new methods.
    b. Implement the new methods by throwing a "TODO: DSL" not-implemented exception (see `language-equivalents.md`).
    c. Run the tests and verify they fail with a runtime error.
-2. COMMIT with message `<Scenario> | CT · RED · TEST · COMMIT`.
+2. COMMIT with message `<Scenario> | CT · RED · TEST`.
 3. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## CT · RED · DSL · WRITE (STOP)
@@ -45,7 +51,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
    .\Run-SystemTests.ps1 -Suite <suite-contract-stub> -Test <TestMethodName>
    ```
 3. Mark the tests as disabled with reason `"CT · RED · DSL"` (see `language-equivalents.md` for syntax).
-4. COMMIT with message `<Scenario> | CT · RED · DSL · COMMIT`.
+4. COMMIT with message `<Scenario> | CT · RED · DSL`.
 5. Automatically proceed to CT · RED · DRIVER · WRITE (STOP).
 
 ## CT · RED · DRIVER · WRITE (STOP)
@@ -58,7 +64,7 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
 ## CT · RED · DRIVER · COMMIT
 
 1. Mark the tests as disabled with reason `"CT · RED · DRIVER"` (see `language-equivalents.md` for syntax).
-2. COMMIT with message `<Scenario> | CT · RED · DRIVER · COMMIT`.
+2. COMMIT with message `<Scenario> | CT · RED · DRIVER`.
 3. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## CT · GREEN · STUBS · WRITE (STOP)
@@ -76,5 +82,5 @@ _If the External System does not even exist yet, make Smoke Tests pass first._
 
 1. Remove the disabled annotation (reason `"CT · RED · DRIVER"`) from the tests.
 2. Run the tests and verify they pass.
-3. COMMIT with message `<Scenario> | CT · GREEN · STUBS · COMMIT`.
+3. COMMIT with message `<Scenario> | CT · GREEN · STUBS`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
