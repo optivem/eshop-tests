@@ -99,9 +99,8 @@ If a GitHub issue number was provided as input, prefix every commit message with
 2. Ensure no test files are in the list of changed files.
 3. COMMIT with message `<Scenario> | AT - RED - DRIVER`.
 4. If a GitHub issue number was provided as input, post a comment on the issue summarising the Driver interface changes made (new methods added, interfaces updated).
-5. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
-
-_See `contract-tests.md` for the CT - RED - TEST - WRITE and CT - GREEN - STUBS - COMMIT phases (triggered by the orchestrator when AT - RED - DSL - WRITE reported external system interface changes)._
+5. If **external system interfaces changed = yes** (as reported in AT - RED - DSL - WRITE), automatically proceed to CT - RED - TEST - WRITE (see `contract-tests.md`). Do NOT ask the user — proceed immediately.
+6. Otherwise: STOP. Do not proceed further.
 
 ## AT - GREEN - SYSTEM - WRITE (STOP)
 
