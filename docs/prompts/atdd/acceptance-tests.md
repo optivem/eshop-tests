@@ -20,6 +20,8 @@ Every commit message follows the pattern: `<Scenario> | <Phase>`.
 
 If a GitHub issue number was provided as input, prefix every commit message with `#<issue-number> | `. Example: `#42 | Register Customer | AT - RED - TEST`.
 
+**Important:** The phase suffix in the message is the phase *prefix only* (e.g. `AT - RED - TEST`). Do **NOT** append `- COMMIT` or `- WRITE` to the phase in the commit message — those suffixes identify the section header only, not the commit message.
+
 ## AT - RED - TEST - WRITE (STOP)
 
 1. Write the acceptance tests, following these rules:
