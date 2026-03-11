@@ -4,15 +4,22 @@ Input: $ARGUMENTS
 
 **Autonomous mode:** if `--autonomous` is present, pass it through to `/implement-story` so all human approval touchpoints are skipped.
 
+**Repositories:** optionally specify `--test-repos` and `--system-repos` to control which repositories the pipeline operates on:
+- `--test-repos <repo1>,<repo2>,...` — the test repositories to implement in (e.g. `eshop-tests-java`, `eshop-tests-dotnet`, `eshop-tests-typescript`)
+- `--system-repos <repo1>,<repo2>,...` — the system (backend/frontend) repositories (e.g. `eshop`)
+
+If not specified, pass them through to the manager-agent and let it determine the appropriate repositories from the GitHub issue context (labels, title, existing code, etc.).
+
 ## Steps
 
-1. Launch **manager-agent**. It will:
+1. Launch **manager-agent** with any `--test-repos` and `--system-repos` values (or without them if not provided). It will:
    - Read the GitHub project board
    - Pick the top card in the Ready column
    - Move it to In Progress
-   - Return the issue number
+   - If repos were not specified, determine the appropriate test and system repositories from the issue context
+   - Return the issue number and the resolved repository lists
 
-2. Pass the issue number (and `--autonomous` if provided) to `/implement-story` and run the full pipeline to completion.
+2. Pass the issue number, resolved repository lists, and `--autonomous` (if provided) to `/implement-story` and run the full pipeline to completion.
 
 ## Rules
 

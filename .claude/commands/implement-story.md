@@ -2,9 +2,15 @@ Implement the following user story using the multi-agent ATDD workflow defined i
 
 Input: $ARGUMENTS
 
-The input is either a GitHub issue number (e.g. `#42`) or free-text user story, optionally followed by `--autonomous`. Pass the issue/story to the story-agent; keep the flag for orchestration use.
+The input is either a GitHub issue number (e.g. `#42`) or free-text user story, optionally followed by flags. Pass the issue/story to the story-agent; keep flags for orchestration use.
 
 **Autonomous mode:** if `--autonomous` is present in the input, skip all STOP/human-approval steps — agents self-approve and the pipeline runs end-to-end without waiting for the user.
+
+**Repositories:** optionally specify which repositories the pipeline operates on:
+- `--test-repos <repo1>,<repo2>,...` — the test repositories to implement in (e.g. `eshop-tests-java`, `eshop-tests-dotnet`, `eshop-tests-typescript`)
+- `--system-repos <repo1>,<repo2>,...` — the system (backend/frontend) repositories (e.g. `eshop`)
+
+If not specified, infer the appropriate repositories from the GitHub issue context (labels, title, existing tests, etc.) and confirm with the user before proceeding.
 
 ## Orchestration Steps
 
