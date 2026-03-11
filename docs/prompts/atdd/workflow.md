@@ -72,73 +72,27 @@ The approach depends on whether new DSL is needed:
 
 ## Agent Definitions
 
+| Agent | Governed by |
+|---|---|
+| story-agent | This file (Story Agent definition) |
+| manager-agent | This file (Manager Agent definition) |
+| test-agent | `acceptance-tests.md` + `contract-tests.md` |
+| dsl-agent | `acceptance-tests.md` + `contract-tests.md` + `dsl-core.md` |
+| driver-agent | `acceptance-tests.md` + `contract-tests.md` + `driver-port.md` |
+| backend-agent | `acceptance-tests.md` |
+| frontend-agent | `acceptance-tests.md` |
+| release-agent | `acceptance-tests.md` |
+
 ### Story Agent
-- **Input:** User story in natural language
-- **Output (new scenarios):** Gherkin scenarios (Given/When/Then) for the new feature — one scenario per acceptance criterion, minimal and focused.
-- **Output (coverage gaps):** Proposed **Legacy Coverage** — Gherkin scenarios for existing functionality related to the user story that is not yet covered by acceptance tests. These describe behaviour that already exists in the system but has never been formally specified.
-- **Analysis:** Scan existing acceptance test files for the relevant use case(s). Identify behaviours that are exercised by the application but not described by any existing scenario. Propose these as Legacy Coverage.
-- **Ticket update:** If the human approves any Legacy Coverage, add them to the GitHub issue under a `## Legacy Coverage` section.
-- **Handoff:** Present both sets of scenarios to the human and wait for approval before proceeding.
+
+- Scan existing acceptance tests to find behaviours not yet covered by any scenario — propose these as **Legacy Coverage**.
+- Produce Gherkin scenarios for the new feature (one per acceptance criterion) and the Legacy Coverage proposals.
+- If the human approves Legacy Coverage, add them to the GitHub issue under a `## Legacy Coverage` section.
+- Present both sets to the human and wait for approval. STOP — do not proceed further.
 
 ### Manager Agent
 
-The Manager Agent is the entry point for the entire pipeline. It:
-
-1. Reads the GitHub project board and picks the **top card in the Ready column**.
-2. Moves that card to **In Progress**.
-3. Feeds the story into the Story Agent and orchestrates the full pipeline to completion.
-4. Stories are processed **sequentially** — one at a time, top card first.
-
-### Test Agent
-- **Input:** Approved Gherkin scenarios (Legacy Coverage first, then new feature scenarios)
-- **WRITE output:** Written test code, presented to human for approval — not yet committed
-- **COMMIT output:** Committed acceptance tests (`@Disabled("AT · RED · TEST · WRITE")`)
-- **Governed by:** `acceptance-tests.md` — AT · RED · TEST · WRITE and AT · RED · TEST · COMMIT phases
-- **Ordering:** Legacy Coverage scenarios are written before new feature scenarios within the same test class.
-- **Handoff:** Tests committed, test class name passed to DSL Agent
-
-### DSL Agent
-- **Input:** Test class name and failing tests
-- **WRITE output:** DSL implementation + driver interface signatures, presented to human for approval — not yet committed
-- **COMMIT output:** Driver stubs added, tests committed (`@Disabled("AT · RED · DSL · WRITE")`)
-- **Governed by:** `acceptance-tests.md` — AT · RED · DSL · WRITE and AT · RED · DSL · COMMIT phases; `dsl-core.md` for coding rules
-- **Handoff:** Driver interface signatures passed to Driver Agent
-
-### Driver Agent
-- **Input:** Driver interface signatures and disabled tests
-- **WRITE output:** Implemented drivers, presented to human for approval — not yet committed
-- **COMMIT output:** Tests committed (`@Disabled("AT · RED · DRIVER · WRITE")`)
-- **Governed by:** `acceptance-tests.md` — AT · RED · DRIVER · WRITE and AT · RED · DRIVER · COMMIT phases; `driver-port.md` for coding rules
-- **Handoff:** Orchestrator routes to contract-tests sub-process or AT · GREEN · SYSTEM · WRITE based on DSL agent's external system flag
-
-### Backend Agent
-- **Input:** Driver interfaces, existing backend codebase
-- **Output:** Backend changes that make API acceptance tests pass
-- **Governed by:** `acceptance-tests.md` — AT · GREEN · SYSTEM · WRITE (backend)
-- **Constraint:** Must NOT change tests, DSL, or drivers — only backend code.
-- **Handoff:** API acceptance tests passing
-
-### Frontend Agent
-- **Input:** Working backend, existing frontend codebase
-- **Output:** Frontend changes that make UI acceptance tests pass
-- **Governed by:** `acceptance-tests.md` — AT · GREEN · SYSTEM · WRITE (frontend)
-- **Constraint:** Must NOT change tests, DSL, or drivers — only frontend code.
-- **Handoff:** All acceptance tests passing
-
-### Release Agent
-- **Input:** All acceptance tests passing
-- **Output:** `@Disabled` removed, final commit `<Scenario> | AT · GREEN · SYSTEM · COMMIT`
-- **Governed by:** `acceptance-tests.md` — AT · GREEN · SYSTEM · COMMIT phase
-- **Handoff:** Present outcome to human for review.
-
-## Escalation Rule
-
-Any agent that encounters a situation not covered by existing patterns must STOP and ask the
-human rather than guess. Examples:
-- A new abstraction with no existing precedent in the codebase
-- A test failure with an unclear cause after one retry
-- An ambiguous acceptance criterion that could map to multiple implementations
-
-## Optional Sub-Process
-
-If the DSL Agent reports **external system interfaces changed = yes** (i.e. any new methods were added to interfaces under `external/`), the orchestrator invokes the Contract Tests pipeline defined in `contract-tests.md` (CT · RED · TEST · WRITE → CT · RED · TEST · COMMIT → CT · GREEN · STUBS · WRITE → CT · GREEN · STUBS · COMMIT) before proceeding to AT · GREEN · SYSTEM · WRITE.
+- Read the GitHub project board and pick the **top card in the Ready column**.
+- Move that card to **In Progress**.
+- Pass the issue to the orchestrator to run the full pipeline.
+- Stories are processed **sequentially** — one at a time, top card first.
