@@ -31,7 +31,7 @@ If a GitHub issue number was provided as input, prefix every commit message with
      1. Legacy Coverage scenarios (from the `## Legacy Coverage` section of the ticket, if any)
      2. New feature scenarios that use only existing DSL
      3. New feature scenarios that need new DSL
-   - **Attempt to compile.** If compilation fails, find the first test that causes a compile error. Convert that test and every test after it back into a `// TODO: <Scenario Name>` comment — no method body. Keep only the tests before the first compile error as real test methods.
+   - **Attempt to compile.** If compilation fails, find the first test that causes a compile error. Keep it as a real method — compile errors on the first new-DSL test are expected and intentional, and the method is needed to drive the DSL implementation. Convert every test **after** the first compile error back into a `// TODO: <Scenario Name>` comment — no method body. The result is: all tests before the first compile error are real methods, the first compile-error test is a real method, and everything after it is a TODO.
    - After writing each test, verify it matches the acceptance criteria exactly — Given maps to Given, When maps to When, Then maps to Then. Every precondition stated in the scenario must appear in the test. If anything is unclear, ask before proceeding.
 2. Run the tests and verify they fail (compile error is expected if new DSL methods are needed):
    ```
