@@ -4,13 +4,7 @@ _This process is only triggered when the DSL Agent (AT - RED - DSL - WRITE) repo
 
 _If the External System does not even exist yet, make Smoke Tests pass first._
 
-## Terminal Bell
-
-Before every STOP, ring the terminal bell to notify the user:
-```
-powershell -command "[console]::beep(800, 300)"
-```
-**Important:** The bell must be run by the **orchestrating agent** in the main conversation — not inside a subagent.
+See `terminal-bell.md` for the terminal bell command.
 
 ## Commit Message Format
 

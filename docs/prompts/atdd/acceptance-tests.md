@@ -4,11 +4,7 @@
 
 Proceed to the next phase automatically **unless** the current phase ends with **STOP**. When a phase ends with STOP, wait for the user to explicitly approve before continuing. If the user says something other than approval after a STOP, ask clarifying questions — do not execute the next phase.
 
-**Terminal bell:** Before every STOP, ring the terminal bell to notify the user:
-```
-powershell -command "[console]::beep(800, 300)"
-```
-**Important:** The bell must be run by the **orchestrating agent** in the main conversation — not inside a subagent. If a subagent performs a STOP phase, the orchestrating agent must ring the bell itself after the subagent returns.
+See `terminal-bell.md` for the terminal bell command.
 
 ---
 
