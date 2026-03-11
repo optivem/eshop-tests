@@ -35,6 +35,47 @@ Runs the full ATDD pipeline (Story → Test → DSL → Driver → Backend → F
 
 Picks the top card from the **Ready** column of the GitHub project board, moves it to **In Progress**, and runs `/implement-story` on it.
 
+## Pipeline
+
+```
+User Story
+    │
+    ▼
+[Story Agent]      →  Gherkin scenarios
+                   →  Legacy Coverage               ← HUMAN APPROVES BOTH
+    │
+    ▼
+    ┌─────────────────────────────────────────────────────────────────┐
+    │  Per-scenario loop (repeats until all scenarios GREEN)          │
+    │                                                                 │
+    │  [Test Agent]    →  Acceptance tests   AT · RED · TEST · WRITE  │
+    │      │                                              ← HUMAN     │
+    │  [Test Agent]    →  Commit tests      AT · RED · TEST · COMMIT  │
+    │      ▼                                                          │
+    │  [DSL Agent]     →  DSL + interfaces  AT · RED · DSL · WRITE    │
+    │      │                                              ← HUMAN     │
+    │  [DSL Agent]     →  Commit DSL        AT · RED · DSL · COMMIT   │
+    │      ▼                                                          │
+    │  [Driver Agent]  →  Drivers          AT · RED · DRIVER · WRITE  │
+    │      │                                              ← HUMAN     │
+    │  [Driver Agent]  →  Commit drivers  AT · RED · DRIVER · COMMIT  │
+    │      │                                                          │
+    │      ├── external/ changed? ► CT sub-process                    │
+    │      │                                                          │
+    │  [Backend Agent] →  Working backend  AT · GREEN · SYSTEM · WRITE│
+    │  [Frontend Agent]→  Working frontend AT · GREEN · SYSTEM · WRITE│
+    │  [Release Agent] →  Final commit    AT · GREEN · SYSTEM · COMMIT│
+    │      │                                                          │
+    │      └── remaining scenarios? ──► loop back                     │
+    └─────────────────────────────────────────────────────────────────┘
+    │
+    ▼
+                                                   ← HUMAN REVIEWS OUTCOME
+```
+
+**New DSL needed:** the loop processes one scenario at a time — the Test Agent implements the first and leaves the rest as `// TODO:` comments.
+**Existing DSL only:** all scenarios are implemented in a single pass.
+
 ## License
 
 [![MIT License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)
