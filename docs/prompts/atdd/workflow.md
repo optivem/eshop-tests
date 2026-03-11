@@ -7,7 +7,7 @@ specialized agents. Human input is required at five points.
 
 ## Human Touchpoints
 
-1. **Gherkin approval** — after the Story Agent produces Gherkin scenarios, the human reviews and approves them. This is the opportunity to correct business intent before implementation begins.
+1. **Gherkin + coverage gap approval** — after the Story Agent produces Gherkin scenarios and identifies coverage gaps in existing functionality, the human reviews and approves both. This is the opportunity to correct business intent and confirm which existing behaviours should be retroactively covered before new work begins.
 2. **Test approval** — after the Test Agent writes the acceptance tests (RED 1 WRITE), the human reviews the test code before it is committed. This catches translation errors from Gherkin to code before DSL, drivers, and backend are built on top.
 3. **DSL approval** — after the DSL Agent implements the DSL (RED 2 WRITE), the human reviews the DSL design and driver interface signatures before they are committed. DSL method names and driver DTOs are the architectural contract — errors here cascade into all downstream agents.
 4. **Driver approval** — after the Driver Agent completes RED 3, the human reviews the driver implementation before backend/frontend work begins. This validates the full test spec (tests + DSL + drivers) as a unit, preventing agents from chasing false failures caused by a wrong driver.
@@ -19,7 +19,8 @@ specialized agents. Human input is required at five points.
 User Story
     │
     ▼
-[Story Agent]      →  Gherkin scenarios           ← HUMAN APPROVES
+[Story Agent]      →  Gherkin scenarios
+                   →  Legacy Coverage             ← HUMAN APPROVES BOTH
     │
     ▼
     ┌─────────────────────────────────────────────────────────┐
@@ -73,15 +74,18 @@ The approach depends on whether new DSL is needed:
 
 ### Story Agent
 - **Input:** User story in natural language
-- **Output:** Gherkin scenarios (Given/When/Then)
-- **Rules:** One scenario per acceptance criterion. Minimal, focused — no noise.
-- **Handoff:** Present Gherkin to human and wait for approval before proceeding.
+- **Output (new scenarios):** Gherkin scenarios (Given/When/Then) for the new feature — one scenario per acceptance criterion, minimal and focused.
+- **Output (coverage gaps):** Proposed **Legacy Coverage** — Gherkin scenarios for existing functionality related to the user story that is not yet covered by acceptance tests. These describe behaviour that already exists in the system but has never been formally specified.
+- **Analysis:** Scan existing acceptance test files for the relevant use case(s). Identify behaviours that are exercised by the application but not described by any existing scenario. Propose these as Legacy Coverage.
+- **Ticket update:** If the human approves any Legacy Coverage, add them to the GitHub issue under a `## Legacy Coverage` section.
+- **Handoff:** Present both sets of scenarios to the human and wait for approval before proceeding.
 
 ### Test Agent
-- **Input:** Approved Gherkin scenarios
+- **Input:** Approved Gherkin scenarios (Legacy Coverage first, then new feature scenarios)
 - **WRITE output:** Written test code, presented to human for approval — not yet committed
 - **COMMIT output:** Committed acceptance tests (`@Disabled("RED 1 - Tests")`)
 - **Governed by:** `acceptance-tests.md` — RED 1 (WRITE + STOP) and RED 1 (COMMIT) phases
+- **Ordering:** Coverage Prerequisite scenarios are written before new feature scenarios within the same test class.
 - **Handoff:** Tests committed, test class name passed to DSL Agent
 
 ### DSL Agent

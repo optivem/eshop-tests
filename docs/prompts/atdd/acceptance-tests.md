@@ -21,7 +21,10 @@ If a test covers both channels, run both suites.
    - Each Gherkin scenario maps directly to one test method — one-to-one, no interpretation needed.
    - Only specify the minimum data needed — inputs directly relevant to what is being tested, and assertions directly relevant to the expected outcome. Do not add extra fields, extra assertions, or noise. If a field is not relevant to the scenario being tested, omit it entirely and let the DSL use its default value.
    - If the DSL needs to be extended with new methods, call them directly in the test as if they exist — do not add them to the DSL interface yet. Compile errors are expected and intentional.
-   - **Write all scenarios as test methods**, ordering: scenarios that use only existing DSL first, scenarios that need new DSL last.
+   - **Scenario ordering within the test class:**
+     1. Legacy Coverage scenarios (from the `## Legacy Coverage` section of the ticket, if any)
+     2. New feature scenarios that use only existing DSL
+     3. New feature scenarios that need new DSL
    - **Attempt to compile.** If compilation fails, find the first test that causes a compile error. Convert that test and every test after it back into a `// TODO: <Scenario Name>` comment — no method body. Keep only the tests before the first compile error as real test methods.
    - After writing each test, verify it matches the acceptance criteria exactly — Given maps to Given, When maps to When, Then maps to Then. Every precondition stated in the scenario must appear in the test. If anything is unclear, ask before proceeding.
 2. Run the tests and verify they fail (compile error is expected if new DSL methods are needed):
