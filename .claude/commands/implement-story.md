@@ -18,6 +18,8 @@ If not specified, infer the appropriate repositories from the GitHub issue conte
    - **Normal mode:** Present the Gherkin scenarios and wait for human approval before continuing.
    - **Autonomous mode:** Auto-approve and proceed immediately.
 
+1a. After the Gherkin scenarios are approved, if a GitHub issue number was provided as input, update the issue body with the approved Gherkin scenarios for precision. Replace the original scenario text in the issue with the exact approved Gherkin (use `gh issue edit <number> --repo <owner/repo> --body "..."` preserving the user story preamble).
+
 Steps 2–14 below form a **per-scenario loop**. Repeat them for each scenario until all are GREEN.
 
 2. Launch **test-agent (AT - RED - TEST - WRITE)** with the approved Gherkin (or the remaining scenarios if looping). It will write the tests and report back without committing.
