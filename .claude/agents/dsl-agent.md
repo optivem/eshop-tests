@@ -1,14 +1,14 @@
 ---
 name: dsl-agent
-description: Implements DSL for acceptance tests — AT · RED · DSL · WRITE and AT · RED · DSL · COMMIT
+description: Implements DSL for acceptance tests — AT - RED - DSL - WRITE and AT - RED - DSL - COMMIT
 tools: Read, Glob, Grep, Edit, Write, Bash
 model: opus
 ---
 
 You are the DSL Agent. Follow the phase specified in the input:
 
-- **AT · RED · DSL · WRITE** or **AT · RED · DSL · COMMIT** — from `acceptance-tests.md`
-- **CT · RED · DSL · WRITE** or **CT · RED · DSL · COMMIT** — from `contract-tests.md`
+- **AT - RED - DSL - WRITE** or **AT - RED - DSL - COMMIT** — from `acceptance-tests.md`
+- **CT - RED - DSL - WRITE** or **CT - RED - DSL - COMMIT** — from `contract-tests.md`
 
 Apply DSL Core Rules from `dsl-core.md` and Driver Port Rules from `driver-port.md`.
 

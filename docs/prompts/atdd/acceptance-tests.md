@@ -18,9 +18,9 @@ If a test covers both channels, run both suites.
 
 Every commit message follows the pattern: `<Scenario> | <Phase>`.
 
-If a GitHub issue number was provided as input, prefix every commit message with `#<issue-number> | `. Example: `#42 | Register Customer | AT · RED · TEST`.
+If a GitHub issue number was provided as input, prefix every commit message with `#<issue-number> | `. Example: `#42 | Register Customer | AT - RED - TEST`.
 
-## AT · RED · TEST · WRITE (STOP)
+## AT - RED - TEST - WRITE (STOP)
 
 1. Write the acceptance tests, following these rules:
    - Write acceptance tests only — do not implement anything.
@@ -40,9 +40,9 @@ If a GitHub issue number was provided as input, prefix every commit message with
    ```
 3. STOP. Present the tests to the user and ask for approval. Do NOT continue.
 
-## AT · RED · TEST · COMMIT
+## AT - RED - TEST - COMMIT
 
-1. If there were compile-time errors in AT · RED · TEST · WRITE:
+1. If there were compile-time errors in AT - RED - TEST - WRITE:
    a. Extend the DSL interfaces with the new methods.
    b. Implement the new methods by throwing a "TODO: DSL" not-implemented exception (see `language-equivalents.md`) — do not implement DSL.
    c. Run the tests and verify they fail with a runtime error:
@@ -50,19 +50,19 @@ If a GitHub issue number was provided as input, prefix every commit message with
       .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
       .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
       ```
-2. Mark the tests as disabled with reason `"AT · RED · TEST"` (see `language-equivalents.md` for syntax).
-3. COMMIT with message `<Scenario> | AT · RED · TEST`.
+2. Mark the tests as disabled with reason `"AT - RED - TEST"` (see `language-equivalents.md` for syntax).
+3. COMMIT with message `<Scenario> | AT - RED - TEST`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
-## AT · RED · DSL · WRITE (STOP)
+## AT - RED - DSL - WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"AT · RED · TEST"`.
+1. Enable the tests marked disabled with reason `"AT - RED - TEST"`.
 2. Implement the DSL for real — replace the "TODO: DSL" stub with actual logic.
 3. Update the Driver interfaces as needed.
 4. Check whether any new or changed driver interfaces are in an `external/` package (e.g. `driver-port/.../external/clock`). Set a flag: **external system interfaces changed = yes/no**.
 5. STOP. Present the DSL implementation, Driver interface changes, and the external system interfaces flag to the user and ask for approval. Do NOT continue.
 
-## AT · RED · DSL · COMMIT
+## AT - RED - DSL - COMMIT
 
 1. Implement the Drivers by throwing a "TODO: Driver" not-implemented exception (see `language-equivalents.md`).
 2. Run the tests and verify they fail with a runtime error:
@@ -70,30 +70,30 @@ If a GitHub issue number was provided as input, prefix every commit message with
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
    .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
    ```
-3. Mark the tests as disabled with reason `"AT · RED · DSL"` (see `language-equivalents.md` for syntax).
+3. Mark the tests as disabled with reason `"AT - RED - DSL"` (see `language-equivalents.md` for syntax).
 4. Ensure that there are no test files in the list of changed files.
-5. COMMIT with message `<Scenario> | AT · RED · DSL`.
-6. Automatically proceed to AT · RED · DRIVER · WRITE (STOP).
+5. COMMIT with message `<Scenario> | AT - RED - DSL`.
+6. Automatically proceed to AT - RED - DRIVER - WRITE (STOP).
 
-## AT · RED · DRIVER · WRITE (STOP)
+## AT - RED - DRIVER - WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"AT · RED · DSL"`.
+1. Enable the tests marked disabled with reason `"AT - RED - DSL"`.
 2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
    - Only look at files in the `driver-adapter` and `driver-port` directories.
    - Do NOT read or search backend/frontend source code. Model the new method on existing driver methods in the same file.
 3. Run the tests and verify they fail with a runtime error.
 4. STOP. Present the Driver implementation to the user and ask for approval. Do NOT continue.
 
-## AT · RED · DRIVER · COMMIT
+## AT - RED - DRIVER - COMMIT
 
-1. Mark the tests as disabled with reason `"AT · RED · DRIVER"` (see `language-equivalents.md` for syntax).
+1. Mark the tests as disabled with reason `"AT - RED - DRIVER"` (see `language-equivalents.md` for syntax).
 2. Ensure no test files are in the list of changed files.
-3. COMMIT with message `<Scenario> | AT · RED · DRIVER`.
+3. COMMIT with message `<Scenario> | AT - RED - DRIVER`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
-_See `contract-tests.md` for the CT · RED · TEST · WRITE and CT · GREEN · STUBS · COMMIT phases (triggered by the orchestrator when AT · RED · DSL · WRITE reported external system interface changes)._
+_See `contract-tests.md` for the CT - RED - TEST - WRITE and CT - GREEN - STUBS - COMMIT phases (triggered by the orchestrator when AT - RED - DSL - WRITE reported external system interface changes)._
 
-## AT · GREEN · SYSTEM · WRITE (STOP)
+## AT - GREEN - SYSTEM - WRITE (STOP)
 
 1. Implement the backend:
    a. Implement the backend changes.
@@ -116,20 +116,20 @@ _See `contract-tests.md` for the CT · RED · TEST · WRITE and CT · GREEN · S
 3. By now, all acceptance tests should be passing.
 4. STOP. Present the implementation to the user and ask for approval. Do NOT continue.
 
-## AT · GREEN · SYSTEM · COMMIT
+## AT - GREEN - SYSTEM - COMMIT
 
-1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | AT · GREEN · SYSTEM`.
-2. Remove the disabled annotation (reason `"AT · RED · DRIVER"`) from the tests.
+1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | AT - GREEN - SYSTEM`.
+2. Remove the disabled annotation (reason `"AT - RED - DRIVER"`) from the tests.
 3. Run the tests and verify they all pass:
    ```
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
    .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
    ```
 4. Ensure that there are no non-test files in the list of changed files in the `eshop-tests` repository.
-5. COMMIT in the `eshop-tests` repository with message `<Scenario> | AT · GREEN · SYSTEM`.
+5. COMMIT in the `eshop-tests` repository with message `<Scenario> | AT - GREEN - SYSTEM`.
 6. If a GitHub issue was provided as input, tick the checkbox for the completed acceptance criterion in that issue.
 7. If all acceptance criteria in the issue are now ticked, and the issue belongs to a GitHub project, move the issue to the **In Review** status in that project.
-8. If there are remaining `// TODO:` scenarios in the test file, return to AT · RED · TEST · WRITE for the next scenario.
+8. If there are remaining `// TODO:` scenarios in the test file, return to AT - RED - TEST - WRITE for the next scenario.
 
 
 # TODO: VJ: Need to add insutrctions regarding handling legacy code...

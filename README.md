@@ -59,29 +59,29 @@ GitHub Project Board       User Story (free text or issue #)
     ┌──────────────────────────────────────────────────────────────────┐
     │  Per-scenario loop (repeats until all scenarios GREEN)           │
     │                                                                  │
-    │  [Test Agent]    →  writes tests     AT · RED · TEST · WRITE     │
+    │  [Test Agent]    →  writes tests     AT - RED - TEST - WRITE     │
     │                                                                  │
     │                              ← HUMAN APPROVES TESTS             │
     │                                                                  │
-    │  [Test Agent]    →  commits tests    AT · RED · TEST · COMMIT    │
+    │  [Test Agent]    →  commits tests    AT - RED - TEST - COMMIT    │
     │                                                                  │
-    │  [DSL Agent]     →  writes DSL       AT · RED · DSL · WRITE      │
+    │  [DSL Agent]     →  writes DSL       AT - RED - DSL - WRITE      │
     │                                                                  │
     │                              ← HUMAN APPROVES DSL               │
     │                                                                  │
-    │  [DSL Agent]     →  commits DSL      AT · RED · DSL · COMMIT     │
+    │  [DSL Agent]     →  commits DSL      AT - RED - DSL - COMMIT     │
     │                                                                  │
-    │  [Driver Agent]  →  writes drivers   AT · RED · DRIVER · WRITE   │
+    │  [Driver Agent]  →  writes drivers   AT - RED - DRIVER - WRITE   │
     │                                                                  │
     │                              ← HUMAN APPROVES DRIVERS           │
     │                                                                  │
-    │  [Driver Agent]  →  commits drivers  AT · RED · DRIVER · COMMIT  │
+    │  [Driver Agent]  →  commits drivers  AT - RED - DRIVER - COMMIT  │
     │                                                                  │
     │      ├── external/ changed? ──► CT sub-process (see below)       │
     │                                                                  │
-    │  [Backend Agent] →  backend passing  AT · GREEN · SYSTEM · WRITE │
-    │  [Frontend Agent]→  frontend passing AT · GREEN · SYSTEM · WRITE │
-    │  [Release Agent] →  final commit     AT · GREEN · SYSTEM · COMMIT│
+    │  [Backend Agent] →  backend passing  AT - GREEN - SYSTEM - WRITE │
+    │  [Frontend Agent]→  frontend passing AT - GREEN - SYSTEM - WRITE │
+    │  [Release Agent] →  final commit     AT - GREEN - SYSTEM - COMMIT│
     │                                                                  │
     │      └── remaining // TODO: scenarios? ──► loop back             │
     └──────────────────────────────────────────────────────────────────┘
@@ -92,10 +92,10 @@ GitHub Project Board       User Story (free text or issue #)
 **CT sub-process** (only when `external/` interfaces changed):
 
 ```
-CT · RED · TEST · WRITE  →  CT · RED · TEST · COMMIT
-CT · RED · DSL · WRITE   →  CT · RED · DSL · COMMIT
-CT · RED · DRIVER · WRITE →  CT · RED · DRIVER · COMMIT
-CT · GREEN · STUBS · WRITE →  CT · GREEN · STUBS · COMMIT
+CT - RED - TEST - WRITE  →  CT - RED - TEST - COMMIT
+CT - RED - DSL - WRITE   →  CT - RED - DSL - COMMIT
+CT - RED - DRIVER - WRITE →  CT - RED - DRIVER - COMMIT
+CT - GREEN - STUBS - WRITE →  CT - GREEN - STUBS - COMMIT
 ```
 
 **New DSL needed:** the loop processes one scenario at a time — the Test Agent implements the first and leaves the rest as `// TODO:` comments.
