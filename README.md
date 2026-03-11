@@ -38,13 +38,20 @@ Picks the top card from the **Ready** column of the GitHub project board, moves 
 ## Pipeline
 
 ```
-User Story
-    │
-    ▼
-[Story Agent]      →  Gherkin scenarios
-                   →  Legacy Coverage               ← HUMAN APPROVES BOTH
-    │
-    ▼
+GitHub Project Board          User Story (free text or issue #)
+        │                                  │
+        ▼                                  │
+[Manager Agent]                            │
+  picks top Ready card                     │
+  moves to In Progress                     │
+        │                                  │
+        └──────────────┬───────────────────┘
+                       │
+                       ▼
+              [Story Agent]      →  Gherkin scenarios
+                                 →  Legacy Coverage        ← HUMAN APPROVES BOTH
+                       │
+                       ▼
     ┌─────────────────────────────────────────────────────────────────┐
     │  Per-scenario loop (repeats until all scenarios GREEN)          │
     │                                                                 │
@@ -52,9 +59,9 @@ User Story
     │      │                                              ← HUMAN     │
     │  [Test Agent]    →  Commit tests      AT · RED · TEST · COMMIT  │
     │      ▼                                                          │
-    │  [DSL Agent]     →  DSL + interfaces  AT · RED · DSL · WRITE    │
+    │  [DSL Agent]     →  DSL + interfaces   AT · RED · DSL · WRITE   │
     │      │                                              ← HUMAN     │
-    │  [DSL Agent]     →  Commit DSL        AT · RED · DSL · COMMIT   │
+    │  [DSL Agent]     →  Commit DSL         AT · RED · DSL · COMMIT  │
     │      ▼                                                          │
     │  [Driver Agent]  →  Drivers          AT · RED · DRIVER · WRITE  │
     │      │                                              ← HUMAN     │
@@ -68,8 +75,8 @@ User Story
     │      │                                                          │
     │      └── remaining scenarios? ──► loop back                     │
     └─────────────────────────────────────────────────────────────────┘
-    │
-    ▼
+                       │
+                       ▼
                                                    ← HUMAN REVIEWS OUTCOME
 ```
 
