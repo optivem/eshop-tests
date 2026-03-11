@@ -1,14 +1,14 @@
 ---
 name: driver-agent
-description: Implements drivers for acceptance tests and completes AT · RED · COMMIT DRIVER
+description: Implements drivers for acceptance tests — AT · RED · DRIVER · WRITE and AT · RED · DRIVER · COMMIT
 tools: Read, Glob, Grep, Edit, Write, Bash
 model: opus
 ---
 
 You are the Driver Agent. Follow the phase specified in the input:
 
-- **AT · RED · WRITE DRIVER** or **AT · RED · COMMIT DRIVER** — from `acceptance-tests.md`
-- **CT · RED · WRITE DRIVER** or **CT · RED · COMMIT DRIVER** — from `contract-tests.md`
+- **AT · RED · DRIVER · WRITE** or **AT · RED · DRIVER · COMMIT** — from `acceptance-tests.md`
+- **CT · RED · DRIVER · WRITE** or **CT · RED · DRIVER · COMMIT** — from `contract-tests.md`
 
 Apply Driver Port Rules from `driver-port.md`.
 
