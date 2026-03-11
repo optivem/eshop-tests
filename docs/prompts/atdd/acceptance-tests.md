@@ -14,7 +14,7 @@ Each acceptance test is annotated with a channel. Use the matching suite placeho
 
 If a test covers both channels, run both suites.
 
-## RED 1 - Acceptance Tests (WRITE + STOP)
+## RED · WRITE TEST (STOP)
 
 1. Write the acceptance tests, following these rules:
    - Write acceptance tests only — do not implement anything.
@@ -34,9 +34,9 @@ If a test covers both channels, run both suites.
    ```
 3. STOP. Present the tests to the user and ask for approval. Do NOT continue.
 
-## RED 1 - Acceptance Tests (COMMIT)
+## RED · COMMIT TEST
 
-1. If there were compile-time errors in RED 1 (WRITE + STOP):
+1. If there were compile-time errors in RED · WRITE TEST:
    a. Extend the DSL interfaces with the new methods.
    b. Implement the new methods by throwing a "TODO: DSL" not-implemented exception (see `language-equivalents.md`) — do not implement DSL.
    c. Run the tests and verify they fail with a runtime error:
@@ -44,19 +44,19 @@ If a test covers both channels, run both suites.
       .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
       .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
       ```
-2. Mark the tests as disabled with reason `"RED 1 - Tests"` (see `language-equivalents.md` for syntax).
-3. COMMIT with message `<Scenario> | RED 1 - Tests`.
+2. Mark the tests as disabled with reason `"RED · WRITE TEST"` (see `language-equivalents.md` for syntax).
+3. COMMIT with message `<Scenario> | RED · COMMIT TEST`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
-## RED 2 - DSL (WRITE + STOP)
+## RED · WRITE DSL (STOP)
 
-1. Enable the tests marked disabled with reason `"RED 1 - Tests"`.
+1. Enable the tests marked disabled with reason `"RED · WRITE TEST"`.
 2. Implement the DSL for real — replace the "TODO: DSL" stub with actual logic.
 3. Update the Driver interfaces as needed.
 4. Check whether any new or changed driver interfaces are in an `external/` package (e.g. `driver-port/.../external/clock`). Set a flag: **external system interfaces changed = yes/no**.
 5. STOP. Present the DSL implementation, Driver interface changes, and the external system interfaces flag to the user and ask for approval. Do NOT continue.
 
-## RED 2 - DSL (COMMIT)
+## RED · COMMIT DSL
 
 1. Implement the Drivers by throwing a "TODO: Driver" not-implemented exception (see `language-equivalents.md`).
 2. Run the tests and verify they fail with a runtime error:
@@ -64,30 +64,30 @@ If a test covers both channels, run both suites.
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
    .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
    ```
-3. Mark the tests as disabled with reason `"RED 2 - DSL"` (see `language-equivalents.md` for syntax).
+3. Mark the tests as disabled with reason `"RED · WRITE DSL"` (see `language-equivalents.md` for syntax).
 4. Ensure that there are no test files in the list of changed files.
-5. COMMIT with message `<Scenario> | RED 2 - DSL`.
-6. Automatically proceed to RED 3 (WRITE + STOP).
+5. COMMIT with message `<Scenario> | RED · COMMIT DSL`.
+6. Automatically proceed to RED · WRITE DRIVER (STOP).
 
-## RED 3 - Driver (WRITE + STOP)
+## RED · WRITE DRIVER (STOP)
 
-1. Enable the tests marked disabled with reason `"RED 2 - DSL"`.
+1. Enable the tests marked disabled with reason `"RED · WRITE DSL"`.
 2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
    - Only look at files in the `driver-adapter` and `driver-port` directories.
    - Do NOT read or search backend/frontend source code. Model the new method on existing driver methods in the same file.
 3. Run the tests and verify they fail with a runtime error.
 4. STOP. Present the Driver implementation to the user and ask for approval. Do NOT continue.
 
-## RED 3 - Driver (COMMIT)
+## RED · COMMIT DRIVER
 
-1. Mark the tests as disabled with reason `"RED 3 - Driver"` (see `language-equivalents.md` for syntax).
+1. Mark the tests as disabled with reason `"RED · WRITE DRIVER"` (see `language-equivalents.md` for syntax).
 2. Ensure no test files are in the list of changed files.
-3. COMMIT with message `<Scenario> | RED 3 - Driver`.
+3. COMMIT with message `<Scenario> | RED · COMMIT DRIVER`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
-_See `contract-tests.md` for the RED 1 - Contract Tests and GREEN - External System Stubs phases (triggered by the orchestrator when RED 2 reported external system interface changes)._
+_See `contract-tests.md` for the RED · WRITE TEST [Contract] and GREEN · COMMIT STUBS phases (triggered by the orchestrator when RED · WRITE DSL reported external system interface changes)._
 
-## GREEN 2 - System (WRITE + STOP)
+## GREEN · WRITE SYSTEM (STOP)
 
 1. Implement the backend:
    a. Implement the backend changes.
@@ -110,20 +110,20 @@ _See `contract-tests.md` for the RED 1 - Contract Tests and GREEN - External Sys
 3. By now, all acceptance tests should be passing.
 4. STOP. Present the implementation to the user and ask for approval. Do NOT continue.
 
-## GREEN 2 - System (COMMIT)
+## GREEN · COMMIT SYSTEM
 
-1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | GREEN - System`.
-2. Remove the disabled annotation (reason `"RED 3 - Driver"`) from the tests.
+1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | GREEN · COMMIT SYSTEM`.
+2. Remove the disabled annotation (reason `"RED · WRITE DRIVER"`) from the tests.
 3. Run the tests and verify they all pass:
    ```
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>
    .\Run-SystemTests.ps1 -Suite <acceptance-ui> -Test <TestMethodName>
    ```
 4. Ensure that there are no non-test files in the list of changed files in the `eshop-tests` repository.
-5. COMMIT in the `eshop-tests` repository with message `<Scenario> | GREEN - System`.
+5. COMMIT in the `eshop-tests` repository with message `<Scenario> | GREEN · COMMIT SYSTEM`.
 6. If a GitHub issue was provided as input, tick the checkbox for the completed acceptance criterion in that issue.
 7. If all acceptance criteria in the issue are now ticked, and the issue belongs to a GitHub project, move the issue to the **In Review** status in that project.
-8. If there are remaining `// TODO:` scenarios in the test file, return to RED 1 (WRITE + STOP) for the next scenario.
+8. If there are remaining `// TODO:` scenarios in the test file, return to RED · WRITE TEST for the next scenario.
 
 
 # TODO: VJ: Need to add insutrctions regarding handling legacy code...

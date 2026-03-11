@@ -64,7 +64,7 @@
   <!-- ── TEST AGENT RED 1 WRITE ── -->
   <rect x="295" y="408" width="310" height="50" rx="8" fill="#c0392b" stroke="#922b21" stroke-width="1.5"/>
   <text x="450" y="429" text-anchor="middle" fill="white" font-weight="bold">Test Agent</text>
-  <text x="450" y="448" text-anchor="middle" fill="#fdd" font-size="11">RED 1 WRITE — Legacy Coverage first, then new scenarios</text>
+  <text x="450" y="448" text-anchor="middle" fill="#fdd" font-size="11">RED · WRITE TEST — Legacy Coverage first, then new scenarios</text>
 
   <line x1="450" y1="458" x2="450" y2="480" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
@@ -77,14 +77,14 @@
   <!-- TEST AGENT RED 1 COMMIT -->
   <rect x="310" y="538" width="280" height="44" rx="8" fill="#e74c3c" stroke="#922b21" stroke-width="1.5"/>
   <text x="450" y="555" text-anchor="middle" fill="white" font-weight="bold">Test Agent</text>
-  <text x="450" y="572" text-anchor="middle" fill="#fdd" font-size="11">RED 1 COMMIT  ·  @Disabled("RED 1 - Tests")</text>
+  <text x="450" y="572" text-anchor="middle" fill="#fdd" font-size="11">RED · COMMIT TEST  ·  @Disabled("RED · WRITE TEST")</text>
 
   <line x1="450" y1="582" x2="450" y2="604" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- DSL AGENT RED 2 WRITE -->
   <rect x="295" y="604" width="310" height="44" rx="8" fill="#d35400" stroke="#a04000" stroke-width="1.5"/>
   <text x="450" y="621" text-anchor="middle" fill="white" font-weight="bold">DSL Agent</text>
-  <text x="450" y="638" text-anchor="middle" fill="#ffe" font-size="11">RED 2 WRITE — DSL + Driver interfaces</text>
+  <text x="450" y="638" text-anchor="middle" fill="#ffe" font-size="11">RED · WRITE DSL — DSL + Driver interfaces</text>
 
   <line x1="450" y1="648" x2="450" y2="670" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
@@ -97,14 +97,14 @@
   <!-- DSL AGENT RED 2 COMMIT -->
   <rect x="310" y="728" width="280" height="44" rx="8" fill="#e67e22" stroke="#a04000" stroke-width="1.5"/>
   <text x="450" y="745" text-anchor="middle" fill="white" font-weight="bold">DSL Agent</text>
-  <text x="450" y="762" text-anchor="middle" fill="#ffe" font-size="11">RED 2 COMMIT  ·  @Disabled("RED 2 - DSL")</text>
+  <text x="450" y="762" text-anchor="middle" fill="#ffe" font-size="11">RED · COMMIT DSL  ·  @Disabled("RED · WRITE DSL")</text>
 
   <line x1="450" y1="772" x2="450" y2="794" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- DRIVER AGENT RED 3 WRITE -->
   <rect x="295" y="794" width="310" height="44" rx="8" fill="#b7950b" stroke="#8a6d0a" stroke-width="1.5"/>
   <text x="450" y="811" text-anchor="middle" fill="white" font-weight="bold">Driver Agent</text>
-  <text x="450" y="828" text-anchor="middle" fill="#fff8cc" font-size="11">RED 3 WRITE — Driver implementations</text>
+  <text x="450" y="828" text-anchor="middle" fill="#fff8cc" font-size="11">RED · WRITE DRIVER — Driver implementations</text>
 
   <line x1="450" y1="838" x2="450" y2="860" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
@@ -117,7 +117,7 @@
   <!-- DRIVER AGENT RED 3 COMMIT -->
   <rect x="310" y="918" width="280" height="44" rx="8" fill="#d4ac0d" stroke="#8a6d0a" stroke-width="1.5"/>
   <text x="450" y="935" text-anchor="middle" fill="white" font-weight="bold">Driver Agent</text>
-  <text x="450" y="952" text-anchor="middle" fill="#fff8cc" font-size="11">RED 3 COMMIT  ·  @Disabled("RED 3 - Driver")</text>
+  <text x="450" y="952" text-anchor="middle" fill="#fff8cc" font-size="11">RED · COMMIT DRIVER  ·  @Disabled("RED · WRITE DRIVER")</text>
 
   <!-- external/ changed? branch -->
   <line x1="590" y1="940" x2="690" y2="940" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
@@ -130,21 +130,21 @@
   <!-- BACKEND AGENT GREEN 2 -->
   <rect x="310" y="984" width="280" height="44" rx="8" fill="#1e8449" stroke="#145a32" stroke-width="1.5"/>
   <text x="450" y="1001" text-anchor="middle" fill="white" font-weight="bold">Backend Agent</text>
-  <text x="450" y="1018" text-anchor="middle" fill="#cfc" font-size="11">GREEN 2 — API acceptance tests pass</text>
+  <text x="450" y="1018" text-anchor="middle" fill="#cfc" font-size="11">GREEN · WRITE SYSTEM — API acceptance tests pass</text>
 
   <line x1="450" y1="1028" x2="450" y2="1050" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- FRONTEND AGENT GREEN 2 -->
   <rect x="310" y="1050" width="280" height="44" rx="8" fill="#239b56" stroke="#145a32" stroke-width="1.5"/>
   <text x="450" y="1067" text-anchor="middle" fill="white" font-weight="bold">Frontend Agent</text>
-  <text x="450" y="1084" text-anchor="middle" fill="#cfc" font-size="11">GREEN 2 — UI acceptance tests pass</text>
+  <text x="450" y="1084" text-anchor="middle" fill="#cfc" font-size="11">GREEN · WRITE SYSTEM — UI acceptance tests pass</text>
 
   <line x1="450" y1="1094" x2="450" y2="1116" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- RELEASE AGENT -->
   <rect x="310" y="1116" width="280" height="44" rx="8" fill="#27ae60" stroke="#145a32" stroke-width="1.5"/>
   <text x="450" y="1133" text-anchor="middle" fill="white" font-weight="bold">Release Agent</text>
-  <text x="450" y="1150" text-anchor="middle" fill="#cfc" font-size="11">GREEN 2 COMMIT  ·  Remove @Disabled</text>
+  <text x="450" y="1150" text-anchor="middle" fill="#cfc" font-size="11">GREEN · COMMIT SYSTEM  ·  Remove @Disabled</text>
 
   <!-- loop back arrow -->
   <line x1="310" y1="1138" x2="100" y2="1138" stroke="#888" stroke-width="1.5"/>
@@ -177,5 +177,5 @@
   <rect x="665" y="1348" width="14" height="14" rx="3" fill="none" stroke="#aaa" stroke-width="1.5" stroke-dasharray="4,2"/>
   <text x="685" y="1360" fill="#333" font-size="11">Loop boundary</text>
 
-  <text x="450" y="1390" text-anchor="middle" fill="#aaa" font-size="10">Human touchpoints: 1 Gherkin+LegacyCoverage  ·  2 Tests  ·  3 DSL  ·  4 Drivers  ·  5 Outcome</text>
+  <text x="450" y="1390" text-anchor="middle" fill="#aaa" font-size="10">Phases: RED · WRITE/COMMIT TEST → RED · WRITE/COMMIT DSL → RED · WRITE/COMMIT DRIVER → GREEN · WRITE/COMMIT SYSTEM</text>
 </svg>
