@@ -14,6 +14,13 @@ If not specified, infer the appropriate repositories from the GitHub issue conte
 
 ## Orchestration Steps
 
+### Step -1: Status Validation
+
+If a GitHub issue number was provided, check its status on the GitHub project board:
+- **Ready** → move it to **In Progress** and proceed.
+- **In Progress** → proceed (resume case).
+- **Any other status** → STOP. Tell the user the issue is in status `<status>` and ask whether to proceed.
+
 ### Step 0: Resume Detection
 
 Before doing anything else, scan the test repository for `@Disabled` annotations with known phase markers. This allows resuming mid-pipeline after a break.
