@@ -2,7 +2,7 @@ Implement the following user story using the multi-agent ATDD workflow defined i
 
 Input: $ARGUMENTS
 
-The input is either a GitHub issue number (e.g. `#42`) or free-text user story, optionally followed by flags. Pass the issue/story to the story-agent; keep flags for orchestration use.
+The input is a GitHub issue number (e.g. `#42`), optionally followed by flags. A ticket is always required — free-text stories are not accepted.
 
 **Autonomous mode:** if `--autonomous` is present in the input, skip all STOP/human-approval steps — agents self-approve and the pipeline runs end-to-end without waiting for the user.
 
@@ -16,7 +16,7 @@ If not specified, infer the appropriate repositories from the GitHub issue conte
 
 ### Step -1: Status Validation
 
-If a GitHub issue number was provided, check its status on the GitHub project board:
+Check the issue's status on the GitHub project board:
 - **Ready** → move it to **In Progress** and proceed.
 - **In Progress** → proceed (resume case).
 - **Any other status** → STOP. Tell the user the issue is in status `<status>` and ask whether to proceed.
@@ -39,11 +39,11 @@ If no disabled tests are found, proceed normally from step 1.
 
 ---
 
-1. Launch **story-agent** with the input. It will read the GitHub issue if given a number, or use the text directly.
+1. Launch **story-agent** with the issue number. It will read the GitHub issue.
    - **Normal mode:** Present the Gherkin scenarios and wait for human approval before continuing.
    - **Autonomous mode:** Auto-approve and proceed immediately.
 
-1a. After the Gherkin scenarios are approved, if a GitHub issue number was provided as input, update the issue body with the approved Gherkin scenarios for precision. Replace the original scenario text in the issue with the exact approved Gherkin (use `gh issue edit <number> --repo <owner/repo> --body "..."` preserving the user story preamble).
+1a. After the Gherkin scenarios are approved, update the issue body with the approved Gherkin scenarios for precision. Replace the original scenario text in the issue with the exact approved Gherkin (use `gh issue edit <number> --repo <owner/repo> --body "..."` preserving the user story preamble).
 
 Steps 2–14 below form a **per-scenario loop**. Repeat them for each scenario until all are GREEN.
 
