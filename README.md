@@ -14,14 +14,14 @@
 
 ## Usage
 
-### Implement a single story
+### Implement a single ticket
 
 ```
-/implement-story #42
-/implement-story #42 --autonomous
+/implement-ticket #42
+/implement-ticket #42 --autonomous
 ```
 
-Runs the full ATDD pipeline (Story → Test → DSL → Driver → Backend → Frontend → Release) for a single GitHub issue or free-text story.
+Runs the full ATDD pipeline (Story → Test → DSL → Driver → Backend → Frontend → Release) for a single GitHub issue.
 
 - Without `--autonomous`: pauses at each human touchpoint (Gherkin approval, test approval, DSL approval, driver approval, outcome review).
 - With `--autonomous`: skips all approval stops and runs end-to-end. Escalations (stuck agents, unexplained failures) always pause regardless.
@@ -35,12 +35,12 @@ Runs the full ATDD pipeline (Story → Test → DSL → Driver → Backend → F
 /manage-project --autonomous
 ```
 
-Picks the top card from the **Ready** column of the GitHub project board, moves it to **In Progress**, and runs `/implement-story` on it.
+Picks the top card from the **Ready** column of the GitHub project board, moves it to **In Progress**, and runs `/implement-ticket` on it.
 
 ## Pipeline
 
 ```
-GitHub Project Board       User Story (free text or issue #)
+GitHub Project Board       GitHub Issue (#)
          │                               │
          ▼                               │
  [Manager Agent]                         │

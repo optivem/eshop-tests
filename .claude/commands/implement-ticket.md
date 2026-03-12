@@ -1,4 +1,4 @@
-Implement the following user story using the multi-agent ATDD workflow defined in `docs/prompts/atdd/workflow.md`.
+Implement the following ticket using the multi-agent ATDD workflow defined in `docs/prompts/atdd/workflow.md`.
 
 Input: $ARGUMENTS
 

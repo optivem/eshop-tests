@@ -1,8 +1,8 @@
-Pick the top story from the GitHub project board and implement it using the multi-agent ATDD workflow defined in `docs/prompts/atdd/workflow.md`.
+Pick the top ticket from the GitHub project board and implement it using the multi-agent ATDD workflow defined in `docs/prompts/atdd/workflow.md`.
 
 Input: $ARGUMENTS
 
-**Autonomous mode:** if `--autonomous` is present, pass it through to `/implement-story` so all human approval touchpoints are skipped.
+**Autonomous mode:** if `--autonomous` is present, pass it through to `/implement-ticket` so all human approval touchpoints are skipped.
 
 **GitHub project:** optionally specify `--project <org/number-or-url>` to identify which GitHub project board to use (e.g. `--project optivem/3`). If not specified, the manager-agent will attempt to discover it from the git remote of the current repository.
 
@@ -22,7 +22,7 @@ If not specified, pass them through to the manager-agent and let it determine th
    - If repos were not specified, determine the appropriate test and system repositories from the issue context
    - Return the issue number and the resolved repository lists
 
-2. Pass the issue number, resolved repository lists, and `--autonomous` (if provided) to `/implement-story` and run the full pipeline to completion.
+2. Pass the issue number, resolved repository lists, and `--autonomous` (if provided) to `/implement-ticket` and run the full pipeline to completion.
 
 ## Rules
 
