@@ -9,7 +9,8 @@
       "mcp__github__issue_write",
       "mcp__github__issue_read",
       "Read(**)",
-      "Agent(*)"
+      "Agent(*)",
+      "WebFetch(*)"
     ]
   },
   "allowedTools": [
