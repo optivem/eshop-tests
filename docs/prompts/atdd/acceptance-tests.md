@@ -78,25 +78,25 @@ If a GitHub issue number was provided as input, prefix every commit message with
 4. Ensure that there are no test files in the list of changed files.
 5. COMMIT with message `<Scenario> | AT - RED - DSL`.
 6. If a GitHub issue number was provided as input, post a comment on the issue summarising the DSL interface changes made (new methods added, interfaces updated).
-7. Automatically proceed to AT - RED - DRIVER - WRITE (STOP).
+7. Automatically proceed to AT - RED - SYSTEM DRIVER - WRITE (STOP).
 
-## AT - RED - DRIVER - WRITE (STOP)
+## AT - RED - SYSTEM DRIVER - WRITE (STOP)
 
 1. Enable the tests marked disabled with reason `"AT - RED - DSL"`.
 2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
-   - Only look at files in the `driver-adapter` and `driver-port` directories.
+   - Only look at files in the `driver-adapter` and `driver-port` directories under `shop/` (e.g. `shop/api`, `shop/ui`).
+   - Do NOT implement drivers under `external/` — those are handled by the Contract Test sub-process.
    - Do NOT read or search backend/frontend source code. Model the new method on existing driver methods in the same file.
 3. Run the tests and verify they fail with a runtime error.
 4. STOP. Present the Driver implementation to the user and ask for approval. Do NOT continue.
 
-## AT - RED - DRIVER - COMMIT
+## AT - RED - SYSTEM DRIVER - COMMIT
 
-1. Mark the tests as disabled with reason `"AT - RED - DRIVER"` (see `language-equivalents.md` for syntax).
+1. Mark the tests as disabled with reason `"AT - RED - SYSTEM DRIVER"` (see `language-equivalents.md` for syntax).
 2. Ensure no test files are in the list of changed files.
-3. COMMIT with message `<Scenario> | AT - RED - DRIVER`.
+3. COMMIT with message `<Scenario> | AT - RED - SYSTEM DRIVER`.
 4. If a GitHub issue number was provided as input, post a comment on the issue summarising the Driver interface changes made (new methods added, interfaces updated).
-5. If **external system interfaces changed = yes** (as reported in AT - RED - DSL - WRITE), automatically proceed to CT - RED - TEST - WRITE (see `contract-tests.md`). Do NOT ask the user — proceed immediately.
-6. Otherwise: STOP. Do not proceed further.
+5. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## AT - GREEN - SYSTEM - WRITE (STOP)
 
@@ -124,7 +124,7 @@ If a GitHub issue number was provided as input, prefix every commit message with
 ## AT - GREEN - SYSTEM - COMMIT
 
 1. In the `eshop` repository: COMMIT all backend and frontend changes with message `<Scenario> | AT - GREEN - SYSTEM`.
-2. Remove the disabled annotation (reason `"AT - RED - DRIVER"`) from the tests.
+2. Remove the disabled annotation (reason `"AT - RED - SYSTEM DRIVER"`) from the tests.
 3. Run the tests and verify they all pass:
    ```
    .\Run-SystemTests.ps1 -Suite <acceptance-api> -Test <TestMethodName>

@@ -1,6 +1,6 @@
 # Contract Tests Process
 
-_This process is only triggered when the DSL Agent (AT - RED - DSL - WRITE) reports **external system interfaces changed = yes** — i.e. new methods were added to interfaces under `external/` (e.g. `driver-port/.../external/erp`). It is initiated by the orchestrator after AT - RED - DRIVER - COMMIT._
+_This process is only triggered when the AT cycle's DSL phase reports **external system interfaces changed = yes** — i.e. new methods were added to interfaces under `external/` (e.g. `driver-port/.../external/erp`). It is initiated by the orchestrator as defined in `orchestrator.md`._
 
 _If the External System does not even exist yet, make Smoke Tests pass first._
 
@@ -55,25 +55,26 @@ If a GitHub issue number was provided as input, prefix every commit message with
 3. Mark the tests as disabled with reason `"CT - RED - DSL"` (see `language-equivalents.md` for syntax).
 4. COMMIT with message `<Scenario> | CT - RED - DSL`.
 5. If a GitHub issue number was provided as input, post a comment on the issue summarising the DSL interface changes made (new methods added, interfaces updated).
-6. Automatically proceed to CT - RED - DRIVER - WRITE (STOP).
+6. Automatically proceed to CT - RED - EXTERNAL DRIVER - WRITE (STOP).
 
-## CT - RED - DRIVER - WRITE (STOP)
+## CT - RED - EXTERNAL DRIVER - WRITE (STOP)
 
 1. Enable the tests marked disabled with reason `"CT - RED - DSL"`.
 2. Implement the Drivers — replace the "TODO: Driver" stub with actual logic.
+   - Only look at files in the `driver-adapter` and `driver-port` directories under `external/`.
 3. Run the tests and verify they fail with a runtime error.
 4. STOP. Present the Driver implementation to the user and ask for approval. Do NOT continue.
 
-## CT - RED - DRIVER - COMMIT
+## CT - RED - EXTERNAL DRIVER - COMMIT
 
-1. Mark the tests as disabled with reason `"CT - RED - DRIVER"` (see `language-equivalents.md` for syntax).
-2. COMMIT with message `<Scenario> | CT - RED - DRIVER`.
+1. Mark the tests as disabled with reason `"CT - RED - EXTERNAL DRIVER"` (see `language-equivalents.md` for syntax).
+2. COMMIT with message `<Scenario> | CT - RED - EXTERNAL DRIVER`.
 3. If a GitHub issue number was provided as input, post a comment on the issue summarising the Driver interface changes made (new methods added, interfaces updated).
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.
 
 ## CT - GREEN - STUBS - WRITE (STOP)
 
-1. Enable the tests marked disabled with reason `"CT - RED - DRIVER"`.
+1. Enable the tests marked disabled with reason `"CT - RED - EXTERNAL DRIVER"`.
 2. Implement the External System Stubs.
 3. Run the External System Contract Tests:
    ```
@@ -84,7 +85,7 @@ If a GitHub issue number was provided as input, prefix every commit message with
 
 ## CT - GREEN - STUBS - COMMIT
 
-1. Remove the disabled annotation (reason `"CT - RED - DRIVER"`) from the tests.
+1. Remove the disabled annotation (reason `"CT - RED - EXTERNAL DRIVER"`) from the tests.
 2. Run the tests and verify they pass.
 3. COMMIT with message `<Scenario> | CT - GREEN - STUBS`.
 4. STOP. Do not proceed further. Phase progression is controlled by the orchestrator, not by this agent.

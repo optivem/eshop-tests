@@ -1,4 +1,5 @@
 @docs/prompts/util/terminal-bell.md
+@docs/prompts/atdd/orchestrator.md
 @docs/prompts/atdd/acceptance-tests.md
 @docs/prompts/atdd/contract-tests.md
 @docs/prompts/architecture/dsl-core.md
