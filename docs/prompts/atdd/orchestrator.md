@@ -7,18 +7,18 @@ This document defines the decision flow for the ATDD pipeline. Each phase is def
 ```
 AT - RED - TEST
     │
-    ├── DSL interface changed? ──── No ──→ AT - GREEN - SYSTEM
+    ├── DSL Interface Changed? ──── No ──→ AT - GREEN - SYSTEM
     │
     Yes
     ▼
 AT - RED - DSL
     │
-    ├── External driver interface changed? ──── Yes ──→ Contract Test Sub-Process (see below)
-    │                                                         │
-    │                                                         ▼
-    │                                                   (then continue ↓)
+    ├── External System Driver Interface Changed? ──── Yes ──→ Contract Test Sub-Process (see below)
+    │                                                                │
+    │                                                                ▼
+    │                                                          (then continue ↓)
     │
-    ├── System driver interface changed? ──── No ──→ AT - GREEN - SYSTEM
+    ├── System Driver Interface Changed? ──── No ──→ AT - GREEN - SYSTEM
     │
     Yes
     ▼
@@ -30,9 +30,9 @@ AT - GREEN - SYSTEM
 
 ### Decision criteria
 
-- **DSL interface changed?** — Did AT - RED - TEST - COMMIT add any "TODO: DSL" stubs to DSL interfaces? If no new DSL methods were needed, the answer is No.
-- **External driver interface changed?** — Did AT - RED - DSL add or modify interfaces under `external/` (e.g. `driver-port/.../external/clock`, `driver-port/.../external/erp`)? See `glossary.md` for the definition of *interface change*.
-- **System driver interface changed?** — Did AT - RED - DSL add or modify interfaces under `shop/` (e.g. `driver-port/.../shop/api`, `driver-port/.../shop/ui`)? If no new driver methods were needed in shop/, the answer is No.
+- **DSL Interface Changed?** — Did AT - RED - TEST - COMMIT add any "TODO: DSL" stubs to DSL interfaces? If no new DSL methods were needed, the answer is No.
+- **External System Driver Interface Changed?** — Did AT - RED - DSL add or modify interfaces under `external/` (e.g. `driver-port/.../external/clock`, `driver-port/.../external/erp`)? See `glossary.md` for the definition of *interface change*.
+- **System Driver Interface Changed?** — Did AT - RED - DSL add or modify interfaces under `shop/` (e.g. `driver-port/.../shop/api`, `driver-port/.../shop/ui`)? If no new driver methods were needed in shop/, the answer is No.
 
 ---
 
@@ -43,13 +43,13 @@ _Triggered when the AT cycle detects external driver interface changes._
 ```
 CT - RED - TEST
     │
-    ├── DSL interface changed? ──── No ──→ CT - GREEN - STUB
+    ├── DSL Interface Changed? ──── No ──→ CT - GREEN - STUB
     │
     Yes
     ▼
 CT - RED - DSL
     │
-    ├── External driver interface changed? ──── No ──→ CT - GREEN - STUB
+    ├── External System Driver Interface Changed? ──── No ──→ CT - GREEN - STUB
     │
     Yes
     ▼

@@ -63,8 +63,9 @@ If a GitHub issue number was provided as input, prefix every commit message with
 1. Enable the tests marked disabled with reason `"AT - RED - TEST"`.
 2. Implement the DSL for real — replace the "TODO: DSL" stub with actual logic.
 3. Update the Driver interfaces as needed.
-4. Check whether any interface changes (see `glossary.md`) affect files under an `external/` package (e.g. `driver-port/.../external/clock`). Set a flag: **external system interfaces changed = yes/no**.
-5. STOP. Present the DSL implementation, Driver interface changes, and the external system interfaces flag to the user and ask for approval. Do NOT continue.
+4. Check whether any interface changes (see `glossary.md`) affect files under an `external/` package (e.g. `driver-port/.../external/clock`). Set a flag: **External System Driver Interface Changed = yes/no**.
+5. Check whether any interface changes affect files under a `shop/` package (e.g. `driver-port/.../shop/api`). Set a flag: **System Driver Interface Changed = yes/no**.
+6. STOP. Present the DSL implementation, Driver interface changes, and both flags to the user and ask for approval. Do NOT continue.
 
 ## AT - RED - DSL - COMMIT
 

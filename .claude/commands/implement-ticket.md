@@ -48,10 +48,10 @@ After approval, update the issue body with the approved Gherkin scenarios (use `
 For each scenario, follow the AT cycle decision tree from `orchestrator.md`:
 
 1. **AT - RED - TEST:** Launch test-agent (WRITE → STOP → COMMIT).
-2. **Decision:** DSL interface changed? If no → skip to GREEN.
+2. **Decision:** DSL Interface Changed? If no → skip to GREEN.
 3. **AT - RED - DSL:** Launch dsl-agent (WRITE → STOP → COMMIT).
-4. **Decision:** External driver interface changed? If yes → run Contract Test Sub-Process.
-5. **Decision:** System driver interface changed? If no → skip to GREEN.
+4. **Decision:** External System Driver Interface Changed? If yes → run Contract Test Sub-Process.
+5. **Decision:** System Driver Interface Changed? If no → skip to GREEN.
 6. **AT - RED - SYSTEM DRIVER:** Launch driver-agent (WRITE → STOP → COMMIT).
 7. **AT - GREEN - SYSTEM:** Launch backend-agent → frontend-agent → release-agent.
 8. If remaining `// TODO:` scenarios exist, loop back to step 1.

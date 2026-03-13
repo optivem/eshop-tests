@@ -5,13 +5,13 @@
 ```mermaid
 flowchart TD
     START([Start Scenario]) --> TEST[AT - RED - TEST]
-    TEST --> DSL_CHK{DSL interface\nchanged?}
+    TEST --> DSL_CHK{DSL Interface\nChanged?}
     DSL_CHK -- No --> GREEN[AT - GREEN - SYSTEM]
     DSL_CHK -- Yes --> DSL[AT - RED - DSL]
-    DSL --> EXT_CHK{External driver\ninterface changed?}
+    DSL --> EXT_CHK{External System Driver\nInterface Changed?}
     EXT_CHK -- Yes --> CT_SUB[[Contract Test\nSub-Process]]
     CT_SUB --> SYS_CHK
-    EXT_CHK -- No --> SYS_CHK{System driver\ninterface changed?}
+    EXT_CHK -- No --> SYS_CHK{System Driver\nInterface Changed?}
     SYS_CHK -- No --> GREEN
     SYS_CHK -- Yes --> SYS_DRV[AT - RED - SYSTEM DRIVER]
     SYS_DRV --> GREEN
@@ -25,10 +25,10 @@ flowchart TD
 ```mermaid
 flowchart TD
     CT_START([Triggered by AT Cycle]) --> CT_TEST[CT - RED - TEST]
-    CT_TEST --> CT_DSL_CHK{DSL interface\nchanged?}
+    CT_TEST --> CT_DSL_CHK{DSL Interface\nChanged?}
     CT_DSL_CHK -- No --> CT_GREEN[CT - GREEN - STUB]
     CT_DSL_CHK -- Yes --> CT_DSL[CT - RED - DSL]
-    CT_DSL --> CT_EXT_CHK{External driver\ninterface changed?}
+    CT_DSL --> CT_EXT_CHK{External System Driver\nInterface Changed?}
     CT_EXT_CHK -- No --> CT_GREEN
     CT_EXT_CHK -- Yes --> CT_DRV[CT - RED - EXTERNAL DRIVER]
     CT_DRV --> CT_GREEN

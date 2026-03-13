@@ -1,217 +1,214 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 1340" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1940" font-family="Segoe UI, Arial, sans-serif" font-size="13">
   <defs>
     <marker id="arr" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
       <polygon points="0 0, 9 3, 0 6" fill="#555"/>
     </marker>
     <marker id="arr-green" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
-      <polygon points="0 0, 9 3, 0 6" fill="#27AE60"/>
+      <polygon points="0 0, 9 3, 0 6" fill="#1E8449"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#8E44AD"/>
     </marker>
     <marker id="arr-back" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
       <polygon points="0 0, 9 3, 0 6" fill="#AAAAAA"/>
     </marker>
-    <marker id="arr-ct" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
-      <polygon points="0 0, 9 3, 0 6" fill="#8E44AD"/>
-    </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1060" height="1340" fill="#F7F8FA"/>
+  <rect width="900" height="1940" fill="#F7F8FA"/>
 
-  <!-- TITLE -->
-  <text x="530" y="36" text-anchor="middle" font-size="21" font-weight="bold" fill="#1A1A2E">Multi-Agent ATDD Workflow</text>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 1: AT CYCLE                                -->
+  <!-- ═══════════════════════════════════════════════ -->
 
-  <!-- LEFT ENTRY: GitHub Project Board -->
-  <rect x="100" y="52" width="250" height="40" rx="20" fill="#1A1A2E"/>
-  <text x="225" y="77" text-anchor="middle" fill="white" font-weight="bold" font-size="13">GitHub Project Board</text>
+  <text x="450" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#1A1A2E">ATDD Process</text>
+  <text x="450" y="72" text-anchor="middle" font-size="14" fill="#888" font-weight="bold">AT Cycle (per scenario)</text>
 
-  <!-- RIGHT ENTRY: User Story -->
-  <rect x="630" y="52" width="320" height="40" rx="20" fill="#1A1A2E"/>
-  <text x="790" y="70" text-anchor="middle" fill="white" font-weight="bold" font-size="13">User Story</text>
-  <text x="790" y="84" text-anchor="middle" fill="#A8BAE8" font-size="10">(issue #)</text>
+  <!-- AT - RED - TEST -->
+  <rect x="300" y="90" width="300" height="44" rx="7" fill="#E74C3C" stroke="#C0392B" stroke-width="1.5"/>
+  <text x="450" y="117" text-anchor="middle" fill="white" font-weight="bold" font-size="14">AT - RED - TEST</text>
 
-  <!-- Arrow down from GitHub board to Manager Agent -->
-  <line x1="225" y1="92" x2="225" y2="112" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="450" y1="134" x2="450" y2="170" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- MANAGER AGENT box -->
-  <rect x="100" y="112" width="250" height="60" rx="7" fill="#2C3E7A" stroke="#1E2E60" stroke-width="1.5"/>
-  <text x="225" y="136" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Manager Agent</text>
-  <text x="225" y="153" text-anchor="middle" fill="#A8BAE8" font-size="10">picks top Ready card</text>
-  <text x="225" y="166" text-anchor="middle" fill="#A8BAE8" font-size="10">moves card to In Progress</text>
+  <!-- DECISION: DSL Interface Changed? -->
+  <polygon points="450,170 590,215 450,260 310,215" fill="#FFF3E0" stroke="#E67E22" stroke-width="2"/>
+  <text x="450" y="208" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="11">DSL Interface</text>
+  <text x="450" y="222" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="11">Changed?</text>
 
-  <!-- Manager Agent path: down then right to convergence -->
-  <line x1="225" y1="172" x2="225" y2="210" stroke="#555" stroke-width="1.5"/>
-  <line x1="225" y1="210" x2="530" y2="210" stroke="#555" stroke-width="1.5"/>
+  <!-- No → skip to GREEN (right side) -->
+  <line x1="590" y1="215" x2="790" y2="215" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="790" y1="215" x2="790" y2="870" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="790" y1="870" x2="602" y2="870" stroke="#1E8449" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="610" y="207" fill="#1E8449" font-weight="bold" font-size="12">No</text>
 
-  <!-- User Story path: down then left to convergence -->
-  <line x1="790" y1="92" x2="790" y2="210" stroke="#555" stroke-width="1.5"/>
-  <line x1="790" y1="210" x2="530" y2="210" stroke="#555" stroke-width="1.5"/>
+  <!-- Yes ↓ -->
+  <line x1="450" y1="260" x2="450" y2="300" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="462" y="286" fill="#D35400" font-weight="bold" font-size="12">Yes</text>
 
-  <!-- Arrow down from convergence to Story Agent -->
-  <line x1="530" y1="210" x2="530" y2="232" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- AT - RED - DSL -->
+  <rect x="300" y="300" width="300" height="44" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
+  <text x="450" y="327" text-anchor="middle" fill="white" font-weight="bold" font-size="14">AT - RED - DSL</text>
 
-  <!-- STORY AGENT -->
-  <rect x="320" y="232" width="420" height="54" rx="7" fill="#2C3E7A" stroke="#1E2E60" stroke-width="1.5"/>
-  <line x1="495" y1="232" x2="495" y2="286" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-  <text x="407" y="255" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Story Agent</text>
-  <text x="407" y="273" text-anchor="middle" fill="#A8BAE8" font-size="10">analyzes existing tests for gaps</text>
-  <text x="658" y="265" text-anchor="middle" fill="white" font-size="12">Gherkin + Legacy Coverage</text>
+  <line x1="450" y1="344" x2="450" y2="390" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- HUMAN APPROVES SCENARIOS -->
-  <line x1="530" y1="286" x2="530" y2="310" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-  <rect x="380" y="310" width="300" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="530" y="332" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">HUMAN APPROVES SCENARIOS</text>
-
-  <line x1="530" y1="344" x2="530" y2="370" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-
-  <!-- ═══════════ PER-SCENARIO LOOP ═══════════ -->
-  <rect x="30" y="370" width="1000" height="820" rx="10" fill="none" stroke="#C0C0C0" stroke-width="1.8" stroke-dasharray="8,4"/>
-  <text x="60" y="388" fill="#BBBBBB" font-size="11" font-style="italic">Per-scenario loop (repeats until all scenarios GREEN)</text>
-
-  <!-- ─── AT · RED · TEST ─── -->
-  <rect x="180" y="400" width="700" height="72" rx="7" fill="#E74C3C" stroke="#C0392B" stroke-width="1.5"/>
-  <line x1="180" y1="420" x2="880" y2="420" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-  <text x="530" y="414" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AT · RED · TEST</text>
-  <line x1="413" y1="420" x2="413" y2="472" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <line x1="647" y1="420" x2="647" y2="472" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <text x="296" y="445" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Test Agent</text>
-  <text x="296" y="461" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">WRITE</text>
-  <text x="530" y="452" text-anchor="middle" fill="white" font-weight="bold" font-size="11">← HUMAN APPROVES</text>
-  <text x="764" y="445" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Test Agent</text>
-  <text x="764" y="461" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">COMMIT</text>
-
-  <!-- Arrow down to DSL decision diamond -->
-  <line x1="530" y1="472" x2="530" y2="500" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-
-  <!-- DECISION: DSL interface changed? -->
-  <polygon points="530,500 650,535 530,570 410,535" fill="#FFF3E0" stroke="#E67E22" stroke-width="2"/>
-  <text x="530" y="532" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="10">DSL interface</text>
-  <text x="530" y="544" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="10">changed?</text>
-
-  <!-- No → skip to GREEN -->
-  <line x1="650" y1="535" x2="920" y2="535" stroke="#27AE60" stroke-width="2"/>
-  <line x1="920" y1="535" x2="920" y2="1060" stroke="#27AE60" stroke-width="2"/>
-  <line x1="920" y1="1060" x2="882" y2="1060" stroke="#27AE60" stroke-width="2" marker-end="url(#arr-green)"/>
-  <text x="670" y="528" fill="#27AE60" font-weight="bold" font-size="11">No</text>
-
-  <!-- Yes → AT RED DSL -->
-  <line x1="530" y1="570" x2="530" y2="600" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="542" y="590" fill="#D35400" font-weight="bold" font-size="11">Yes</text>
-
-  <!-- ─── AT · RED · DSL ─── -->
-  <rect x="180" y="600" width="700" height="72" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
-  <line x1="180" y1="620" x2="880" y2="620" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-  <text x="530" y="614" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AT · RED · DSL</text>
-  <line x1="413" y1="620" x2="413" y2="672" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <line x1="647" y1="620" x2="647" y2="672" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <text x="296" y="645" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DSL Agent</text>
-  <text x="296" y="661" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">WRITE</text>
-  <text x="530" y="652" text-anchor="middle" fill="white" font-weight="bold" font-size="11">← HUMAN APPROVES</text>
-  <text x="764" y="645" text-anchor="middle" fill="white" font-weight="bold" font-size="12">DSL Agent</text>
-  <text x="764" y="661" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">COMMIT</text>
-
-  <!-- Arrow down to External Driver decision diamond -->
-  <line x1="530" y1="672" x2="530" y2="700" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-
-  <!-- DECISION: External driver interface changed? -->
-  <polygon points="530,700 670,740 530,780 390,740" fill="#F5EEF8" stroke="#8E44AD" stroke-width="2"/>
-  <text x="530" y="733" text-anchor="middle" fill="#6C3483" font-weight="bold" font-size="10">External driver</text>
-  <text x="530" y="745" text-anchor="middle" fill="#6C3483" font-weight="bold" font-size="10">changed?</text>
+  <!-- DECISION: External System Driver Interface Changed? -->
+  <polygon points="450,390 610,440 450,490 290,440" fill="#F5EEF8" stroke="#8E44AD" stroke-width="2"/>
+  <text x="450" y="428" text-anchor="middle" fill="#6C3483" font-weight="bold" font-size="10">External System Driver</text>
+  <text x="450" y="441" text-anchor="middle" fill="#6C3483" font-weight="bold" font-size="10">Interface Changed?</text>
 
   <!-- Yes → CT sub-process (right branch) -->
-  <line x1="670" y1="740" x2="780" y2="740" stroke="#8E44AD" stroke-width="2"/>
-  <text x="690" y="733" fill="#8E44AD" font-weight="bold" font-size="11">Yes</text>
-  <rect x="780" y="718" width="210" height="44" rx="7" fill="#8E44AD" stroke="#6C3483" stroke-width="1.5"/>
-  <text x="885" y="737" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Contract Test</text>
-  <text x="885" y="753" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">Sub-Process →</text>
-  <!-- Return line from CT back down -->
-  <line x1="885" y1="762" x2="885" y2="835" stroke="#8E44AD" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <line x1="885" y1="835" x2="542" y2="835" stroke="#8E44AD" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-ct)"/>
-  <text x="780" y="828" fill="#8E44AD" font-size="9" font-style="italic">return</text>
+  <line x1="610" y1="440" x2="690" y2="440" stroke="#8E44AD" stroke-width="2.5" marker-end="url(#arr-purple)"/>
+  <text x="625" y="432" fill="#8E44AD" font-weight="bold" font-size="12">Yes</text>
 
-  <!-- No → System driver decision -->
-  <line x1="530" y1="780" x2="530" y2="810" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="542" y="800" fill="#D35400" font-weight="bold" font-size="11">No</text>
+  <!-- CT Sub-Process box -->
+  <rect x="690" y="412" width="180" height="56" rx="8" fill="#8E44AD" stroke="#6C3483" stroke-width="1.5"/>
+  <text x="780" y="437" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Contract Test</text>
+  <text x="780" y="454" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">Sub-Process (p.2)</text>
 
-  <!-- DECISION: System driver interface changed? -->
-  <polygon points="530,810 660,845 530,880 400,845" fill="#FFF3E0" stroke="#E67E22" stroke-width="2"/>
-  <text x="530" y="838" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="10">System driver</text>
-  <text x="530" y="850" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="10">changed?</text>
+  <!-- Return arrow from CT back to system driver decision -->
+  <line x1="780" y1="468" x2="780" y2="580" stroke="#8E44AD" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <line x1="780" y1="580" x2="612" y2="580" stroke="#8E44AD" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arr-purple)"/>
+  <text x="710" y="573" fill="#8E44AD" font-size="10" font-style="italic">return</text>
 
-  <!-- No → skip to GREEN -->
-  <line x1="400" y1="845" x2="140" y2="845" stroke="#27AE60" stroke-width="2"/>
-  <line x1="140" y1="845" x2="140" y2="1060" stroke="#27AE60" stroke-width="2"/>
-  <line x1="140" y1="1060" x2="178" y2="1060" stroke="#27AE60" stroke-width="2" marker-end="url(#arr-green)"/>
-  <text x="370" y="838" fill="#27AE60" font-weight="bold" font-size="11">No</text>
+  <!-- No ↓ -->
+  <line x1="450" y1="490" x2="450" y2="550" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="462" y="526" fill="#D35400" font-weight="bold" font-size="12">No</text>
 
-  <!-- Yes → AT RED SYSTEM DRIVER -->
-  <line x1="530" y1="880" x2="530" y2="920" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
-  <text x="542" y="906" fill="#D35400" font-weight="bold" font-size="11">Yes</text>
+  <!-- DECISION: System Driver Interface Changed? -->
+  <polygon points="450,550 600,595 450,640 300,595" fill="#FFF3E0" stroke="#E67E22" stroke-width="2"/>
+  <text x="450" y="588" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="10">System Driver</text>
+  <text x="450" y="601" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="10">Interface Changed?</text>
 
-  <!-- ─── AT · RED · SYSTEM DRIVER ─── -->
-  <rect x="180" y="920" width="700" height="72" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
-  <line x1="180" y1="940" x2="880" y2="940" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-  <text x="530" y="934" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AT · RED · SYSTEM DRIVER</text>
-  <line x1="413" y1="940" x2="413" y2="992" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <line x1="647" y1="940" x2="647" y2="992" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <text x="296" y="965" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Driver Agent</text>
-  <text x="296" y="981" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">WRITE (shop/)</text>
-  <text x="530" y="972" text-anchor="middle" fill="white" font-weight="bold" font-size="11">← HUMAN APPROVES</text>
-  <text x="764" y="965" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Driver Agent</text>
-  <text x="764" y="981" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">COMMIT</text>
+  <!-- No → skip to GREEN (left side) -->
+  <line x1="300" y1="595" x2="120" y2="595" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="120" y1="595" x2="120" y2="870" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="120" y1="870" x2="298" y2="870" stroke="#1E8449" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="270" y="587" fill="#1E8449" font-weight="bold" font-size="12">No</text>
 
-  <line x1="530" y1="992" x2="530" y2="1040" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- Yes ↓ -->
+  <line x1="450" y1="640" x2="450" y2="690" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="462" y="672" fill="#D35400" font-weight="bold" font-size="12">Yes</text>
 
-  <!-- ─── AT · GREEN · SYSTEM ─── -->
-  <rect x="180" y="1040" width="700" height="72" rx="7" fill="#27AE60" stroke="#1E8449" stroke-width="1.5"/>
-  <line x1="180" y1="1060" x2="880" y2="1060" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-  <text x="530" y="1054" text-anchor="middle" fill="white" font-weight="bold" font-size="11">AT · GREEN · SYSTEM</text>
-  <line x1="413" y1="1060" x2="413" y2="1112" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <line x1="647" y1="1060" x2="647" y2="1112" stroke="rgba(255,255,255,0.30)" stroke-width="1"/>
-  <text x="296" y="1085" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Backend Agent</text>
-  <text x="296" y="1101" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">WRITE (API)</text>
-  <text x="530" y="1085" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Frontend Agent</text>
-  <text x="530" y="1101" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">WRITE (UI)</text>
-  <text x="764" y="1085" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Release Agent</text>
-  <text x="764" y="1101" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="10">COMMIT</text>
+  <!-- AT - RED - SYSTEM DRIVER -->
+  <rect x="275" y="690" width="350" height="44" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
+  <text x="450" y="717" text-anchor="middle" fill="white" font-weight="bold" font-size="14">AT - RED - SYSTEM DRIVER</text>
 
-  <!-- LOOP BACK ARROW -->
-  <line x1="180" y1="1090" x2="55" y2="1090" stroke="#BBBBBB" stroke-width="1.5"/>
-  <line x1="55" y1="1090" x2="55" y2="446" stroke="#BBBBBB" stroke-width="1.5"/>
-  <line x1="55" y1="446" x2="178" y2="446" stroke="#BBBBBB" stroke-width="1.5" marker-end="url(#arr-back)"/>
-  <text x="40" y="770" text-anchor="middle" fill="#BBBBBB" font-size="10" font-style="italic" transform="rotate(-90,40,770)">remaining scenarios? → loop back</text>
+  <line x1="450" y1="734" x2="450" y2="848" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- end of loop — arrow out -->
-  <line x1="530" y1="1112" x2="530" y2="1200" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- AT - GREEN - SYSTEM -->
+  <rect x="300" y="848" width="300" height="44" rx="7" fill="#27AE60" stroke="#1E8449" stroke-width="1.5"/>
+  <text x="450" y="875" text-anchor="middle" fill="white" font-weight="bold" font-size="14">AT - GREEN - SYSTEM</text>
 
-  <!-- Close loop box -->
-  <!-- end y = 1190 -->
+  <!-- Arrow to remaining scenarios decision -->
+  <line x1="450" y1="892" x2="450" y2="930" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- HUMAN REVIEWS OUTCOME -->
-  <rect x="365" y="1200" width="330" height="34" rx="17" fill="#EDE7F6" stroke="#7C3AED" stroke-width="2"/>
-  <text x="530" y="1222" text-anchor="middle" fill="#4C1D95" font-weight="bold" font-size="12">HUMAN REVIEWS OUTCOME</text>
+  <!-- DECISION: Remaining scenarios? -->
+  <polygon points="450,930 570,960 450,990 330,960" fill="#EBF5FB" stroke="#2874A6" stroke-width="2"/>
+  <text x="450" y="957" text-anchor="middle" fill="#1A3A5C" font-weight="bold" font-size="11">Remaining</text>
+  <text x="450" y="970" text-anchor="middle" fill="#1A3A5C" font-weight="bold" font-size="11">scenarios?</text>
 
-  <!-- LEGEND -->
-  <rect x="60" y="1258" width="940" height="66" rx="8" fill="white" stroke="#DDDDDD" stroke-width="1"/>
-  <text x="530" y="1276" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">LEGEND</text>
+  <!-- Yes → loop back -->
+  <line x1="330" y1="960" x2="60" y2="960" stroke="#AAAAAA" stroke-width="2"/>
+  <line x1="60" y1="960" x2="60" y2="112" stroke="#AAAAAA" stroke-width="2"/>
+  <line x1="60" y1="112" x2="298" y2="112" stroke="#AAAAAA" stroke-width="2" marker-end="url(#arr-back)"/>
+  <text x="300" y="952" fill="#AAAAAA" font-weight="bold" font-size="12">Yes</text>
+  <text x="46" y="540" text-anchor="middle" fill="#BBBBBB" font-size="10" font-style="italic" transform="rotate(-90,46,540)">loop back to AT - RED - TEST</text>
 
-  <rect x="78" y="1290" width="13" height="13" rx="2" fill="#E74C3C"/>
-  <text x="97" y="1301" fill="#444" font-size="11">Test (red)</text>
+  <!-- No → Done -->
+  <line x1="570" y1="960" x2="660" y2="960" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="590" y="952" fill="#555" font-weight="bold" font-size="12">No</text>
+  <rect x="660" y="942" width="180" height="36" rx="18" fill="#1A1A2E"/>
+  <text x="750" y="965" text-anchor="middle" fill="white" font-weight="bold" font-size="13">All GREEN</text>
 
-  <rect x="190" y="1290" width="13" height="13" rx="2" fill="#E67E22"/>
-  <text x="209" y="1301" fill="#444" font-size="11">DSL / Driver (orange)</text>
+  <!-- ═══════════ PAGE 1 LEGEND ═══════════ -->
+  <rect x="100" y="1020" width="700" height="60" rx="8" fill="white" stroke="#DDDDDD" stroke-width="1"/>
+  <text x="450" y="1038" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">LEGEND</text>
 
-  <rect x="370" y="1290" width="13" height="13" rx="2" fill="#27AE60"/>
-  <text x="389" y="1301" fill="#444" font-size="11">GREEN (passing)</text>
+  <rect x="120" y="1052" width="14" height="14" rx="2" fill="#E74C3C"/>
+  <text x="140" y="1063" fill="#444" font-size="11">RED - TEST</text>
 
-  <rect x="510" y="1290" width="13" height="13" rx="2" fill="#8E44AD"/>
-  <text x="529" y="1301" fill="#444" font-size="11">Contract tests (purple)</text>
+  <rect x="240" y="1052" width="14" height="14" rx="2" fill="#E67E22"/>
+  <text x="260" y="1063" fill="#444" font-size="11">RED - DSL / DRIVER</text>
 
-  <polygon points="690,1290 703,1297 690,1304 677,1297" fill="#FFF3E0" stroke="#E67E22" stroke-width="1.5"/>
-  <text x="713" y="1301" fill="#444" font-size="11">Decision</text>
+  <rect x="420" y="1052" width="14" height="14" rx="2" fill="#27AE60"/>
+  <text x="440" y="1063" fill="#444" font-size="11">GREEN</text>
 
-  <rect x="790" y="1290" width="13" height="13" rx="7" fill="#EDE7F6" stroke="#7C3AED" stroke-width="1.5"/>
-  <text x="809" y="1301" fill="#444" font-size="11">Human touchpoint</text>
+  <rect x="520" y="1052" width="14" height="14" rx="2" fill="#8E44AD"/>
+  <text x="540" y="1063" fill="#444" font-size="11">Contract Tests</text>
 
-  <rect x="930" y="1290" width="13" height="13" rx="2" fill="none" stroke="#C0C0C0" stroke-width="1.5" stroke-dasharray="3,2"/>
-  <text x="949" y="1301" fill="#444" font-size="11">Loop</text>
+  <polygon points="660,1052 670,1059 660,1066 650,1059" fill="#FFF3E0" stroke="#E67E22" stroke-width="1.5"/>
+  <text x="680" y="1063" fill="#444" font-size="11">Decision</text>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAGE 2: CONTRACT TEST SUB-PROCESS               -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <!-- Separator -->
+  <line x1="50" y1="1120" x2="850" y2="1120" stroke="#DDDDDD" stroke-width="1.5" stroke-dasharray="10,5"/>
+
+  <text x="450" y="1165" text-anchor="middle" font-size="22" font-weight="bold" fill="#8E44AD">Contract Test Sub-Process</text>
+  <text x="450" y="1192" text-anchor="middle" font-size="12" fill="#888" font-style="italic">Triggered when External System Driver Interface Changed = Yes</text>
+
+  <!-- CT - RED - TEST -->
+  <rect x="300" y="1215" width="300" height="44" rx="7" fill="#E74C3C" stroke="#C0392B" stroke-width="1.5"/>
+  <text x="450" y="1242" text-anchor="middle" fill="white" font-weight="bold" font-size="14">CT - RED - TEST</text>
+
+  <line x1="450" y1="1259" x2="450" y2="1295" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- DECISION: DSL Interface Changed? -->
+  <polygon points="450,1295 590,1340 450,1385 310,1340" fill="#FFF3E0" stroke="#E67E22" stroke-width="2"/>
+  <text x="450" y="1333" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="11">DSL Interface</text>
+  <text x="450" y="1347" text-anchor="middle" fill="#D35400" font-weight="bold" font-size="11">Changed?</text>
+
+  <!-- No → skip to CT GREEN STUB (right side) -->
+  <line x1="590" y1="1340" x2="760" y2="1340" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="760" y1="1340" x2="760" y2="1742" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="760" y1="1742" x2="602" y2="1742" stroke="#1E8449" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="610" y="1332" fill="#1E8449" font-weight="bold" font-size="12">No</text>
+
+  <!-- Yes ↓ -->
+  <line x1="450" y1="1385" x2="450" y2="1425" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="462" y="1411" fill="#D35400" font-weight="bold" font-size="12">Yes</text>
+
+  <!-- CT - RED - DSL -->
+  <rect x="300" y="1425" width="300" height="44" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
+  <text x="450" y="1452" text-anchor="middle" fill="white" font-weight="bold" font-size="14">CT - RED - DSL</text>
+
+  <line x1="450" y1="1469" x2="450" y2="1510" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- DECISION: External System Driver Interface Changed? -->
+  <polygon points="450,1510 610,1560 450,1610 290,1560" fill="#F5EEF8" stroke="#8E44AD" stroke-width="2"/>
+  <text x="450" y="1548" text-anchor="middle" fill="#6C3483" font-weight="bold" font-size="10">External System Driver</text>
+  <text x="450" y="1561" text-anchor="middle" fill="#6C3483" font-weight="bold" font-size="10">Interface Changed?</text>
+
+  <!-- No → skip to CT GREEN STUB (left side) -->
+  <line x1="290" y1="1560" x2="140" y2="1560" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="140" y1="1560" x2="140" y2="1742" stroke="#1E8449" stroke-width="2.5"/>
+  <line x1="140" y1="1742" x2="298" y2="1742" stroke="#1E8449" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="260" y="1552" fill="#1E8449" font-weight="bold" font-size="12">No</text>
+
+  <!-- Yes ↓ -->
+  <line x1="450" y1="1610" x2="450" y2="1640" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="462" y="1632" fill="#D35400" font-weight="bold" font-size="12">Yes</text>
+
+  <!-- CT - RED - EXTERNAL DRIVER -->
+  <rect x="265" y="1640" width="370" height="44" rx="7" fill="#E67E22" stroke="#D35400" stroke-width="1.5"/>
+  <text x="450" y="1667" text-anchor="middle" fill="white" font-weight="bold" font-size="14">CT - RED - EXTERNAL DRIVER</text>
+
+  <line x1="450" y1="1684" x2="450" y2="1720" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- CT - GREEN - STUB -->
+  <rect x="300" y="1720" width="300" height="44" rx="7" fill="#27AE60" stroke="#1E8449" stroke-width="1.5"/>
+  <text x="450" y="1747" text-anchor="middle" fill="white" font-weight="bold" font-size="14">CT - GREEN - STUB</text>
+
+  <!-- Arrow to return -->
+  <line x1="450" y1="1764" x2="450" y2="1800" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Return to AT Cycle -->
+  <rect x="330" y="1800" width="240" height="36" rx="18" fill="#1A1A2E"/>
+  <text x="450" y="1823" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Return to AT Cycle</text>
+
+  <!-- ═══════════ PAGE 2 LEGEND ═══════════ -->
+  <rect x="100" y="1860" width="700" height="50" rx="8" fill="white" stroke="#DDDDDD" stroke-width="1"/>
+  <text x="450" y="1892" text-anchor="middle" fill="#BBBBBB" font-size="10">Each RED phase follows: WRITE → Human Review → COMMIT. GREEN skip lines bypass intermediate phases.</text>
 </svg>
