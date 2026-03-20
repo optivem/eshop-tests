@@ -4,8 +4,6 @@ _This process is only triggered when the AT cycle's DSL phase reports **external
 
 _If the External System does not even exist yet, make Smoke Tests pass first._
 
-See `terminal-bell.md` for the terminal bell command.
-
 ## Commit Message Format
 
 Every commit message follows the pattern: `<Scenario> | <Phase>`.
