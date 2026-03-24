@@ -17,46 +17,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy System (Real External Systems)
-        uses: ./.github/actions/deploy-docker-images
-        with:
-          environment: acceptance
-          version: latest
-          external-system-mode: 'real'
-          frontend-url: 'http://localhost:3001/'
-          backend-url: 'http://localhost:8081/health'
-          erp-url: 'http://localhost:9001/erp/health'
-          tax-url: 'http://localhost:9001/tax/health'
+      - name: Deploy Acceptance Environment
+        uses: ./.github/actions/deploy-acceptance-environment
 
-      - name: Deploy System (Stub External Systems)
-        uses: ./.github/actions/deploy-docker-images
-        with:
-          environment: acceptance
-          version: latest
-          external-system-mode: 'stub'
-          frontend-url: 'http://localhost:3002/'
-          backend-url: 'http://localhost:8082/health'
-          erp-url: 'http://localhost:9002/erp/health'
-          tax-url: 'http://localhost:9002/tax/height'
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore system test dependencies
-        run: dotnet restore
-        working-directory: dotnet
-
-      - name: Build system tests
-        run: dotnet build --no-restore --configuration Release
-        working-directory: dotnet
-
-      - name: Install Playwright browsers
-        run: |
-          dotnet build
-          pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
-        working-directory: dotnet/SystemTests
+      - name: Setup .NET Tests
+        uses: ./.github/actions/setup-dotnet-tests
 
       # === mod02: Smoke ===
       - name: mod02 - Smoke

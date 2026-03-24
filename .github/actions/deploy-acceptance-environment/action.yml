@@ -1,0 +1,32 @@
+name: 'Deploy Acceptance Environment'
+description: 'Deploy both real and stub external system environments for acceptance testing'
+inputs:
+  version:
+    description: 'Release version to deploy (e.g., latest, v1.0.4-rc)'
+    required: false
+    default: 'latest'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Deploy System (Real External Systems)
+      uses: ./.github/actions/deploy-docker-images
+      with:
+        environment: acceptance
+        version: ${{ inputs.version }}
+        external-system-mode: 'real'
+        frontend-url: 'http://localhost:3001/'
+        backend-url: 'http://localhost:8081/health'
+        erp-url: 'http://localhost:9001/erp/health'
+        tax-url: 'http://localhost:9001/tax/health'
+
+    - name: Deploy System (Stub External Systems)
+      uses: ./.github/actions/deploy-docker-images
+      with:
+        environment: acceptance
+        version: ${{ inputs.version }}
+        external-system-mode: 'stub'
+        frontend-url: 'http://localhost:3002/'
+        backend-url: 'http://localhost:8082/health'
+        erp-url: 'http://localhost:9002/erp/health'
+        tax-url: 'http://localhost:9002/tax/health'

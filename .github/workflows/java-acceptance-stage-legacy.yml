@@ -17,48 +17,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy System (Real External Systems)
-        uses: ./.github/actions/deploy-docker-images
-        with:
-          environment: acceptance
-          version: latest
-          external-system-mode: 'real'
-          frontend-url: 'http://localhost:3001/'
-          backend-url: 'http://localhost:8081/health'
-          erp-url: 'http://localhost:9001/erp/health'
-          tax-url: 'http://localhost:9001/tax/health'
+      - name: Deploy Acceptance Environment
+        uses: ./.github/actions/deploy-acceptance-environment
 
-      - name: Deploy System (Stub External Systems)
-        uses: ./.github/actions/deploy-docker-images
-        with:
-          environment: acceptance
-          version: latest
-          external-system-mode: 'stub'
-          frontend-url: 'http://localhost:3002/'
-          backend-url: 'http://localhost:8082/health'
-          erp-url: 'http://localhost:9002/erp/health'
-          tax-url: 'http://localhost:9002/tax/health'
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: temurin
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Install Playwright Dependencies
-        run: npx playwright install --with-deps chromium
-        working-directory: java
-
-      - name: Make Gradle Wrapper executable
-        run: chmod +x ./gradlew
-        working-directory: java
-
-      - name: Build Project
-        run: ./gradlew clean compileJava compileTestJava
-        working-directory: java
+      - name: Setup Java Tests
+        uses: ./.github/actions/setup-java-tests
 
       # === mod02: Smoke ===
       - name: mod02 - Smoke

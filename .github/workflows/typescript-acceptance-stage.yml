@@ -17,46 +17,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy System (Real External Systems)
-        uses: ./.github/actions/deploy-docker-images
-        with:
-          environment: acceptance
-          version: latest
-          external-system-mode: 'real'
-          frontend-url: 'http://localhost:3001/'
-          backend-url: 'http://localhost:8081/health'
-          erp-url: 'http://localhost:9001/erp/health'
-          tax-url: 'http://localhost:9001/tax/health'
+      - name: Deploy Acceptance Environment
+        uses: ./.github/actions/deploy-acceptance-environment
 
-      - name: Deploy System (Stub External Systems)
-        uses: ./.github/actions/deploy-docker-images
-        with:
-          environment: acceptance
-          version: latest
-          external-system-mode: 'stub'
-          frontend-url: 'http://localhost:3002/'
-          backend-url: 'http://localhost:8082/health'
-          erp-url: 'http://localhost:9002/erp/health'
-          tax-url: 'http://localhost:9002/tax/health'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: typescript/package-lock.json
-
-      - name: Install Dependencies
-        run: npm ci
-        working-directory: typescript
-
-      - name: Build Project
-        run: npm run build
-        working-directory: typescript
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
-        working-directory: typescript/system-test
+      - name: Setup TypeScript Tests
+        uses: ./.github/actions/setup-typescript-tests
 
       - name: Smoke (Stub)
         run: npx playwright test --project=smoke-test tests/latest/smoke

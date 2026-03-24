@@ -1,0 +1,29 @@
+name: 'Setup Java Tests'
+description: 'Setup Java, Gradle, Playwright, and build project for system tests'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 21
+        distribution: temurin
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+
+    - name: Install Playwright Dependencies
+      run: npx playwright install --with-deps chromium
+      working-directory: java
+      shell: bash
+
+    - name: Make Gradle Wrapper executable
+      run: chmod +x ./gradlew
+      working-directory: java
+      shell: bash
+
+    - name: Build Project
+      run: ./gradlew clean compileJava compileTestJava
+      working-directory: java
+      shell: bash

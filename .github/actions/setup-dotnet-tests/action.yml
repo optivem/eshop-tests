@@ -1,0 +1,27 @@
+name: 'Setup .NET Tests'
+description: 'Setup .NET SDK, restore, build, and install Playwright for system tests'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore system test dependencies
+      run: dotnet restore
+      working-directory: dotnet
+      shell: bash
+
+    - name: Build system tests
+      run: dotnet build --no-restore --configuration Release
+      working-directory: dotnet
+      shell: bash
+
+    - name: Install Playwright browsers
+      run: |
+        dotnet build
+        pwsh bin/Debug/net8.0/playwright.ps1 install --with-deps
+      working-directory: dotnet/SystemTests
+      shell: bash
