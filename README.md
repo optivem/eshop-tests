@@ -3,14 +3,17 @@
 [Java](java/)
 
 [![java-acceptance-stage](https://github.com/optivem/eshop-tests/actions/workflows/java-acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/java-acceptance-stage.yml)
+[![java-acceptance-stage-legacy](https://github.com/optivem/eshop-tests/actions/workflows/java-acceptance-stage-legacy.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/java-acceptance-stage-legacy.yml)
 
 [.NET](dotnet/)
 
 [![dotnet-acceptance-stage](https://github.com/optivem/eshop-tests/actions/workflows/dotnet-acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/dotnet-acceptance-stage.yml)
+[![dotnet-acceptance-stage-legacy](https://github.com/optivem/eshop-tests/actions/workflows/dotnet-acceptance-stage-legacy.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/dotnet-acceptance-stage-legacy.yml)
 
 [TypeScript](typescript/)
 
 [![typescript-acceptance-stage](https://github.com/optivem/eshop-tests/actions/workflows/typescript-acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/typescript-acceptance-stage.yml)
+[![typescript-acceptance-stage-legacy](https://github.com/optivem/eshop-tests/actions/workflows/typescript-acceptance-stage-legacy.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/typescript-acceptance-stage-legacy.yml)
 
 ## Usage
 
