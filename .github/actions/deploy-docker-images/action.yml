@@ -9,7 +9,8 @@ inputs:
     required: true
   image-urls:
     description: 'Docker image URLs to deploy (JSON array format)'
-    required: true
+    required: false
+    default: ''
   external-system-mode:
     description: 'External system mode: stub or real'
     required: true

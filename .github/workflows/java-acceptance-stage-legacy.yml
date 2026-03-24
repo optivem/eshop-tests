@@ -4,61 +4,10 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Run once a day at midnight
   workflow_dispatch:
-    inputs:
-      force_run:
-        description: 'Force run (even if no new images)'
-        required: false
-        default: false
-        type: boolean
 
 jobs:
 
-  find-latest-images:
-    runs-on: ubuntu-latest
-    outputs:
-      image-digest-urls: ${{ steps.get-digest.outputs.image-digest-urls }}
-      latest-image-timestamp: ${{ steps.get-digest.outputs.latest-image-timestamp }}
-
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Resolve Latest Docker Digests
-        id: get-digest
-        uses: optivem/find-latest-docker-images-action@v1
-        with:
-          image-urls: |
-            ghcr.io/${{ github.repository_owner }}/eshop/frontend:latest
-            ghcr.io/${{ github.repository_owner }}/eshop/backend:latest
-
-  should-run:
-    needs: find-latest-images
-    if: needs.find-latest-images.result == 'success'
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.check.outputs.should-run }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Should Run Acceptance Stage
-        id: check
-        uses: optivem/should-run-acceptance-stage-action@v1
-        with:
-          latest-image-timestamp: ${{ needs.find-latest-images.outputs.latest-image-timestamp }}
-          force-run: ${{ inputs.force_run == true }}
-          acceptance-stage-workflow-name: java-acceptance-stage-legacy
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   system-test:
-    needs: [ should-run, find-latest-images ]
-    if: needs.should-run.outputs.should_run == 'true'
     runs-on: ubuntu-latest
 
     permissions:
@@ -73,7 +22,6 @@ jobs:
         with:
           environment: acceptance
           version: latest
-          image-urls: ${{ needs.find-latest-images.outputs.image-digest-urls }}
           external-system-mode: 'real'
           frontend-url: 'http://localhost:3001/'
           backend-url: 'http://localhost:8081/health'
@@ -85,7 +33,6 @@ jobs:
         with:
           environment: acceptance
           version: latest
-          image-urls: ${{ needs.find-latest-images.outputs.image-digest-urls }}
           external-system-mode: 'stub'
           frontend-url: 'http://localhost:3002/'
           backend-url: 'http://localhost:8082/health'
