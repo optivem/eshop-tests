@@ -52,6 +52,7 @@ jobs:
         with:
           latest-image-timestamp: ${{ needs.find-latest-images.outputs.latest-image-timestamp }}
           force-run: ${{ inputs.force_run == true }}
+          acceptance-stage-workflow-name: dotnet-acceptance-stage-legacy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
