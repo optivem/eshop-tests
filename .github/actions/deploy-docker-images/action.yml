@@ -1,5 +1,5 @@
 name: 'Deploy Docker Images'
-description: 'Deploy Docker images using Docker Compose and run smoke tests'
+description: 'Deploy Docker images using Docker Compose and wait for system to be ready'
 inputs:
   environment:
     description: 'Target deployment environment (e.g., qa, staging, production)'
@@ -12,24 +12,19 @@ inputs:
     required: true
   external-system-mode:
     description: 'External system mode: stub or real'
-    required: false
-    default: 'stub'
+    required: true
   frontend-url:
     description: 'Frontend URL for ping'
-    required: false
-    default: 'http://localhost:3001/'
+    required: true
   backend-url:
     description: 'Backend API URL for ping'
-    required: false
-    default: 'http://localhost:8081/health'
+    required: true
   erp-url:
     description: 'ERP API URL for ping'
-    required: false
-    default: 'http://localhost:9002/erp/health'
+    required: true
   tax-url:
     description: 'Tax API URL for ping'
-    required: false
-    default: 'http://localhost:9002/tax/health'
+    required: true
 
 runs:
   using: 'composite'
@@ -110,27 +105,3 @@ runs:
         url: ${{ inputs.tax-url }}
         max-attempts: '30'
         wait-seconds: '10'
-
-    - name: Prepare for Smoke Tests - Setup Java
-      uses: actions/setup-java@v4
-      with:
-        java-version: 21
-        distribution: temurin
-
-    - name: Prepare for Smoke Tests - Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
-
-    - name: Prepare for Smoke Tests - Make Gradle Wrapper executable
-      run: chmod +x ./gradlew
-      shell: bash
-      working-directory: ${{ github.workspace }}/java
-
-    - name: Build Project
-      run: ./gradlew clean compileJava compileTestJava
-      shell: bash
-      working-directory: ${{ github.workspace }}/java
-
-    - name: Run Smoke Tests
-      run: ./gradlew :system-test:test -Dtype=smoke -Denvironment=${{ inputs.environment }} -DexternalSystemMode=${{ inputs.external-system-mode }}
-      shell: bash
-      working-directory: ${{ github.workspace }}/java
