@@ -1,16 +1,16 @@
 # eShop Tests
 
-[Java](https://github.com/optivem/eshop-tests-java)
+[Java](java/)
 
-[![acceptance-stage](https://github.com/optivem/eshop-tests-java/actions/workflows/acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests-java/actions/workflows/acceptance-stage.yml)
+[![java-acceptance-stage](https://github.com/optivem/eshop-tests/actions/workflows/java-acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/java-acceptance-stage.yml)
 
-[.NET](https://github.com/optivem/eshop-tests-dotnet)
+[.NET](dotnet/)
 
-[![acceptance-stage](https://github.com/optivem/eshop-tests-dotnet/actions/workflows/acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests-dotnet/actions/workflows/acceptance-stage.yml)
+[![dotnet-acceptance-stage](https://github.com/optivem/eshop-tests/actions/workflows/dotnet-acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/dotnet-acceptance-stage.yml)
 
-[TypeScript](https://github.com/optivem/eshop-tests-typescript)
+[TypeScript](typescript/)
 
-[![acceptance-stage](https://github.com/optivem/eshop-tests-typescript/actions/workflows/acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests-typescript/actions/workflows/acceptance-stage.yml)
+[![typescript-acceptance-stage](https://github.com/optivem/eshop-tests/actions/workflows/typescript-acceptance-stage.yml/badge.svg)](https://github.com/optivem/eshop-tests/actions/workflows/typescript-acceptance-stage.yml)
 
 ## Usage
 
