@@ -1,0 +1,227 @@
+name: java-acceptance-stage-legacy
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run once a day at midnight
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'Force run (even if no new images)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+
+  find-latest-images:
+    runs-on: ubuntu-latest
+    outputs:
+      image-digest-urls: ${{ steps.get-digest.outputs.image-digest-urls }}
+      latest-image-timestamp: ${{ steps.get-digest.outputs.latest-image-timestamp }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Resolve Latest Docker Digests
+        id: get-digest
+        uses: optivem/find-latest-docker-images-action@v1
+        with:
+          image-urls: |
+            ghcr.io/${{ github.repository_owner }}/eshop/frontend:latest
+            ghcr.io/${{ github.repository_owner }}/eshop/backend:latest
+
+  should-run:
+    needs: find-latest-images
+    if: needs.find-latest-images.result == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Should Run Acceptance Stage
+        id: check
+        uses: optivem/should-run-acceptance-stage-action@v1
+        with:
+          latest-image-timestamp: ${{ needs.find-latest-images.outputs.latest-image-timestamp }}
+          force-run: ${{ inputs.force_run == true }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  system-test:
+    needs: [ should-run, find-latest-images ]
+    if: needs.should-run.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy System (Real External Systems)
+        uses: ./.github/actions/deploy-docker-images
+        with:
+          environment: acceptance
+          version: latest
+          image-urls: ${{ needs.find-latest-images.outputs.image-digest-urls }}
+          external-system-mode: 'real'
+          frontend-url: 'http://localhost:3001/'
+          backend-url: 'http://localhost:8081/health'
+          erp-url: 'http://localhost:9001/erp/health'
+          tax-url: 'http://localhost:9001/tax/health'
+
+      - name: Deploy System (Stub External Systems)
+        uses: ./.github/actions/deploy-docker-images
+        with:
+          environment: acceptance
+          version: latest
+          image-urls: ${{ needs.find-latest-images.outputs.image-digest-urls }}
+          external-system-mode: 'stub'
+          frontend-url: 'http://localhost:3002/'
+          backend-url: 'http://localhost:8082/health'
+          erp-url: 'http://localhost:9002/erp/health'
+          tax-url: 'http://localhost:9002/tax/health'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Install Playwright Dependencies
+        run: npx playwright install --with-deps chromium
+        working-directory: java
+
+      - name: Make Gradle Wrapper executable
+        run: chmod +x ./gradlew
+        working-directory: java
+
+      - name: Build Project
+        run: ./gradlew clean compileJava compileTestJava
+        working-directory: java
+
+      # === mod02: Smoke ===
+      - name: mod02 - Smoke
+        run: ./gradlew :system-test:test -Dversion=mod02 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      # === mod03: E2E ===
+      - name: mod03 - Smoke
+        run: ./gradlew :system-test:test -Dversion=mod03 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod03 - E2E
+        run: ./gradlew :system-test:test -Dversion=mod03 -Dtype=e2e -Denvironment=acceptance
+        working-directory: java
+
+      # === mod04: Clients ===
+      - name: mod04 - Smoke
+        run: ./gradlew :system-test:test -Dversion=mod04 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod04 - E2E
+        run: ./gradlew :system-test:test -Dversion=mod04 -Dtype=e2e -Denvironment=acceptance
+        working-directory: java
+
+      # === mod05: Drivers ===
+      - name: mod05 - Smoke
+        run: ./gradlew :system-test:test -Dversion=mod05 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod05 - E2E
+        run: ./gradlew :system-test:test -Dversion=mod05 -Dtype=e2e -Denvironment=acceptance
+        working-directory: java
+
+      # === mod06: Channels ===
+      - name: mod06 - Smoke
+        run: ./gradlew :system-test:test -Dversion=mod06 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod06 - E2E - API Channel
+        run: ./gradlew :system-test:test -Dversion=mod06 -Dtype=e2e -Dchannel=API -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod06 - E2E - UI Channel
+        run: ./gradlew :system-test:test -Dversion=mod06 -Dtype=e2e -Dchannel=UI -Denvironment=acceptance
+        working-directory: java
+
+      # === mod07: App DSL ===
+      - name: mod07 - Smoke (real)
+        run: ./gradlew :system-test:test -Dversion=mod07 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod07 - E2E - API Channel
+        run: ./gradlew :system-test:test -Dversion=mod07 -Dtype=e2e -Dchannel=API -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod07 - E2E - UI Channel
+        run: ./gradlew :system-test:test -Dversion=mod07 -Dtype=e2e -Dchannel=UI -Denvironment=acceptance
+        working-directory: java
+
+      # === mod08: Scenario DSL ===
+      - name: mod08 - Smoke
+        run: ./gradlew :system-test:test -Dversion=mod08 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod08 - E2E - API Channel
+        run: ./gradlew :system-test:test -Dversion=mod08 -Dtype=e2e -Dchannel=API -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod08 - E2E - UI Channel
+        run: ./gradlew :system-test:test -Dversion=mod08 -Dtype=e2e -Dchannel=UI -Denvironment=acceptance
+        working-directory: java
+
+      # === mod09: External Stubs ===
+      - name: mod09 - Smoke (Stub)
+        run: ./gradlew :system-test:test -Dversion=mod09 -Dtype=smoke -DexternalSystemMode=stub -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod09 - Smoke (Real)
+        run: ./gradlew :system-test:test -Dversion=mod09 -Dtype=smoke -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      # === mod10: Acceptance Tests ===
+      - name: mod10 - Acceptance - API Channel
+        run: ./gradlew :system-test:test -Dversion=mod10 -Dtype=acceptance -DexcludeTags=isolated -Dchannel=API -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod10 - Acceptance - UI Channel
+        run: ./gradlew :system-test:test -Dversion=mod10 -Dtype=acceptance -DexcludeTags=isolated -Dchannel=UI -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod10 - Acceptance (Isolated) - API Channel
+        run: ./gradlew :system-test:test -Dversion=mod10 -Dtype=acceptance -DincludeTags=isolated -Dchannel=API -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod10 - Acceptance (Isolated) - UI Channel
+        run: ./gradlew :system-test:test -Dversion=mod10 -Dtype=acceptance -DincludeTags=isolated -Dchannel=UI -Denvironment=acceptance
+        working-directory: java
+
+      # === mod11: Contract Tests ===
+      - name: mod11 - Contract (Stub)
+        run: ./gradlew :system-test:test -Dversion=mod11 -Dtype=contract -DexternalSystemMode=stub -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod11 - Contract (Real)
+        run: ./gradlew :system-test:test -Dversion=mod11 -Dtype=contract -DexternalSystemMode=real -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod11 - E2E - API Channel
+        run: ./gradlew :system-test:test -Dversion=mod11 -Dtype=e2e -Dchannel=API -Denvironment=acceptance
+        working-directory: java
+
+      - name: mod11 - E2E - UI Channel
+        run: ./gradlew :system-test:test -Dversion=mod11 -Dtype=e2e -Dchannel=UI -Denvironment=acceptance
+        working-directory: java

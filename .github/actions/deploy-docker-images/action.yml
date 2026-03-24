@@ -1,0 +1,136 @@
+name: 'Deploy Docker Images'
+description: 'Deploy Docker images using Docker Compose and run smoke tests'
+inputs:
+  environment:
+    description: 'Target deployment environment (e.g., qa, staging, production)'
+    required: true
+  version:
+    description: 'Release version to deploy (e.g., v1.0.4-rc)'
+    required: true
+  image-urls:
+    description: 'Docker image URLs to deploy (JSON array format)'
+    required: true
+  external-system-mode:
+    description: 'External system mode: stub or real'
+    required: false
+    default: 'stub'
+  frontend-url:
+    description: 'Frontend URL for ping'
+    required: false
+    default: 'http://localhost:3001/'
+  backend-url:
+    description: 'Backend API URL for ping'
+    required: false
+    default: 'http://localhost:8081/health'
+  erp-url:
+    description: 'ERP API URL for ping'
+    required: false
+    default: 'http://localhost:9002/erp/health'
+  tax-url:
+    description: 'Tax API URL for ping'
+    required: false
+    default: 'http://localhost:9002/tax/health'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Base Repository
+      run: |
+        if [ -d "eshop/.git" ]; then
+          echo "📂 Base repository already exists, pulling latest changes..."
+          cd eshop
+          git pull origin main
+          cd ..
+        else
+          echo "📥 Cloning base repository..."
+          git clone https://github.com/optivem/eshop.git eshop
+        fi
+        echo "✅ Base repository ready"
+      shell: bash
+
+    - name: Deploy System
+      run: |
+        echo "🚀 Deploying system version ${{ inputs.version }} to ${{ inputs.environment }} environment..."
+        echo "🔧 External System Mode: ${{ inputs.external-system-mode }}"
+        echo ""
+
+        # List Docker images being deployed
+        if [[ -n "${{ inputs.image-urls }}" ]]; then
+          echo "📦 Deploying the following Docker images:"
+
+          # Parse JSON array and iterate through each URL
+          echo '${{ inputs.image-urls }}' | jq -r '.[]' | while IFS= read -r image_url; do
+            if [[ -n "$image_url" ]]; then
+              echo "   🐳 Deploying: $image_url"
+            fi
+          done
+          echo ""
+        fi
+
+        echo "📝 Note: We are simulating deployment using Docker Compose Up for testing purposes."
+        echo "🏭 In real applications, this is where you would deploy to:"
+        echo "   - AWS (ECS, EKS, Lambda, EC2)"
+        echo "   - Azure (Container Instances, AKS, App Service)"
+        echo "   - GCP (Cloud Run, GKE, Compute Engine)"
+        echo "   - On-premise (Kubernetes, Docker Swarm, VMs)"
+        echo "   - Other cloud providers (DigitalOcean, Linode, etc.)"
+        echo ""
+        echo "🐳 Starting Docker Compose for simulated deployment..."
+
+        COMPOSE_FILE="docker-compose.pipeline.${{ inputs.external-system-mode }}.yml"
+        echo "📄 Using compose file: $COMPOSE_FILE"
+        docker compose -f eshop/$COMPOSE_FILE up -d
+
+      shell: bash
+
+    - name: Ping Shop API
+      uses: optivem/wait-for-docker-compose-action@v1
+      with:
+        url: ${{ inputs.backend-url }}
+        max-attempts: '30'
+        wait-seconds: '10'
+
+    - name: Ping Shop UI
+      uses: optivem/wait-for-docker-compose-action@v1
+      with:
+        url: ${{ inputs.frontend-url }}
+        max-attempts: '30'
+        wait-seconds: '10'
+
+    - name: Ping ERP
+      uses: optivem/wait-for-docker-compose-action@v1
+      with:
+        url: ${{ inputs.erp-url }}
+        max-attempts: '30'
+        wait-seconds: '10'
+
+    - name: Ping Tax
+      uses: optivem/wait-for-docker-compose-action@v1
+      with:
+        url: ${{ inputs.tax-url }}
+        max-attempts: '30'
+        wait-seconds: '10'
+
+    - name: Prepare for Smoke Tests - Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: 21
+        distribution: temurin
+
+    - name: Prepare for Smoke Tests - Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+
+    - name: Prepare for Smoke Tests - Make Gradle Wrapper executable
+      run: chmod +x ./gradlew
+      shell: bash
+      working-directory: ${{ github.workspace }}/java
+
+    - name: Build Project
+      run: ./gradlew clean compileJava compileTestJava
+      shell: bash
+      working-directory: ${{ github.workspace }}/java
+
+    - name: Run Smoke Tests
+      run: ./gradlew :system-test:test -Dtype=smoke -Denvironment=${{ inputs.environment }} -DexternalSystemMode=${{ inputs.external-system-mode }}
+      shell: bash
+      working-directory: ${{ github.workspace }}/java
