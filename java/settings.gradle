@@ -1,0 +1,13 @@
+rootProject.name = 'eshop-tests-java'
+
+include 'common'
+include 'channel'
+
+include 'system-test'
+
+include 'dsl-core'
+include 'dsl-port'
+include 'driver-port'
+
+include 'driver-adapter'
+

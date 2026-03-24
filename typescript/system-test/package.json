@@ -1,0 +1,31 @@
+{
+  "name": "system-test",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "E2E tests for Optivem eShop",
+  "scripts": {
+    "test": "playwright test",
+    "test:acceptance": "playwright test --project=acceptance-test",
+    "test:smoke": "playwright test --project=smoke-test",
+    "test:e2e": "playwright test --project=e2e-test",
+    "test:external-contract": "playwright test --project=external-system-contract-test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.0",
+    "@types/node": "^20.11.5",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@optivem/commons": "file:../common",
+    "@optivem/driver-port": "file:../driver-port",
+    "@optivem/driver-adapter": "file:../driver-adapter",
+    "@optivem/dsl-port": "file:../dsl-port",
+    "@optivem/dsl-core": "file:../dsl-core",
+    "@optivem/optivem-testing": "1.0.12",
+    "axios": "^1.13.2",
+    "http-status-codes": "^2.3.0",
+    "uuid": "^9.0.1"
+  }
+}

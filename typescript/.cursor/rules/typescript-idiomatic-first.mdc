@@ -1,0 +1,15 @@
+---
+description: Prefer idiomatic TypeScript; established project guides structure and naming
+globs: "**/*.ts"
+alwaysApply: true
+---
+
+# Idiomatic TypeScript first
+
+- **Prefer idiomatic TypeScript** for implementation. The existing codebase guides **structure, naming, and behavior**, not literal translation of patterns that don’t fit TS.
+- **Idiomatic TS patterns to use:**
+  - **Union types + type narrowing:** One method that accepts `Date | string` and narrows inside (e.g. `typeof x === 'string' ? parse(x) : x`) is idiomatic; duplicating two methods where one only delegates to the other is optional, and not required “match”
+  - **Single implementation with overloads for DX:** Overload signatures for clearer call-site types are fine; the implementation can still be one body that handles both cases.
+  - **camelCase** for methods/properties; **no `I` prefix** on interfaces; **no `Async` suffix** (use `Promise<T>` return type).
+  - **No leading underscore for private members.** Use `private name` (or `#name` for ES private fields). The `private` keyword already signals visibility; underscore is not idiomatic in TypeScript.
+- When adding code: match layout, type names, and public API shape (method names, parameters). Prefer TS-idiomatic implementation (unions, narrowing, one implementation) unless the user explicitly asks to mirror the other language’s style.

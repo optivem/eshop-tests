@@ -1,0 +1,15 @@
+#!/bin/sh
+# Pre-commit hook: auto-fixes formatting, then runs format/lint/compilation checks
+# Run: ./gradlew installPreCommitHook (once) to install
+# Bypass: git commit --no-verify
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+# Auto-fix formatting (e.g. line endings, unused imports)
+./gradlew spotlessApply || exit 1
+# Stage any files that were reformatted so they are included in the commit
+git add -u
+
+# Run checks (format check, lint, compile)
+./gradlew preCommitCheck || exit 1
+exit 0

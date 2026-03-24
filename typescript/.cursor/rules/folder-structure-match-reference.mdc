@@ -1,0 +1,14 @@
+---
+description: Folder structure for core modules follows established layout
+globs: core/**/*
+alwaysApply: true
+---
+
+# Folder structure (core)
+
+- When adding or changing a module (e.g. erp, tax, shop, clock) under core, the **folder structure must follow** the established layout.
+- **Layout:**
+  - **client/** — API clients, external DTOs (e.g. `ErpApiClient`, `ClockStubClient`); **sibling of driver**, not under driver.
+  - **driver/** — driver interface, implementations, driver-level DTOs (e.g. `ErpDriver`, `ErpApiDriver`, `ClockStubDriver`).
+  - **dsl/** — DSL entry; **usecases/** (use-case classes and verifications); **usecases/base/** for base command and result types; for shop: **usecases/orders/**, **usecases/coupons/**.
+- **Wrong:** `core/erp/driver/client/` (client nested under driver). **Correct:** `core/erp/client/` and `core/erp/driver/` as siblings.

@@ -1,0 +1,11 @@
+---
+description: Restrict all changes to the core package only; follow established core layout
+globs: core/**/*
+alwaysApply: true
+---
+
+# Core-only scope
+
+- **Only modify** files under `core/` (DriverFactory, SystemConfiguration, SystemDsl, and everything under `core/commons/`, `core/erp/`, `core/shop/`, `core/tax/`).
+- **Do not update** commons, optivem-testing, system-test, or any file outside `core/`.
+- Follow the **established core layout**: client/, driver/, dsl/, dtos, verifications; camelCase for methods/properties; one main export per file.

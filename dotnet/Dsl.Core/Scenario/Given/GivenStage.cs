@@ -1,0 +1,167 @@
+using Dsl.Core.Scenario.When;
+using Dsl.Core.Scenario.Then;
+using Dsl.Port.Given;
+using Dsl.Port.Given.Steps;
+using Dsl.Port.Then;
+using Dsl.Port.When;
+using Driver.Adapter;
+using Dsl.Core.Gherkin.Given;
+using Optivem.Testing;
+
+namespace Dsl.Core.Scenario.Given
+{
+    public class GivenStage : BaseClause, IGivenStage
+    {
+        private readonly UseCaseDsl _app;
+        private readonly ScenarioDsl _scenario;
+        private readonly List<GivenProduct> _products;
+        private readonly List<GivenOrder> _orders;
+        private GivenClock? _clock;
+        private readonly List<GivenCountry> _countries;
+        private readonly List<GivenCoupon> _coupons;
+
+        public GivenStage(Channel? channel, UseCaseDsl app, ScenarioDsl scenario)
+            : base(channel)
+        {
+            _app = app;
+            _scenario = scenario;
+            _products = new List<GivenProduct>();
+            _orders = new List<GivenOrder>();
+            _clock = null;
+            _countries = new List<GivenCountry>();
+            _coupons = new List<GivenCoupon>();
+        }
+
+        public GivenProduct Product()
+        {
+            var productBuilder = new GivenProduct(this);
+            _products.Add(productBuilder);
+            return productBuilder;
+        }
+
+        IGivenProduct IGivenStage.Product() => Product();
+
+        public GivenOrder Order()
+        {
+            var orderBuilder = new GivenOrder(this);
+            _orders.Add(orderBuilder);
+            return orderBuilder;
+        }
+
+        IGivenOrder IGivenStage.Order() => Order();
+
+        public GivenClock Clock()
+        {
+            _clock = new GivenClock(this);
+            return _clock;
+        }
+
+        IGivenClock IGivenStage.Clock() => Clock();
+
+        public GivenCountry Country()
+        {
+            var taxRateBuilder = new GivenCountry(this);
+            _countries.Add(taxRateBuilder);
+            return taxRateBuilder;
+        }
+
+        IGivenCountry IGivenStage.Country() => Country();
+
+        public GivenCoupon Coupon()
+        {
+            var couponBuilder = new GivenCoupon(this);
+            _coupons.Add(couponBuilder);
+            return couponBuilder;
+        }
+
+        IGivenCoupon IGivenStage.Coupon() => Coupon();
+
+        public WhenStage When()
+        {
+            return new WhenStage(Channel, _app, _scenario, _products.Any(), _countries.Any(), SetupGiven);
+        }
+
+        IWhenStage IGivenStage.When() => When();
+
+        public ThenStageBase Then()
+        {
+            return new ThenStageBase(_app, SetupGiven);
+        }
+
+        IThenStage IGivenStage.Then() => Then();
+
+        private async Task SetupGiven()
+        {
+            await SetupClock();
+            await SetupErp();
+            await SetupTax();
+            await SetupShop();
+        }
+
+        private async Task SetupClock()
+        {
+            if (_clock != null)
+            {
+                await _clock.Execute(_app);
+            }
+        }
+
+        private async Task SetupErp()
+        {
+            if (_orders.Any() && !_products.Any())
+            {
+                var defaultProduct = new GivenProduct(this);
+                _products.Add(defaultProduct);
+            }
+
+            foreach (var product in _products)
+            {
+                await product.Execute(_app);
+            }
+        }
+
+        private async Task SetupTax()
+        {
+            if (_orders.Any() && !_countries.Any())
+            {
+                var defaultCountry = new GivenCountry(this);
+                _countries.Add(defaultCountry);
+            }
+
+            foreach (var country in _countries)
+            {
+                await country.Execute(_app);
+            }
+        }
+
+        private async Task SetupShop()
+        {
+            await SetupCoupons();
+            await SetupOrders();
+        }
+
+        private async Task SetupCoupons()
+        {
+            if (_orders.Any() && !_coupons.Any())
+            {
+                var defaultCoupon = new GivenCoupon(this);
+                _coupons.Add(defaultCoupon);
+            }
+
+            foreach (var coupon in _coupons)
+            {
+                await coupon.Execute(_app);
+            }
+        }
+
+        private async Task SetupOrders()
+        {
+            foreach (var order in _orders)
+            {
+                await order.Execute(_app);
+            }
+        }
+    }
+}
+
+

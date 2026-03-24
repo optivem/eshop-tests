@@ -1,0 +1,29 @@
+# Visual Studio
+.vs/
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# Test results
+TestResults/
+*.trx
+*.html
+*.xml
+build-result.txt
+
+# Visual Studio cache/options
+.vsts/
+slnx.sqlite
+*.slnx.db

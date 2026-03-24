@@ -1,0 +1,12 @@
+---
+description: Do not add defensive defaults (e.g. ?? '', ?? '0') unless the rest of the codebase does the same
+globs: core/**/*
+alwaysApply: true
+---
+
+# No extra defaults
+
+- **Do not add** defensive defaults like `?? ''`, `?? '0'`, or similar null/undefined coalescing unless the existing code in that layer does the equivalent.
+  - If existing code passes a value through (e.g. `request.Sku`, `error.Message`) with no default, do the same here: use the value as-is (and use non-null assertion `!` only when the surrounding code uses null-forgiving `!`).
+  - If the existing code does not default optional/nullable fields, do not add `?? ''` or `?? '0'` in TypeScript.
+- **Rule of thumb:** If it isn’t in the existing codebase, don’t add it here. Match existing codebase behavior; avoid inserting extra “safety” defaults.

@@ -1,0 +1,15 @@
+---
+description: Force explicit generic type parameters; no default type parameters
+globs: "**/*.ts"
+alwaysApply: true
+---
+
+# TypeScript generics: no defaults
+
+- **Do not use default type parameters** on generics (e.g. `= unknown`, `= any`, `= void`).
+- **Require all type parameters to be specified explicitly** by callers. Do not write:
+  - `class Result<T, E = unknown>`
+  - `class UseCaseResult<TSuccess, TFailure = unknown, ...>`
+  - `function foo<T = string>()`
+- **Correct:** `class Result<T, E>` — callers must supply both `T` and `E`.
+- If a type is intentionally “unspecified” at a call site, the caller should pass `unknown` explicitly (e.g. `Result<MyType, unknown>`).

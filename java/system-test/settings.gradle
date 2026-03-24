@@ -1,0 +1,3 @@
+// This file is no longer needed as system-test is now integrated as regular subprojects in the root settings.gradle
+// Keeping this file for backward compatibility but it has no effect when building from root
+

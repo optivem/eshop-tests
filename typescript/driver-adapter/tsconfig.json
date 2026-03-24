@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "lib": ["ES2022"],
+    "moduleResolution": "node16",
+    "baseUrl": ".",
+    "paths": {
+      "@optivem/driver-adapter/client/http": ["shared/client/http/index.ts"],
+      "@optivem/driver-adapter/client/playwright": ["shared/client/playwright/index.ts"],
+      "@optivem/driver-adapter/client/wiremock": ["shared/client/wiremock/index.ts"]
+    },
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noEmit": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

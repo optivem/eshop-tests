@@ -1,0 +1,15 @@
+---
+description: Warn when user instructions would produce non-idiomatic TypeScript; suggest idiomatic alternatives first
+globs: "**/*.ts"
+alwaysApply: true
+---
+
+# TypeScript idiomatic — warn before implementing
+
+- **When the user asks for something that is not idiomatic TypeScript**, warn them and suggest the idiomatic alternative **before** implementing the non-idiomatic version.
+- **Do not** silently implement non-idiomatic patterns when a clear TypeScript convention exists.
+- **Examples to catch and suggest:**
+  - **Interface naming:** User asks for `IXxx` (e.g. `ICloseable`, `IDriver`) → suggest **`Xxx`** (e.g. `Closeable`, `Driver`). TypeScript style is to name interfaces by capability without an `I` prefix.
+  - **Async naming:** User asks for `getTimeAsync`, `checkHealthAsync` → suggest **no `Async` suffix**; use `Promise<T>` return type instead (see typescript-idiomatic-async rule).
+  - **Other:** Any request that would introduce a pattern uncommon in TypeScript — briefly note the TS idiom and offer the alternative, then implement the idiomatic version unless the user explicitly insists on the other.
+- **Flow:** If the instruction is non-idiomatic → (1) briefly warn and suggest the idiomatic form, (2) implement the idiomatic form unless the user says otherwise.

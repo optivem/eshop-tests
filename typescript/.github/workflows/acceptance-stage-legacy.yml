@@ -1,0 +1,308 @@
+name: acceptance-stage-legacy
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'Force run (even if no new images)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+
+  find-latest-images:
+    runs-on: ubuntu-latest
+    outputs:
+      image-digest-urls: ${{ steps.get-digest.outputs.image-digest-urls }}
+      latest-image-timestamp: ${{ steps.get-digest.outputs.latest-image-timestamp }}
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Resolve Latest Docker Digests
+        id: get-digest
+        uses: optivem/find-latest-docker-images-action@v1
+        with:
+          image-urls: |
+            ghcr.io/${{ github.repository_owner }}/eshop/frontend:latest
+            ghcr.io/${{ github.repository_owner }}/eshop/backend:latest
+
+  should-run:
+    needs: find-latest-images
+    if: needs.find-latest-images.result == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Should Run Acceptance Stage
+        id: check
+        uses: optivem/should-run-acceptance-stage-action@v1
+        with:
+          latest-image-timestamp: ${{ needs.find-latest-images.outputs.latest-image-timestamp }}
+          force-run: ${{ inputs.force_run == true }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  system-test:
+    needs: [ should-run, find-latest-images ]
+    if: needs.should-run.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy System (Real External Systems)
+        uses: ./.github/actions/deploy-docker-images
+        with:
+          environment: acceptance
+          version: latest
+          image-urls: ${{ needs.find-latest-images.outputs.image-digest-urls }}
+          external-system-mode: 'real'
+          frontend-url: 'http://localhost:3001/'
+          backend-url: 'http://localhost:8081/health'
+          erp-url: 'http://localhost:9001/erp/health'
+          tax-url: 'http://localhost:9001/tax/health'
+
+      - name: Deploy System (Stub External Systems)
+        uses: ./.github/actions/deploy-docker-images
+        with:
+          environment: acceptance
+          version: latest
+          image-urls: ${{ needs.find-latest-images.outputs.image-digest-urls }}
+          external-system-mode: 'stub'
+          frontend-url: 'http://localhost:3002/'
+          backend-url: 'http://localhost:8082/health'
+          erp-url: 'http://localhost:9002/erp/health'
+          tax-url: 'http://localhost:9002/tax/health'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+        working-directory: system-test
+
+      # === mod02 ===
+      - name: mod02 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod02/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      # === mod03 ===
+      - name: mod03 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod03/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod03 - E2E
+        run: npx playwright test --project=e2e-test tests/legacy/mod03/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+
+      # === mod04 ===
+      - name: mod04 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod04/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod04 - E2E
+        run: npx playwright test --project=e2e-test tests/legacy/mod04/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+
+      # === mod05 ===
+      - name: mod05 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod05/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod05 - E2E
+        run: npx playwright test --project=e2e-test tests/legacy/mod05/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      # === mod06 ===
+      - name: mod06 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod06/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod06 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod06/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+          CHANNEL: API
+
+      - name: mod06 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod06/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+          CHANNEL: UI
+
+      # === mod07 ===
+      - name: mod07 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod07/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod07 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod07/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+          CHANNEL: API
+
+      - name: mod07 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod07/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+          CHANNEL: UI
+
+      # === mod08 ===
+      - name: mod08 - Smoke
+        run: npx playwright test --project=smoke-test tests/legacy/mod08/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod08 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod08/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+          CHANNEL: API
+
+      - name: mod08 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod08/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+          CHANNEL: UI
+
+      # === mod09 ===
+      - name: mod09 - Smoke (Stub)
+        run: npx playwright test --project=smoke-test tests/legacy/mod09/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+
+      - name: mod09 - Smoke (Real)
+        run: npx playwright test --project=smoke-test tests/legacy/mod09/smoke
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      # === mod10 ===
+      - name: mod10 - Acceptance - API Channel
+        run: npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep-invert "@isolated"
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: API
+
+      - name: mod10 - Acceptance - UI Channel
+        run: npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep-invert "@isolated"
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: UI
+
+      - name: mod10 - Acceptance (Isolated) - API Channel
+        run: npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep "@isolated" --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: API
+
+      - name: mod10 - Acceptance (Isolated) - UI Channel
+        run: npx playwright test --project=acceptance-test tests/legacy/mod10/acceptance --grep "@isolated" --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+          CHANNEL: UI
+
+      # === mod11 ===
+      - name: mod11 - Contract (Stub)
+        run: npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: STUB
+
+      - name: mod11 - Contract (Real)
+        run: npx playwright test --project=external-system-contract-test tests/legacy/mod11/contract --workers=1
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          EXTERNAL_SYSTEM_MODE: REAL
+
+      - name: mod11 - E2E - API Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod11/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: API
+
+      - name: mod11 - E2E - UI Channel
+        run: npx playwright test --project=e2e-test tests/legacy/mod11/e2e
+        working-directory: system-test
+        env:
+          ENVIRONMENT: acceptance
+          CHANNEL: UI

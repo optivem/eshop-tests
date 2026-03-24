@@ -1,0 +1,12 @@
+---
+description: Restrict all changes to the commons package only; do not touch consumers
+globs: commons/**/*
+alwaysApply: true
+---
+
+# Commons-only scope
+
+- **Only modify** files under `commons/` (package.json, tsconfig.json, and everything under `commons/src/`).
+- **Do not update** core, optivem-testing, system-test, root package.json, or any file outside `commons/`.
+- Breaking changes in consumers are acceptable: do not change or fix code in other packages to keep things working.
+- When suggesting imports or dependencies, refer only to what exists inside commons (e.g. `@optivem/common`, `@optivem/common/dsl`, `@optivem/common/util`). Do not propose edits to consumer code to adopt new APIs.

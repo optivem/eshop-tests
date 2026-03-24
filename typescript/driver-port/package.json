@@ -1,0 +1,12 @@
+{
+  "name": "@optivem/driver-port",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
+  "exports": { "./*": "./dist/*" },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
+  }
+}

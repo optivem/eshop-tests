@@ -1,0 +1,28 @@
+{
+  "name": "@optivem/commons",
+  "version": "0.0.1",
+  "description": "Shared utilities for Optivem acceptance testing",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "clean": "rimraf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "big.js": "^6.2.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.2.2",
+    "@types/uuid": "^9.0.7",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
+  }
+}

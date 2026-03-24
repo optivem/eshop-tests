@@ -1,0 +1,12 @@
+---
+description: Never mention other languages, migration, or reference projects; the codebase reads as a native TypeScript project
+globs: "**/*"
+alwaysApply: true
+---
+
+# No migration or reference mentions
+
+- **Do not mention** Java, .NET, C#, or any other language or "reference project" in **code, comments, or documentation**.
+- **Do not use** words like "migrated", "migration", "reference", "matches Java", "aligns with .NET", or similar in comments or docs.
+- The project should read as a **native TypeScript codebase**. New contributors and readers must not be able to infer that it was ported from elsewhere.
+- Keep guidance in other rules (structure, naming, idioms) but phrase them in terms of "this project" and "established layout" only.

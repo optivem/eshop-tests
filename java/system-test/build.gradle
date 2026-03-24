@@ -1,0 +1,124 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.6'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.optivem.eshop.systemtest'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':channel')
+    implementation project(':dsl-core')
+    implementation project(':driver-adapter')
+    implementation project(':dsl-port')
+
+    implementation 'com.optivem:optivem-testing:1.0.4'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework:spring-web'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.yaml:snakeyaml:2.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.38'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.38'
+}
+
+tasks.register('installPlaywright', JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.microsoft.playwright.CLI'
+    args = ['install']
+}
+
+tasks.named('test') {
+    dependsOn 'installPlaywright'
+
+    filter {
+        def type    = System.getProperty('type')    // smoke | acceptance | e2e | contract
+        def version = System.getProperty('version') // mod02 | mod03 | ... | mod11
+        def mode    = System.getProperty('mode')    // stub | real (contract tests only)
+        if (type && version) {
+            includeTestsMatching "*${version}*${type}*"
+        } else if (type) {
+            includeTestsMatching "*${type}*"
+        } else if (version) {
+            includeTestsMatching "*${version}*"
+        }
+        if (type == 'contract' && mode == 'stub') {
+            includeTestsMatching "*Stub*"
+        }
+        if (type == 'contract' && mode == 'real') {
+            includeTestsMatching "*Real*"
+        }
+    }
+
+    useJUnitPlatform {
+        if (System.getProperty('includeTags')) {
+            includeTags System.getProperty('includeTags').split(',')
+        }
+        if (System.getProperty('excludeTags')) {
+            excludeTags System.getProperty('excludeTags').split(',')
+        }
+    }
+
+    jvmArgs '-Duser.timezone=UTC'
+
+    systemProperty 'environment',        System.getProperty('environment')
+    systemProperty 'externalSystemMode', System.getProperty('externalSystemMode')
+    systemProperty 'channel',            System.getProperty('channel')
+    systemProperty 'mode',               System.getProperty('mode')
+
+    def includeTags = System.getProperty('includeTags')
+    if (includeTags?.contains('isolated')) {
+        systemProperty 'junit.jupiter.execution.parallel.enabled', 'false'
+        maxParallelForks = 1
+    } else {
+        maxParallelForks = Runtime.runtime.availableProcessors()
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+        exceptionFormat = 'full'
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+
+        displayGranularity = 2
+
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                println "\nTest Summary: ${result.resultType}"
+                println "Total: ${result.testCount}, Passed: ${result.successfulTestCount}, Failed: ${result.failedTestCount}, Skipped: ${result.skippedTestCount}"
+            }
+        }
+
+        beforeTest { descriptor ->
+            logger.lifecycle("Running: ${descriptor.className}.${descriptor.name}")
+        }
+    }
+}
+
+tasks.named('bootJar') {
+    enabled = false
+}
+
+tasks.named('jar') {
+    enabled = true
+}

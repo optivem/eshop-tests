@@ -1,0 +1,14 @@
+---
+description: File and type names in core should match established naming; idiomatic TypeScript overall
+globs: core/**/*
+alwaysApply: true
+---
+
+# File names (core, idiomatic overall)
+
+- When adding or changing core modules, **file names** (and the main type/class names they export) should **match the established** naming so the codebase stays consistent.
+  - Example: `ErpApiClient.ts`, `ClockStubDriver.ts` (PascalCase for class files; one class per file).
+- **Idiomatic TypeScript:**
+  - Use **camelCase** for methods and properties; PascalCase for classes and file names of class files.
+  - Prefer **one class/type per file** and **filename = primary export name** (e.g. `ClockStubClient.ts` exports `ClockStubClient`).
+- **Rule of thumb:** Same logical type as elsewhere in core → same file name in TS (with `.ts`); no `I` prefix, no `Async` suffix in names.

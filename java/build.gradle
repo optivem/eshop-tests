@@ -1,0 +1,69 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.6' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
+    id 'com.diffplug.spotless' version '6.25.0' apply false
+    id 'name.remal.sonarlint' version '7.0.1' apply false
+}
+
+allprojects {
+    group = 'com.optivem'
+    version = '0.0.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.diffplug.spotless'
+    apply plugin: 'name.remal.sonarlint'
+
+    plugins.withId('name.remal.sonarlint') {
+        project.extensions.getByName('sonarLint').rules.disable('java:S119', 'java:S5976', 'java:S00119', 'java:S5960')
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    spotless {
+        java {
+            removeUnusedImports()
+        }
+    }
+}
+
+// Pre-commit verification task: format, lint, compile
+def preCommitTasks = []
+subprojects.each { sub ->
+    ['spotlessCheck', 'sonarlintMain', 'compileJava', 'compileTestJava'].each { taskName ->
+        def t = sub.tasks.findByName(taskName)
+        if (t != null) {
+            preCommitTasks.add(t)
+        }
+    }
+}
+tasks.register('preCommitCheck') {
+    group = 'verification'
+    description = 'Runs format, lint, and compilation checks (for pre-commit hook)'
+    dependsOn(preCommitTasks)
+}
+
+tasks.register('installPreCommitHook', Copy) {
+    group = 'help'
+    description = 'Installs pre-commit hook to run format, lint, and compilation checks before each commit'
+    from file('scripts/pre-commit')
+    into file('.git/hooks')
+    rename { 'pre-commit' }
+    fileMode 0755
+    doFirst {
+        if (!file('.git').exists()) {
+            throw new GradleException('Not a Git repository. Run from project root.')
+        }
+    }
+}
+

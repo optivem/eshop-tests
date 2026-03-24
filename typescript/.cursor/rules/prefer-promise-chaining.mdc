@@ -1,0 +1,12 @@
+---
+description: Prefer promise/result chaining over await + variable + return
+globs: 
+alwaysApply: true
+---
+
+# Prefer promise chaining
+
+- **Prefer chaining** on promises and results instead of `await`, then a variable, then `return`. Use `.then(...)` (or `.map(...)` / `.mapError(...)` on the resolved value) so the method is a single `return promise.then(...)` expression where possible.
+- **Good:** `return this.client.getTime().then((r) => r.map(from).mapError(fromClockErrorResponse));`
+- **Avoid:** `const result = await this.client.getTime(); return result.map(from).mapError(fromClockErrorResponse);`
+- Applies to async methods that only await one promise and then transform the result before returning.

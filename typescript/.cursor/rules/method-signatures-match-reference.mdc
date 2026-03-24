@@ -1,0 +1,14 @@
+---
+description: Method and function signatures in core should match existing modules, idiomatic TypeScript
+globs: core/**/*
+alwaysApply: true
+---
+
+# Method signatures (core, idiomatic TypeScript)
+
+- When implementing or changing **core** (client, driver, dsl, dtos), **method and function signatures** should **match the existing** modules so behavior and types stay aligned.
+  - **Parameter types and counts:** Same shape as existing similar operations; map types idiomatically (e.g. optional string → `string | undefined`, decimal → `string` or `Decimal` from commons).
+  - **Return types:** Same success/error shape (e.g. `Promise<Result<T, E>>`); keep the same **error type** at each layer (e.g. client returns client error DTO, driver converts with a `from(ext)`-style function).
+  - **Converter signatures:** e.g. driver `ErpErrorResponse.from(ext: ExtErpErrorResponse)` must take the **client** error type (ExtErpErrorResponse), not a generic type like ProblemDetail.
+- **Idiomatic TypeScript:** camelCase for method names and properties; one main export per file; filename matches primary type/class.
+- **Rule of thumb:** Same operation as elsewhere in core → same parameters and return structure; names and syntax follow TypeScript conventions.

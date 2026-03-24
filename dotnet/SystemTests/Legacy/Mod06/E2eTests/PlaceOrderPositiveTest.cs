@@ -1,0 +1,136 @@
+using Common;
+using Dsl.Core.Shop;
+using Driver.Port.Shop.Dtos;
+using Driver.Port.Shop;
+using Driver.Port.External.Erp.Dtos;
+using SystemTests.Commons.Constants;
+using SystemTests.Legacy.Mod06.E2eTests.Base;
+using Optivem.Testing;
+using Shouldly;
+using Xunit;
+
+namespace SystemTests.Legacy.Mod06.E2eTests;
+
+public class PlaceOrderPositiveTest : BaseE2eTest
+{
+    [Theory]
+    [ChannelData(ChannelType.UI, ChannelType.API)]
+    public async Task ShouldPlaceOrderWithCorrectSubtotalPrice(Channel channel)
+    {
+        await SetChannelAsync(channel);
+
+        var sku = CreateUniqueSku(Defaults.SKU);
+        (await _erpDriver!.ReturnsProductAsync(new ReturnsProductRequest 
+        { 
+            Sku = sku, 
+            Price = "20.00" 
+        }))
+            .ShouldBeSuccess();
+
+        var placeOrderRequest = new PlaceOrderRequest 
+        { 
+            Sku = sku, 
+            Quantity = "5", 
+            Country = Defaults.COUNTRY 
+        };
+        var placeOrderResult = await _shopDriver!.PlaceOrderAsync(placeOrderRequest);
+        placeOrderResult.ShouldBeSuccess();
+
+        var orderNumber = placeOrderResult.Value!.OrderNumber;
+        var viewOrderResult = await _shopDriver.ViewOrderAsync(orderNumber);
+        viewOrderResult.ShouldBeSuccess();
+        viewOrderResult.Value!.SubtotalPrice.ShouldBe(100.00m);
+    }
+
+    [Theory]
+    [ChannelData(ChannelType.UI, ChannelType.API)]
+    [ChannelInlineData("20.00", "5", "100.00")]
+    [ChannelInlineData("10.00", "3", "30.00")]
+    [ChannelInlineData("15.50", "4", "62.00")]
+    [ChannelInlineData("99.99", "1", "99.99")]
+    public async Task ShouldPlaceOrderWithCorrectSubtotalPriceParameterized(Channel channel, string unitPrice, string quantity, string expectedSubtotalPrice)
+    {
+        await SetChannelAsync(channel);
+
+        var sku = CreateUniqueSku(Defaults.SKU);
+        (await _erpDriver!.ReturnsProductAsync(new ReturnsProductRequest 
+        { 
+            Sku = sku, 
+            Price = unitPrice 
+        }))
+            .ShouldBeSuccess();
+
+        var placeOrderRequest = new PlaceOrderRequest 
+        { 
+            Sku = sku, 
+            Quantity = quantity, 
+            Country = Defaults.COUNTRY 
+        };
+        var placeOrderResult = await _shopDriver!.PlaceOrderAsync(placeOrderRequest);
+        placeOrderResult.ShouldBeSuccess();
+
+        var orderNumber = placeOrderResult.Value!.OrderNumber;
+        var viewOrderResult = await _shopDriver.ViewOrderAsync(orderNumber);
+        viewOrderResult.ShouldBeSuccess();
+        viewOrderResult.Value!.SubtotalPrice.ShouldBe(decimal.Parse(expectedSubtotalPrice));
+    }
+
+    [Theory]
+    [ChannelData(ChannelType.UI, ChannelType.API)]
+    public async Task ShouldPlaceOrder(Channel channel)
+    {
+        await SetChannelAsync(channel);
+
+        var sku = CreateUniqueSku(Defaults.SKU);
+        (await _erpDriver!.ReturnsProductAsync(new ReturnsProductRequest 
+        { 
+            Sku = sku, 
+            Price = "20.00" 
+        }))
+            .ShouldBeSuccess();
+
+        var placeOrderRequest = new PlaceOrderRequest 
+        { 
+            Sku = sku, 
+            Quantity = "5", 
+            Country = Defaults.COUNTRY 
+        };
+        var placeOrderResult = await _shopDriver!.PlaceOrderAsync(placeOrderRequest);
+        placeOrderResult.ShouldBeSuccess();
+
+        var orderNumber = placeOrderResult.Value!.OrderNumber;
+        orderNumber.ShouldStartWith("ORD-");
+
+        var viewOrderResult = await _shopDriver.ViewOrderAsync(orderNumber);
+        viewOrderResult.ShouldBeSuccess();
+
+        var order = viewOrderResult.Value!;
+        order.OrderNumber.ShouldBe(orderNumber);
+        order.Sku.ShouldBe(sku);
+        order.Country.ShouldBe(Defaults.COUNTRY);
+        order.Quantity.ShouldBe(5);
+        order.UnitPrice.ShouldBe(20.00m);
+        order.SubtotalPrice.ShouldBe(100.00m);
+        order.Status.ShouldBe(OrderStatus.Placed);
+        order.DiscountRate.ShouldBeGreaterThanOrEqualTo(0);
+        order.DiscountAmount.ShouldBeGreaterThanOrEqualTo(0);
+        order.SubtotalPrice.ShouldBeGreaterThan(0);
+        order.TaxRate.ShouldBeGreaterThanOrEqualTo(0);
+        order.TaxAmount.ShouldBeGreaterThanOrEqualTo(0);
+        order.TotalPrice.ShouldBeGreaterThan(0);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

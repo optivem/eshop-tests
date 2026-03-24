@@ -1,0 +1,19 @@
+package com.optivem.eshop.systemtest.latest.contract.base;
+
+import com.optivem.eshop.systemtest.latest.base.BaseScenarioDslTest;
+import com.optivem.eshop.dsl.port.ExternalSystemMode;
+import com.optivem.eshop.dsl.core.ScenarioDslImpl;
+import org.junit.jupiter.api.BeforeEach;
+
+public abstract class BaseExternalSystemContractTest extends BaseScenarioDslTest {
+    protected ScenarioDslImpl scenario;
+
+    @BeforeEach
+    void setUpScenario() {
+        scenario = (ScenarioDslImpl) super.scenario;
+    }
+
+    @Override
+    protected abstract ExternalSystemMode getFixedExternalSystemMode();
+}
+

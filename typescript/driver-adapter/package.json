@@ -1,0 +1,32 @@
+{
+  "name": "@optivem/driver-adapter",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
+  "exports": {
+    "./*": "./dist/*",
+    "./client/http": {
+      "types": "./dist/shared/client/http/index.d.ts",
+      "default": "./dist/shared/client/http/index.js"
+    },
+    "./client/playwright": {
+      "types": "./dist/shared/client/playwright/index.d.ts",
+      "default": "./dist/shared/client/playwright/index.js"
+    },
+    "./client/wiremock": {
+      "types": "./dist/shared/client/wiremock/index.d.ts",
+      "default": "./dist/shared/client/wiremock/index.js"
+    }
+  },
+  "dependencies": {
+    "@optivem/commons": "file:../common",
+    "@optivem/driver-port": "file:../driver-port"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
+  }
+}
+
+

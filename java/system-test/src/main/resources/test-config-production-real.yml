@@ -1,0 +1,16 @@
+test:
+  eshop:
+    ui:
+      baseUrl: http://localhost:3003
+    api:
+      baseUrl: http://localhost:8083
+  erp:
+    api:
+      baseUrl: http://localhost:9003/erp
+  tax:
+    api:
+      baseUrl: http://localhost:9003/tax
+  clock:
+    api:
+      baseUrl: none
+

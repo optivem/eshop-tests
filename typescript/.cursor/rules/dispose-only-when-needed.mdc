@@ -1,0 +1,11 @@
+---
+description: Do not add disposal where it is not needed
+globs: 
+alwaysApply: true
+---
+
+# Dispose only when needed
+
+- **Do not add** `Closeable`, `AsyncCloseable`, `close()`, or dispose logic **unless there are real resources to release** (e.g. sockets, file handles, browser/context/page, streams).
+- **Do not** implement no-op `close()` or extend closeable interfaces purely for "API consistency" or to mirror another codebase when the TypeScript runtime does not require it (e.g. `fetch` has nothing to dispose; axios has no dispose API).
+- **Do** implement `Closeable` / `AsyncCloseable` and real `close()` only when the type actually holds or manages resources that must be closed or disposed.

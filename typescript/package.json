@@ -1,0 +1,26 @@
+{
+  "name": "eshop-tests-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "common",
+    "channel",
+    "driver-port",
+    "driver-adapter",
+    "dsl-port",
+    "dsl-core",
+    "system-test"
+  ],
+  "scripts": {
+    "build": "npm run build -w @optivem/commons && npm run build -w @optivem/channel && npm run build -w @optivem/driver-port && npm run build -w @optivem/driver-adapter && npm run build -w @optivem/dsl-port && npm run build -w @optivem/dsl-core",
+    "test": "npm run build && npm run test -w system-test",
+    "test:acceptance": "npm run test:acceptance -w system-test",
+    "test:smoke": "npm run test:smoke -w system-test",
+    "test:e2e": "npm run test:e2e -w system-test",
+    "test:external-contract": "npm run test:external-contract -w system-test"
+  }
+}
+
+
+

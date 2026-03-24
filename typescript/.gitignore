@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.js
+*.js.map
+*.d.ts
+*.d.ts.map
+!jest.config.js
+!playwright.config.ts
+!system-test/core/reporters/*.js
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Test outputs
+test-results/
+playwright-report/
+coverage/
+
+# Database
+*.db
+*.sqlite
+
+# Docker
+.dockerignore

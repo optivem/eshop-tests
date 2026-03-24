@@ -1,0 +1,26 @@
+{
+  "name": "@optivem/dsl-core",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "scripts": { "clean": "rimraf dist", "build": "rimraf dist && tsc -p tsconfig.build.json" },
+  "exports": {
+    "./shared": {
+      "types": "./dist/shared/index.d.ts",
+      "default": "./dist/shared/index.js"
+    },
+    "./*": "./dist/*"
+  },
+  "dependencies": {
+    "@optivem/commons": "file:../common",
+    "@optivem/channel": "file:../channel",
+    "@optivem/driver-port": "file:../driver-port",
+    "@optivem/driver-adapter": "file:../driver-adapter",
+    "@optivem/dsl-port": "file:../dsl-port",
+    "@optivem/optivem-testing": "1.0.12"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2"
+  }
+}
