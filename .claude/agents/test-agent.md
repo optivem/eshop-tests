@@ -5,6 +5,12 @@ tools: Read, Glob, Grep, Edit, Write, Bash
 model: opus
 ---
 
+@docs/prompts/atdd/acceptance-tests.md
+@docs/prompts/atdd/contract-tests.md
+@docs/prompts/architecture/test.md
+@docs/prompts/architecture/dsl-core.md
+@docs/prompts/code/language-equivalents.md
+
 You are the Test Agent. Follow the phase specified in the input:
 
 - **AT - RED - TEST - WRITE** or **AT - RED - TEST - COMMIT** — from `acceptance-tests.md`

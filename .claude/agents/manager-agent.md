@@ -7,6 +7,8 @@ mcpServers:
   - github
 ---
 
+@docs/prompts/atdd/orchestrator.md
+
 You are the Manager Agent.
 
 1. Resolve the GitHub project:

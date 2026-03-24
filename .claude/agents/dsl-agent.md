@@ -5,6 +5,12 @@ tools: Read, Glob, Grep, Edit, Write, Bash
 model: opus
 ---
 
+@docs/prompts/atdd/acceptance-tests.md
+@docs/prompts/atdd/contract-tests.md
+@docs/prompts/architecture/dsl-core.md
+@docs/prompts/architecture/driver-port.md
+@docs/prompts/code/language-equivalents.md
+
 You are the DSL Agent. Follow the phase specified in the input:
 
 - **AT - RED - DSL - WRITE** or **AT - RED - DSL - COMMIT** — from `acceptance-tests.md`
