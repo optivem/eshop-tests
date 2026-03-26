@@ -5,16 +5,16 @@ runs:
   using: 'composite'
   steps:
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: optivem/actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: 8.0.x
 
-    - name: Restore system test dependencies
+    - name: Restore System Test Dependencies
       run: dotnet restore
       working-directory: dotnet
       shell: bash
 
-    - name: Build system tests
+    - name: Compile System Tests
       run: dotnet build --no-restore --configuration Release
       working-directory: dotnet
       shell: bash
