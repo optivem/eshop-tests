@@ -9,24 +9,48 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Checkout Base Repository
+      run: |
+        if [ -d "eshop/.git" ]; then
+          echo "📂 Base repository already exists, pulling latest changes..."
+          cd eshop
+          git pull origin main
+          cd ..
+        else
+          echo "📥 Cloning base repository..."
+          git clone https://github.com/optivem/eshop.git eshop
+        fi
+        echo "✅ Base repository ready"
+      shell: bash
+
     - name: Deploy System (Real External Systems)
-      uses: ./.github/actions/deploy-docker-images
+      uses: optivem/actions/simulate-deployment@v1
       with:
         environment: acceptance
         version: ${{ inputs.version }}
-        external-system-mode: 'real'
-        frontend-url: 'http://localhost:3001/'
-        backend-url: 'http://localhost:8081/health'
-        erp-url: 'http://localhost:9001/erp/health'
-        tax-url: 'http://localhost:9001/tax/health'
+        image-urls: '[]'
+        compose-file: docker-compose.pipeline.real.yml
+        systems: |
+          [
+            { "name": "Shop UI", "url": "http://localhost:3001/" },
+            { "name": "Shop API", "url": "http://localhost:8081/health" },
+            { "name": "ERP", "url": "http://localhost:9001/erp/health" },
+            { "name": "Tax", "url": "http://localhost:9001/tax/health" }
+          ]
+        working-directory: eshop
 
     - name: Deploy System (Stub External Systems)
-      uses: ./.github/actions/deploy-docker-images
+      uses: optivem/actions/simulate-deployment@v1
       with:
         environment: acceptance
         version: ${{ inputs.version }}
-        external-system-mode: 'stub'
-        frontend-url: 'http://localhost:3002/'
-        backend-url: 'http://localhost:8082/health'
-        erp-url: 'http://localhost:9002/erp/health'
-        tax-url: 'http://localhost:9002/tax/health'
+        image-urls: '[]'
+        compose-file: docker-compose.pipeline.stub.yml
+        systems: |
+          [
+            { "name": "Shop UI", "url": "http://localhost:3002/" },
+            { "name": "Shop API", "url": "http://localhost:8082/health" },
+            { "name": "ERP", "url": "http://localhost:9002/erp/health" },
+            { "name": "Tax", "url": "http://localhost:9002/tax/health" }
+          ]
+        working-directory: eshop

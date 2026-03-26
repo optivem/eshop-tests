@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "actions", "actions", "{AD0543BD-1239-42AB-A600-B712D414F066}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy-docker-images", "deploy-docker-images", "{002C24CD-96A9-47D2-9E1B-BFB1C3699FC2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy-acceptance-environment", "deploy-acceptance-environment", "{002C24CD-96A9-47D2-9E1B-BFB1C3699FC2}"
 	ProjectSection(SolutionItems) = preProject
-		.github\actions\deploy-docker-images\action.yml = .github\actions\deploy-docker-images\action.yml
+		.github\actions\deploy-acceptance-environment\action.yml = .github\actions\deploy-acceptance-environment\action.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Dsl.Core\UseCase\Shop\Shop.csproj", "{8F5F23B7-0DA0-41EF-B994-71294FD6AFBA}"
