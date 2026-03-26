@@ -80,28 +80,28 @@ runs:
       shell: bash
 
     - name: Ping Shop API
-      uses: optivem/wait-for-docker-compose-action@v1
+      uses: optivem/actions/wait-for-docker-compose@v1
       with:
         url: ${{ inputs.backend-url }}
         max-attempts: '30'
         wait-seconds: '10'
 
     - name: Ping Shop UI
-      uses: optivem/wait-for-docker-compose-action@v1
+      uses: optivem/actions/wait-for-docker-compose@v1
       with:
         url: ${{ inputs.frontend-url }}
         max-attempts: '30'
         wait-seconds: '10'
 
     - name: Ping ERP
-      uses: optivem/wait-for-docker-compose-action@v1
+      uses: optivem/actions/wait-for-docker-compose@v1
       with:
         url: ${{ inputs.erp-url }}
         max-attempts: '30'
         wait-seconds: '10'
 
     - name: Ping Tax
-      uses: optivem/wait-for-docker-compose-action@v1
+      uses: optivem/actions/wait-for-docker-compose@v1
       with:
         url: ${{ inputs.tax-url }}
         max-attempts: '30'
