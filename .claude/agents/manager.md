@@ -1,5 +1,5 @@
 ---
-name: manager-agent
+name: manager
 description: Reads the GitHub project board, picks the top Ready story, and orchestrates the full ATDD pipeline to completion
 tools: Read, Glob, Grep, Edit, Write, Bash
 model: opus
