@@ -17,6 +17,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Deploy Acceptance Environment
         uses: ./.github/actions/deploy-acceptance-environment
 
