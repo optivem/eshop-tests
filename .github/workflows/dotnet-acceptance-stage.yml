@@ -6,8 +6,23 @@ on:
   workflow_dispatch:
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Validate Config
+        uses: optivem/actions/validate-config@v1
+        with:
+          names: |
+            DOCKERHUB_USERNAME
+            DOCKERHUB_TOKEN
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  system-test:
+  run:
+    needs: check
     runs-on: ubuntu-latest
 
     permissions:
@@ -100,3 +115,15 @@ jobs:
         env:
           ENVIRONMENT: acceptance
           CHANNEL: UI
+
+  summary:
+    needs: [check, run]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - name: Summarize Stage
+      uses: optivem/actions/summarize-system-stage@v1
+      with:
+        stage-name: 'Acceptance Stage'
+        environment: acceptance
+        stage-result: ${{ needs.run.result }}
