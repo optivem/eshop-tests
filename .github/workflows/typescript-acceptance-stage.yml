@@ -129,3 +129,4 @@ jobs:
         stage-name: 'Acceptance Stage'
         environment: acceptance
         stage-result: ${{ needs.run.result }}
+        success-version: latest
