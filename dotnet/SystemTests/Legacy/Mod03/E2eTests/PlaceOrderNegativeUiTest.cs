@@ -88,7 +88,7 @@ public class PlaceOrderNegativeUiTest : BaseE2eTest
     private async Task NavigateToNewOrderAndSubmitAsync(string sku, string quantity, string country)
     {
         await shopUiPage!.GotoAsync(_configuration.ShopUiBaseUrl);
-        await shopUiPage.Locator("a[href='/shop']").ClickAsync();
+        await shopUiPage.Locator("a[href='/new-order']").ClickAsync();
         await shopUiPage.Locator("[aria-label=\"SKU\"]").FillAsync(sku);
         await shopUiPage.Locator("[aria-label=\"Quantity\"]").FillAsync(quantity);
         await shopUiPage.Locator("[aria-label=\"Country\"]").FillAsync(country);

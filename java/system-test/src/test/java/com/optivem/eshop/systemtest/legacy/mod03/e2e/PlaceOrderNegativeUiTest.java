@@ -19,7 +19,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithInvalidQuantity() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(createUniqueSku(SKU));
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill("invalid-quantity");
@@ -32,7 +32,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithNonExistentSku() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill("NON-EXISTENT-SKU-12345");
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill(QUANTITY);
@@ -45,7 +45,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithNegativeQuantity() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(createUniqueSku(SKU));
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill("-10");
@@ -58,7 +58,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithZeroQuantity() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(createUniqueSku(SKU));
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill("0");
@@ -71,7 +71,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithEmptySku() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill("");
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill(QUANTITY);
@@ -84,7 +84,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithEmptyQuantity() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(createUniqueSku(SKU));
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill("");
@@ -97,7 +97,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithNonIntegerQuantity() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(createUniqueSku(SKU));
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill("3.5");
@@ -110,7 +110,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
     @Test
     void shouldRejectOrderWithEmptyCountry() {
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(createUniqueSku(SKU));
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill(QUANTITY);
@@ -144,7 +144,7 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
         assertThat(createProductResponse.statusCode()).isEqualTo(201);
 
         shopUiPage.navigate(getShopUiBaseUrl());
-        shopUiPage.locator("a[href='/shop']").click();
+        shopUiPage.locator("a[href='/new-order']").click();
 
         shopUiPage.locator("[aria-label=\"SKU\"]").fill(sku);
         shopUiPage.locator("[aria-label=\"Quantity\"]").fill(QUANTITY);
@@ -164,4 +164,3 @@ class PlaceOrderNegativeUiTest extends BaseE2eTest {
         }
     }
 }
-
