@@ -21,7 +21,7 @@ public class PlaceOrderPositiveUiTest : BaseE2eTest
         await CreateProductViaErpAsync(sku, "20.00");
 
         await shopUiPage!.GotoAsync(_configuration.ShopUiBaseUrl);
-        await shopUiPage.Locator("a[href='/shop']").ClickAsync();
+        await shopUiPage.Locator("a[href='/new-order']").ClickAsync();
         await shopUiPage.Locator("[aria-label=\"SKU\"]").FillAsync(sku);
         await shopUiPage.Locator("[aria-label=\"Quantity\"]").FillAsync("5");
         await shopUiPage.Locator("[aria-label=\"Country\"]").FillAsync(Defaults.COUNTRY);
@@ -60,7 +60,7 @@ public class PlaceOrderPositiveUiTest : BaseE2eTest
         await CreateProductViaErpAsync(sku, unitPrice);
 
         await shopUiPage!.GotoAsync(_configuration.ShopUiBaseUrl);
-        await shopUiPage.Locator("a[href='/shop']").ClickAsync();
+        await shopUiPage.Locator("a[href='/new-order']").ClickAsync();
         await shopUiPage.Locator("[aria-label=\"SKU\"]").FillAsync(sku);
         await shopUiPage.Locator("[aria-label=\"Quantity\"]").FillAsync(quantity);
         await shopUiPage.Locator("[aria-label=\"Country\"]").FillAsync(Defaults.COUNTRY);
@@ -93,7 +93,7 @@ public class PlaceOrderPositiveUiTest : BaseE2eTest
         await CreateProductViaErpAsync(sku, "20.00");
 
         await shopUiPage!.GotoAsync(_configuration.ShopUiBaseUrl);
-        await shopUiPage.Locator("a[href='/shop']").ClickAsync();
+        await shopUiPage.Locator("a[href='/new-order']").ClickAsync();
         await shopUiPage.Locator("[aria-label=\"SKU\"]").FillAsync(sku);
         await shopUiPage.Locator("[aria-label=\"Quantity\"]").FillAsync("5");
         await shopUiPage.Locator("[aria-label=\"Country\"]").FillAsync(Defaults.COUNTRY);

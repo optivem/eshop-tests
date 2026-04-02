@@ -3,7 +3,7 @@ package com.optivem.eshop.dsl.driver.adapter.shop.ui.client.pages;
 import com.optivem.eshop.dsl.driver.adapter.shared.client.playwright.PageClient;
 
 public class HomePage extends BasePage {
-    private static final String SHOP_BUTTON_SELECTOR = "a[href='/shop']";
+    private static final String SHOP_BUTTON_SELECTOR = "a[href='/new-order']";
     private static final String ORDER_HISTORY_BUTTON_SELECTOR = "a[href='/order-history']";
     private static final String COUPON_MANAGEMENT_BUTTON_SELECTOR = "a[href='/admin-coupons']";
 
@@ -26,6 +26,3 @@ public class HomePage extends BasePage {
         return new CouponManagementPage(pageClient);
     }
 }
-
-
-
