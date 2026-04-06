@@ -23,7 +23,7 @@
     "@optivem/driver-adapter": "file:../driver-adapter",
     "@optivem/dsl-port": "file:../dsl-port",
     "@optivem/dsl-core": "file:../dsl-core",
-    "@optivem/optivem-testing": "1.0.12",
+    "@optivem/optivem-testing": "1.1.0",
     "axios": "^1.13.2",
     "http-status-codes": "^2.3.0",
     "uuid": "^9.0.1"
