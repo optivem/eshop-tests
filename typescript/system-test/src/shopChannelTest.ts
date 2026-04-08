@@ -84,7 +84,19 @@ export function shopChannelTest<T = never>(
                     ? baseTestName(testData)
                     : `${baseTestName} ${formatTestData(testData)}`;
 
-            channelTest(channelTypes, createShopDriver, 'shopDriver', additionalFixtures, testName, async ({ shopDriver, erpApiDriver, taxApiDriver }) => {
+            // Per-row 'also' channels: expand channelTypes with additional channels from the data item
+            const dataAlso = (testData as any)?.also;
+            const alsoList = typeof dataAlso === 'string' ? [dataAlso]
+                : Array.isArray(dataAlso) ? dataAlso as string[]
+                : [];
+            const effectiveChannels = [...channelTypes];
+            for (const also of alsoList) {
+                if (!effectiveChannels.includes(also)) {
+                    effectiveChannels.push(also);
+                }
+            }
+
+            channelTest(effectiveChannels, createShopDriver, 'shopDriver', additionalFixtures, testName, async ({ shopDriver, erpApiDriver, taxApiDriver }) => {
                 return fn({ shopDriver, erpApiDriver, taxApiDriver }, testData);
             });
         });
