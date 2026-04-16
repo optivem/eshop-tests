@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SystemTests.Legacy.Mod07.SmokeTests.System;
 
-public class ShopSmokeTest : BaseUseCaseDslTest
+public class ShopSmokeTest : BaseSystemDslTest
 {
     [Theory]
     [ChannelData(ChannelType.UI, ChannelType.API)]

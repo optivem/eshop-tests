@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SystemTests.Legacy.Mod07.Base;
 
-public abstract class BaseUseCaseDslTest : BaseConfigurableTest, IAsyncLifetime
+public abstract class BaseSystemDslTest : BaseConfigurableTest, IAsyncLifetime
 {
     protected UseCaseDsl _app = null!;
 
